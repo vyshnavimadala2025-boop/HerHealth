@@ -9,6 +9,8 @@ import DashboardPage from '@/pages/DashboardPage'
 import OnboardingPage from '@/pages/OnboardingPage'
 import CycleTrackerPage from '@/pages/CycleTrackerPage'
 import JournalPage from '@/pages/JournalPage'
+import ProfilePage from '@/pages/ProfilePage'
+import WellnessTrackerPage from '@/pages/WellnessTrackerPage'
 import DesignSystemPage from '@/pages/DesignSystemPage'
 import ProtectedRoute from '@/features/auth/ProtectedRoute'
 import PublicOnlyRoute from '@/features/auth/PublicOnlyRoute'
@@ -37,6 +39,8 @@ function App() {
             <Route path="/dashboard" element={<DashboardPage />} />
             <Route path="/cycle-tracker" element={<CycleTrackerPage />} />
             <Route path="/journal" element={<JournalPage />} />
+            <Route path="/profile" element={<ProfilePage />} />
+            <Route path="/wellness-tracker" element={<WellnessTrackerPage />} />
           </Route>
         </Route>
       </Route>

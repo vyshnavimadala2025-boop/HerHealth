@@ -60,3 +60,22 @@ export async function completeOnboarding(
   if (error) throw new Error('We could not save your profile. Please try again.')
   return mapRow(data)
 }
+
+/**
+ * Focused profile update for the account settings page — updates only
+ * full_name and returns the full mapped profile. Deliberately a separate,
+ * narrow function rather than a generic "patch anything" updater, and
+ * deliberately not touching onboarding_completed/onboarding_completed_at,
+ * unlike completeOnboarding().
+ */
+export async function updateFullName(userId: string, fullName: string): Promise<Profile> {
+  const { data, error } = await supabase
+    .from('profiles')
+    .update({ full_name: fullName })
+    .eq('id', userId)
+    .select(PROFILE_COLUMNS)
+    .single()
+
+  if (error) throw new Error('We could not update your profile. Please try again.')
+  return mapRow(data)
+}

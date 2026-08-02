@@ -1,7 +1,13 @@
 import { Link } from 'react-router-dom'
-import { LogOut } from 'lucide-react'
+import { LogOut, Menu } from 'lucide-react'
 
 import { Button } from '@/components/ui/button'
+import {
+  DropdownMenu,
+  DropdownMenuTrigger,
+  DropdownMenuContent,
+  DropdownMenuItem,
+} from '@/components/ui/dropdown-menu'
 import { useAuth } from '@/features/auth/useAuth'
 import { useLogout } from '@/features/auth/useLogout'
 
@@ -16,12 +22,28 @@ function HeaderNav() {
   if (status === 'authenticated') {
     return (
       <div className="flex items-center gap-2">
-        <Button asChild variant="ghost" size="sm">
-          <Link to="/cycle-tracker">Cycle Tracker</Link>
-        </Button>
-        <Button asChild variant="ghost" size="sm">
-          <Link to="/journal">Journal</Link>
-        </Button>
+        <DropdownMenu>
+          <DropdownMenuTrigger asChild>
+            <Button variant="ghost" size="sm" aria-label="Open navigation menu">
+              <Menu />
+              Menu
+            </Button>
+          </DropdownMenuTrigger>
+          <DropdownMenuContent align="end">
+            <DropdownMenuItem asChild>
+              <Link to="/cycle-tracker">Cycle Tracker</Link>
+            </DropdownMenuItem>
+            <DropdownMenuItem asChild>
+              <Link to="/journal">Journal</Link>
+            </DropdownMenuItem>
+            <DropdownMenuItem asChild>
+              <Link to="/wellness-tracker">Wellness Tracker</Link>
+            </DropdownMenuItem>
+            <DropdownMenuItem asChild>
+              <Link to="/profile">Profile</Link>
+            </DropdownMenuItem>
+          </DropdownMenuContent>
+        </DropdownMenu>
         <Button asChild variant="outline" size="sm">
           <Link to="/dashboard">Go to dashboard</Link>
         </Button>
