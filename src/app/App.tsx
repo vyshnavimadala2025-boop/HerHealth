@@ -8,6 +8,7 @@ import ResetPasswordPage from '@/pages/ResetPasswordPage'
 import DashboardPage from '@/pages/DashboardPage'
 import OnboardingPage from '@/pages/OnboardingPage'
 import CycleTrackerPage from '@/pages/CycleTrackerPage'
+import JournalPage from '@/pages/JournalPage'
 import DesignSystemPage from '@/pages/DesignSystemPage'
 import ProtectedRoute from '@/features/auth/ProtectedRoute'
 import PublicOnlyRoute from '@/features/auth/PublicOnlyRoute'
@@ -35,6 +36,7 @@ function App() {
           <Route element={<RequireOnboarding />}>
             <Route path="/dashboard" element={<DashboardPage />} />
             <Route path="/cycle-tracker" element={<CycleTrackerPage />} />
+            <Route path="/journal" element={<JournalPage />} />
           </Route>
         </Route>
       </Route>

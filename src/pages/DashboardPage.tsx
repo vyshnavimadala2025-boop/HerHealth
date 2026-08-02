@@ -9,6 +9,7 @@ import CheckInStatusCard from '@/features/checkins/CheckInStatusCard'
 import CheckInForm from '@/features/checkins/CheckInForm'
 import RecentCheckIns from '@/features/checkins/RecentCheckIns'
 import DashboardCycleCard from '@/features/periods/DashboardCycleCard'
+import DashboardJournalCard from '@/features/journal/DashboardJournalCard'
 import { useInsightsData } from '@/features/insights/useInsightsData'
 import WeeklyCheckInSummaryCard from '@/features/insights/WeeklyCheckInSummaryCard'
 import TrendsCard from '@/features/insights/TrendsCard'
@@ -80,6 +81,8 @@ function DashboardPage() {
       />
 
       <WellnessInsightsCard status={insightsData.status} insights={insightsData.insights} />
+
+      <DashboardJournalCard />
     </main>
   )
 }

@@ -19,6 +19,9 @@ function HeaderNav() {
         <Button asChild variant="ghost" size="sm">
           <Link to="/cycle-tracker">Cycle Tracker</Link>
         </Button>
+        <Button asChild variant="ghost" size="sm">
+          <Link to="/journal">Journal</Link>
+        </Button>
         <Button asChild variant="outline" size="sm">
           <Link to="/dashboard">Go to dashboard</Link>
         </Button>
