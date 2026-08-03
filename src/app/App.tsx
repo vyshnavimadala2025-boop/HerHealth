@@ -11,6 +11,7 @@ import CycleTrackerPage from '@/pages/CycleTrackerPage'
 import JournalPage from '@/pages/JournalPage'
 import ProfilePage from '@/pages/ProfilePage'
 import WellnessTrackerPage from '@/pages/WellnessTrackerPage'
+import GoalsPage from '@/pages/GoalsPage'
 import DesignSystemPage from '@/pages/DesignSystemPage'
 import ProtectedRoute from '@/features/auth/ProtectedRoute'
 import PublicOnlyRoute from '@/features/auth/PublicOnlyRoute'
@@ -41,6 +42,7 @@ function App() {
             <Route path="/journal" element={<JournalPage />} />
             <Route path="/profile" element={<ProfilePage />} />
             <Route path="/wellness-tracker" element={<WellnessTrackerPage />} />
+            <Route path="/goals" element={<GoalsPage />} />
           </Route>
         </Route>
       </Route>

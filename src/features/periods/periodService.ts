@@ -82,3 +82,30 @@ export async function deletePeriodRecord(recordId: string): Promise<void> {
   const { error } = await supabase.from('period_records').delete().eq('id', recordId)
   if (error) throw new Error('We could not delete your period record. Please try again.')
 }
+
+export interface PeriodRecordCountRange {
+  startDate?: string
+  endDate?: string
+}
+
+/**
+ * Count-only query (no rows fetched) for Phase 10 personal-progress and
+ * goal-target summaries. Optionally windowed by local calendar date range
+ * (filtered on start_date).
+ */
+export async function getPeriodRecordCount(
+  userId: string,
+  range: PeriodRecordCountRange = {},
+): Promise<number> {
+  let query = supabase
+    .from('period_records')
+    .select('id', { count: 'exact', head: true })
+    .eq('user_id', userId)
+
+  if (range.startDate) query = query.gte('start_date', range.startDate)
+  if (range.endDate) query = query.lte('start_date', range.endDate)
+
+  const { count, error } = await query
+  if (error) throw new Error('Unable to load your period record count. Please try again.')
+  return count ?? 0
+}

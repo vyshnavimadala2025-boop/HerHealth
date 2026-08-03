@@ -111,3 +111,30 @@ export async function deleteJournalEntry(entryId: string): Promise<void> {
   const { error } = await supabase.from('journal_entries').delete().eq('id', entryId)
   if (error) throw new Error('We could not delete your journal entry. Please try again.')
 }
+
+export interface JournalEntryCountRange {
+  startDate?: string
+  endDate?: string
+}
+
+/**
+ * Count-only query (no rows fetched, no title/content selected) for Phase
+ * 10 personal-progress and goal-target summaries. Optionally windowed by
+ * local calendar date range.
+ */
+export async function getJournalEntryCount(
+  userId: string,
+  range: JournalEntryCountRange = {},
+): Promise<number> {
+  let query = supabase
+    .from('journal_entries')
+    .select('id', { count: 'exact', head: true })
+    .eq('user_id', userId)
+
+  if (range.startDate) query = query.gte('entry_date', range.startDate)
+  if (range.endDate) query = query.lte('entry_date', range.endDate)
+
+  const { count, error } = await query
+  if (error) throw new Error('Unable to load your journal entry count. Please try again.')
+  return count ?? 0
+}

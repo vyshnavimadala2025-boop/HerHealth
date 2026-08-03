@@ -83,3 +83,29 @@ export async function getRecentCheckIns(userId: string, limit = 7): Promise<Chec
   if (error) throw new Error('Unable to load your recent check-ins. Please try again.')
   return (data ?? []).map(mapRow)
 }
+
+export interface CheckInCountRange {
+  startDate?: string
+  endDate?: string
+}
+
+/**
+ * Count-only query (no rows fetched) for Phase 10 personal-progress and
+ * goal-target summaries. Optionally windowed by local calendar date range.
+ */
+export async function getCheckInCount(
+  userId: string,
+  range: CheckInCountRange = {},
+): Promise<number> {
+  let query = supabase
+    .from('daily_checkins')
+    .select('id', { count: 'exact', head: true })
+    .eq('user_id', userId)
+
+  if (range.startDate) query = query.gte('checkin_date', range.startDate)
+  if (range.endDate) query = query.lte('checkin_date', range.endDate)
+
+  const { count, error } = await query
+  if (error) throw new Error('Unable to load your check-in count. Please try again.')
+  return count ?? 0
+}

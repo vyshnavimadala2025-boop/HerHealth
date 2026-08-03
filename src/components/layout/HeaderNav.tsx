@@ -40,6 +40,9 @@ function HeaderNav() {
               <Link to="/wellness-tracker">Wellness Tracker</Link>
             </DropdownMenuItem>
             <DropdownMenuItem asChild>
+              <Link to="/goals">Goals</Link>
+            </DropdownMenuItem>
+            <DropdownMenuItem asChild>
               <Link to="/profile">Profile</Link>
             </DropdownMenuItem>
           </DropdownMenuContent>
