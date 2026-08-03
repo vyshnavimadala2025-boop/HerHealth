@@ -26,10 +26,14 @@ function AccountSection() {
         <div className="flex flex-col gap-1.5 rounded-lg border border-border p-3">
           <p className="text-sm font-medium">Delete account</p>
           <p className="text-caption text-muted-foreground">
-            Securely deleting an account requires a server-side process to remove your data
-            safely, which isn&apos;t available in the app yet. Self-service account deletion will
-            be added as a separate, dedicated feature rather than a client-only action, since it
-            can&apos;t be done securely from the browser alone.
+            You can now permanently delete your recorded HerHealth data — check-ins, period
+            records, journal entries, PCOS/PCOD wellness entries, goals, and reminder
+            preferences — from the Data &amp; Privacy section above.
+          </p>
+          <p className="text-caption text-muted-foreground">
+            Closing your account and login entirely is a separate step and isn&apos;t included yet.
+            Securely removing your login requires a server-side process that isn&apos;t built into
+            the app yet; self-service account closure will be added as its own dedicated feature.
           </p>
         </div>
       </CardContent>

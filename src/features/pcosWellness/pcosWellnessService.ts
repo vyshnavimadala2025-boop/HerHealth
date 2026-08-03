@@ -85,6 +85,17 @@ export async function deletePcosWellnessEntry(entryId: string): Promise<void> {
 }
 
 /**
+ * Permanently deletes every PCOS/PCOD wellness entry for this user (Phase
+ * 12 data deletion). Blind bulk delete scoped by user_id — observations and
+ * notes are never read first; RLS's existing delete policy is the actual
+ * enforcement boundary. Does not change the pcos_tracking_enabled flag.
+ */
+export async function deleteAllPcosWellnessEntries(userId: string): Promise<void> {
+  const { error } = await supabase.from('pcos_wellness_entries').delete().eq('user_id', userId)
+  if (error) throw new Error('We could not delete your wellness entries. Please try again.')
+}
+
+/**
  * Lightweight dashboard-only query — selects only the entry_date of the
  * most recent entry. Observations and notes are never selected here, so
  * the dashboard card can never display or leak private wellness detail.

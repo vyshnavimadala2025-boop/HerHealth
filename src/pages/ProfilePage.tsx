@@ -1,6 +1,7 @@
 import ProfileInfoForm from '@/features/account/ProfileInfoForm'
 import ChangePasswordForm from '@/features/account/ChangePasswordForm'
 import AccountSection from '@/features/account/AccountSection'
+import DataPrivacySection from '@/features/dataPrivacy/DataPrivacySection'
 
 function ProfilePage() {
   return (
@@ -15,6 +16,7 @@ function ProfilePage() {
 
       <ProfileInfoForm />
       <ChangePasswordForm />
+      <DataPrivacySection />
       <AccountSection />
     </main>
   )

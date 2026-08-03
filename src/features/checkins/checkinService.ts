@@ -137,3 +137,14 @@ export async function getCheckInsInRange(
   if (error) throw new Error('Unable to load your check-ins. Please try again.')
   return (data ?? []).map(mapRow)
 }
+
+/**
+ * Permanently deletes every check-in for this user (Phase 12 data
+ * deletion). No row content is read first — this is a blind bulk delete
+ * scoped by user_id, enforced server-side by the existing RLS delete
+ * policy regardless of this query's own filter.
+ */
+export async function deleteAllCheckIns(userId: string): Promise<void> {
+  const { error } = await supabase.from('daily_checkins').delete().eq('user_id', userId)
+  if (error) throw new Error('We could not delete your check-ins. Please try again.')
+}

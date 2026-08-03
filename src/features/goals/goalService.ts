@@ -129,3 +129,17 @@ export async function deleteGoal(goalId: string): Promise<void> {
   const { error } = await supabase.from('wellness_goals').delete().eq('id', goalId)
   if (error) throw new Error('We could not delete your wellness goal. Please try again.')
 }
+
+/**
+ * Permanently deletes every wellness goal for this user (Phase 12 data
+ * deletion). goal_progress_entries.goal_id references wellness_goals(id)
+ * on delete cascade (see supabase/migrations/0007), so this alone also
+ * removes all of that user's goal progress entries — no separate delete
+ * call against goal_progress_entries is needed or issued. Blind bulk
+ * delete scoped by user_id; RLS's existing delete policy is the actual
+ * enforcement boundary.
+ */
+export async function deleteAllGoals(userId: string): Promise<void> {
+  const { error } = await supabase.from('wellness_goals').delete().eq('user_id', userId)
+  if (error) throw new Error('We could not delete your wellness goals. Please try again.')
+}

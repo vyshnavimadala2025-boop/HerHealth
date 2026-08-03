@@ -169,3 +169,14 @@ export async function getJournalEntriesInRange(
   if (error) throw new Error('Unable to load your journal entries. Please try again.')
   return (data ?? []).map(mapRow)
 }
+
+/**
+ * Permanently deletes every journal entry for this user (Phase 12 data
+ * deletion). Blind bulk delete scoped by user_id — titles/content are never
+ * read first; RLS's existing delete policy is the actual enforcement
+ * boundary.
+ */
+export async function deleteAllJournalEntries(userId: string): Promise<void> {
+  const { error } = await supabase.from('journal_entries').delete().eq('user_id', userId)
+  if (error) throw new Error('We could not delete your journal entries. Please try again.')
+}

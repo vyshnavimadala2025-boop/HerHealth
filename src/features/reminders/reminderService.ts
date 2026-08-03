@@ -67,3 +67,13 @@ export async function upsertReminderPreference(
   if (error) throw new Error('We could not update your reminder preference. Please try again.')
   return mapRow(data)
 }
+
+/**
+ * Permanently deletes every reminder preference for this user (Phase 12
+ * data deletion). Blind bulk delete scoped by user_id; RLS's existing
+ * delete policy is the actual enforcement boundary.
+ */
+export async function deleteAllReminderPreferences(userId: string): Promise<void> {
+  const { error } = await supabase.from('reminder_preferences').delete().eq('user_id', userId)
+  if (error) throw new Error('We could not delete your reminder preferences. Please try again.')
+}

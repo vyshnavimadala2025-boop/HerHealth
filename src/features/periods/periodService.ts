@@ -109,3 +109,13 @@ export async function getPeriodRecordCount(
   if (error) throw new Error('Unable to load your period record count. Please try again.')
   return count ?? 0
 }
+
+/**
+ * Permanently deletes every period record for this user (Phase 12 data
+ * deletion). Blind bulk delete scoped by user_id — no row content is read
+ * first; RLS's existing delete policy is the actual enforcement boundary.
+ */
+export async function deleteAllPeriodRecords(userId: string): Promise<void> {
+  const { error } = await supabase.from('period_records').delete().eq('user_id', userId)
+  if (error) throw new Error('We could not delete your period records. Please try again.')
+}
