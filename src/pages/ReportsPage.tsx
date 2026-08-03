@@ -1,3 +1,5 @@
+import { Printer } from 'lucide-react'
+import { Button } from '@/components/ui/button'
 import { useReportData } from '@/features/reports/useReportData'
 import DateRangeSelector from '@/features/reports/DateRangeSelector'
 import ReportSummaryCard from '@/features/reports/ReportSummaryCard'
@@ -34,7 +36,20 @@ function ReportsPage() {
         </p>
       </div>
 
-      <DateRangeSelector range={range} onSelectPreset={setPresetRange} onApplyCustomRange={setCustomRangeValue} />
+      <div className="print:hidden">
+        <DateRangeSelector range={range} onSelectPreset={setPresetRange} onApplyCustomRange={setCustomRangeValue} />
+      </div>
+
+      <Button
+        type="button"
+        variant="outline"
+        size="sm"
+        onClick={() => window.print()}
+        className="self-start print:hidden"
+      >
+        <Printer />
+        Print this report
+      </Button>
 
       <ReportSummaryCard
         status={status}
@@ -46,7 +61,9 @@ function ReportsPage() {
 
       <PersonalTimeline status={status} entries={timeline} onRetry={retry} />
 
-      <DataExportCard status={exportStatus} onExport={exportData} />
+      <div className="print:hidden">
+        <DataExportCard status={exportStatus} onExport={exportData} />
+      </div>
     </main>
   )
 }

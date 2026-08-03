@@ -76,12 +76,20 @@ function ReportSummaryCard({ status, summary, range, pcosWellnessEnabled, onRetr
           <>
             <div role="status" className="flex flex-col gap-1">
               <p className="text-sm font-medium">Check-in consistency</p>
-              <p className="text-lg font-medium">
-                {summary.checkIns.count} of {summary.checkIns.daysInRange} days
-              </p>
-              <p className="text-caption text-muted-foreground">
-                {summary.checkIns.consistencyPercent}% check-in consistency in this range.
-              </p>
+              {range.preset === 'all' ? (
+                <p className="text-lg font-medium">
+                  {summary.checkIns.count} check-in{summary.checkIns.count === 1 ? '' : 's'} recorded (all time)
+                </p>
+              ) : (
+                <>
+                  <p className="text-lg font-medium">
+                    {summary.checkIns.count} of {summary.checkIns.daysInRange} days
+                  </p>
+                  <p className="text-caption text-muted-foreground">
+                    {summary.checkIns.consistencyPercent}% check-in consistency in this range.
+                  </p>
+                </>
+              )}
             </div>
 
             <div className="grid grid-cols-1 gap-4 sm:grid-cols-3">

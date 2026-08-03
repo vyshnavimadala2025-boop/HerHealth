@@ -144,7 +144,7 @@ export function useReportData() {
         })
       : []
 
-  const setPresetRange = useCallback((preset: '7d' | '30d' | '90d') => {
+  const setPresetRange = useCallback((preset: '7d' | '30d' | '90d' | 'all') => {
     setRange(getPresetRange(preset))
   }, [])
 

@@ -18,6 +18,7 @@ import type {
   ReminderPreferencesSummary,
   ReportDateRange,
   TimelineEntry,
+  TimelineEntryType,
   ValueBreakdown,
 } from '@/features/reports/types'
 
@@ -42,11 +43,24 @@ function countBreakdown<T extends string>(
     .sort((a, b) => b.count - a.count)
 }
 
+/**
+ * For the 'all' preset, range.startDate is deliberately '' (see
+ * dateRangePresets.ts's getPresetRange) — there is no meaningful "days in
+ * range" to compute a percentage against (the account didn't necessarily
+ * exist for the full calendar history), so daysInRange/consistencyPercent
+ * are returned as 0 and the caller (ReportSummaryCard) shows a count-only
+ * message instead of a percentage for that case.
+ */
 export function calculateCheckInConsistency(
   checkIns: CheckIn[],
   range: ReportDateRange,
 ): CheckInConsistencySummary {
   const inRange = checkIns.filter((entry) => isDateInRange(entry.checkinDate, range))
+
+  if (!range.startDate) {
+    return { count: inRange.length, daysInRange: 0, consistencyPercent: 0 }
+  }
+
   const daysInRange = diffInCalendarDays(range.endDate, range.startDate) + 1
   const consistencyPercent = daysInRange > 0 ? Math.round((inRange.length / daysInRange) * 100) : 0
 
@@ -265,4 +279,20 @@ export function buildTimeline(input: BuildTimelineInput): TimelineEntry[] {
     if (typeDiff !== 0) return typeDiff
     return a.id < b.id ? -1 : a.id > b.id ? 1 : 0
   })
+}
+
+/**
+ * Pure client-side filter over an already-built timeline — no Supabase
+ * query involved. A plain filter with no "empty means show everything"
+ * special case: the caller (PersonalTimeline) initializes its selected-types
+ * state to every type present in the timeline, so "nothing filtered out" is
+ * represented by selecting everything, not by an empty selection — an
+ * empty selectedTypes here means the user deliberately deselected every
+ * type, and should correctly show no entries.
+ */
+export function filterTimelineByTypes(
+  entries: TimelineEntry[],
+  selectedTypes: TimelineEntryType[],
+): TimelineEntry[] {
+  return entries.filter((entry) => selectedTypes.includes(entry.type))
 }

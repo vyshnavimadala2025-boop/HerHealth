@@ -12,13 +12,13 @@ import { REPORT_RANGE_PRESETS } from '@/features/reports/types'
 import type { ReportDateRange } from '@/features/reports/types'
 
 const FIXED_PRESETS = REPORT_RANGE_PRESETS.filter((preset) => preset.value !== 'custom') as {
-  value: '7d' | '30d' | '90d'
+  value: '7d' | '30d' | '90d' | 'all'
   label: string
 }[]
 
 interface DateRangeSelectorProps {
   range: ReportDateRange
-  onSelectPreset: (preset: '7d' | '30d' | '90d') => void
+  onSelectPreset: (preset: '7d' | '30d' | '90d' | 'all') => void
   onApplyCustomRange: (startDate: string, endDate: string) => void
 }
 

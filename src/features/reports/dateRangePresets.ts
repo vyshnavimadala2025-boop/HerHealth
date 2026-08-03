@@ -27,8 +27,22 @@ const PRESET_WINDOW_DAYS: Record<'7d' | '30d' | '90d', number> = {
   '90d': 90,
 }
 
-/** Builds an inclusive [startDate, today] window for a fixed-length preset. */
-export function getPresetRange(preset: '7d' | '30d' | '90d', today = getLocalDateString()): ReportDateRange {
+/**
+ * Builds an inclusive [startDate, today] window for a fixed-length preset,
+ * or the 'all' preset's full-history window. 'all' uses an empty
+ * startDate deliberately — every range-aware service function already
+ * treats a falsy startDate as "no lower bound" (see e.g.
+ * getCheckInsInRange's `if (range.startDate)` guard), and isDateInRange()
+ * already returns true for any real date compared against '', so no other
+ * file needs to special-case 'all' to fetch full history correctly.
+ */
+export function getPresetRange(
+  preset: '7d' | '30d' | '90d' | 'all',
+  today = getLocalDateString(),
+): ReportDateRange {
+  if (preset === 'all') {
+    return { preset: 'all', startDate: '', endDate: today }
+  }
   const windowDays = PRESET_WINDOW_DAYS[preset]
   return {
     preset,
@@ -97,5 +111,6 @@ export function getReportRangeLabel(preset: ReportRangePreset): string {
   if (preset === '7d') return 'Last 7 days'
   if (preset === '30d') return 'Last 30 days'
   if (preset === '90d') return 'Last 90 days'
+  if (preset === 'all') return 'All time'
   return 'Custom range'
 }
