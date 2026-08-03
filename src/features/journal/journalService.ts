@@ -138,3 +138,34 @@ export async function getJournalEntryCount(
   if (error) throw new Error('Unable to load your journal entry count. Please try again.')
   return count ?? 0
 }
+
+export interface JournalEntriesInRangeOptions {
+  startDate?: string
+  endDate?: string
+}
+
+/**
+ * Full-row query (Phase 11 reports/timeline/export) — optionally windowed by
+ * local calendar date range, ascending so chronological consumers (export,
+ * timeline) don't need to re-sort. Returns title/content like every other
+ * journal read — callers that must not display private text (e.g. the
+ * personal timeline) are responsible for omitting those fields themselves.
+ */
+export async function getJournalEntriesInRange(
+  userId: string,
+  range: JournalEntriesInRangeOptions = {},
+): Promise<JournalEntry[]> {
+  let query = supabase
+    .from('journal_entries')
+    .select(JOURNAL_COLUMNS)
+    .eq('user_id', userId)
+    .order('entry_date', { ascending: true })
+    .order('created_at', { ascending: true })
+
+  if (range.startDate) query = query.gte('entry_date', range.startDate)
+  if (range.endDate) query = query.lte('entry_date', range.endDate)
+
+  const { data, error } = await query
+  if (error) throw new Error('Unable to load your journal entries. Please try again.')
+  return (data ?? []).map(mapRow)
+}

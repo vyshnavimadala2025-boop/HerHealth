@@ -109,3 +109,31 @@ export async function getCheckInCount(
   if (error) throw new Error('Unable to load your check-in count. Please try again.')
   return count ?? 0
 }
+
+export interface CheckInsInRangeOptions {
+  startDate?: string
+  endDate?: string
+}
+
+/**
+ * Full-row query (Phase 11 reports/timeline/export) — optionally windowed by
+ * local calendar date range, ascending so chronological consumers (export,
+ * timeline) don't need to re-sort.
+ */
+export async function getCheckInsInRange(
+  userId: string,
+  range: CheckInsInRangeOptions = {},
+): Promise<CheckIn[]> {
+  let query = supabase
+    .from('daily_checkins')
+    .select(CHECKIN_COLUMNS)
+    .eq('user_id', userId)
+    .order('checkin_date', { ascending: true })
+
+  if (range.startDate) query = query.gte('checkin_date', range.startDate)
+  if (range.endDate) query = query.lte('checkin_date', range.endDate)
+
+  const { data, error } = await query
+  if (error) throw new Error('Unable to load your check-ins. Please try again.')
+  return (data ?? []).map(mapRow)
+}

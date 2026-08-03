@@ -63,3 +63,32 @@ export async function deleteGoalProgressEntry(entryId: string): Promise<void> {
   const { error } = await supabase.from('goal_progress_entries').delete().eq('id', entryId)
   if (error) throw new Error('We could not remove this progress entry. Please try again.')
 }
+
+export interface GoalProgressEntriesInRangeOptions {
+  startDate?: string
+  endDate?: string
+}
+
+/**
+ * User-wide progress entries (Phase 11 reports/timeline/export), across all
+ * goals — queried directly by user_id (goal_progress_entries carries its
+ * own user_id column) rather than joining through wellness_goals.
+ */
+export async function getAllGoalProgressEntries(
+  userId: string,
+  range: GoalProgressEntriesInRangeOptions = {},
+): Promise<GoalProgressEntry[]> {
+  let query = supabase
+    .from('goal_progress_entries')
+    .select(PROGRESS_COLUMNS)
+    .eq('user_id', userId)
+    .order('progress_date', { ascending: true })
+    .order('created_at', { ascending: true })
+
+  if (range.startDate) query = query.gte('progress_date', range.startDate)
+  if (range.endDate) query = query.lte('progress_date', range.endDate)
+
+  const { data, error } = await query
+  if (error) throw new Error('Unable to load your goal progress history. Please try again.')
+  return (data ?? []).map(mapRow)
+}

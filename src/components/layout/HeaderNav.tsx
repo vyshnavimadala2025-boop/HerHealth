@@ -43,6 +43,9 @@ function HeaderNav() {
               <Link to="/goals">Goals</Link>
             </DropdownMenuItem>
             <DropdownMenuItem asChild>
+              <Link to="/reports">Reports</Link>
+            </DropdownMenuItem>
+            <DropdownMenuItem asChild>
               <Link to="/profile">Profile</Link>
             </DropdownMenuItem>
           </DropdownMenuContent>
