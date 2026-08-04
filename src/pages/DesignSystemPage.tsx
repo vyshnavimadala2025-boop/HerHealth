@@ -1,4 +1,4 @@
-import { HeartPulse } from 'lucide-react'
+import { CalendarHeart, HeartPulse } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
 import { Input } from '@/components/ui/input'
@@ -12,12 +12,20 @@ import {
   CardContent,
   CardFooter,
 } from '@/components/ui/card'
+import ProgressRing from '@/components/shared/ProgressRing'
+import Skeleton from '@/components/shared/Skeleton'
+import EmptyState from '@/components/shared/EmptyState'
+import PrivacyBadge from '@/components/shared/PrivacyBadge'
 
 const colorTokens = [
-  { swatchClass: 'bg-primary', label: 'Primary' },
+  { swatchClass: 'bg-primary', label: 'Primary (plum)' },
   { swatchClass: 'bg-secondary', label: 'Secondary' },
   { swatchClass: 'bg-accent', label: 'Accent' },
   { swatchClass: 'bg-muted', label: 'Muted' },
+  { swatchClass: 'bg-support', label: 'Support (sage)' },
+  { swatchClass: 'bg-lavender', label: 'Lavender' },
+  { swatchClass: 'bg-blush', label: 'Blush' },
+  { swatchClass: 'bg-attention', label: 'Attention' },
   { swatchClass: 'bg-destructive', label: 'Destructive' },
 ] as const
 
@@ -121,6 +129,52 @@ function DesignSystemPage() {
             <Button className="w-full">Continue</Button>
           </CardFooter>
         </Card>
+      </section>
+
+      <Separator />
+
+      <section className="flex flex-col gap-6">
+        <h2 className="text-heading font-display">Stage 5a — new shared primitives</h2>
+
+        <div className="flex flex-col gap-2">
+          <p className="text-sm font-medium">ProgressRing</p>
+          <div className="flex flex-wrap items-center gap-6">
+            <ProgressRing value={71} label="5 of 7 days, 71%" colorClassName="text-primary">
+              <span className="font-sans text-sm font-semibold tabular-nums">5/7</span>
+            </ProgressRing>
+            <ProgressRing value={60} label="3 of 5 goal sessions, 60%" colorClassName="text-support">
+              <span className="font-sans text-sm font-semibold tabular-nums">60%</span>
+            </ProgressRing>
+            <ProgressRing value={50} label="Day 14 of 28" size={72} strokeWidth={6} colorClassName="text-blush-foreground">
+              <span className="font-sans text-xs font-semibold tabular-nums">Day 14</span>
+            </ProgressRing>
+          </div>
+        </div>
+
+        <div className="flex flex-col gap-2">
+          <p className="text-sm font-medium">Skeleton</p>
+          <div className="flex flex-col gap-2 max-w-sm">
+            <Skeleton className="h-4 w-3/4" />
+            <Skeleton className="h-4 w-1/2" />
+            <Skeleton className="h-20 w-full" />
+          </div>
+        </div>
+
+        <div className="flex flex-col gap-2">
+          <p className="text-sm font-medium">EmptyState</p>
+          <EmptyState
+            icon={CalendarHeart}
+            title="No entries yet"
+            description="This is a design-system preview of the shared empty-state pattern."
+            action={<Button size="sm" variant="outline">Example action</Button>}
+            className="max-w-sm"
+          />
+        </div>
+
+        <div className="flex flex-col gap-2">
+          <p className="text-sm font-medium">PrivacyBadge</p>
+          <PrivacyBadge />
+        </div>
       </section>
     </div>
   )

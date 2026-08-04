@@ -1,4 +1,4 @@
-import { Loader2 } from 'lucide-react'
+import { Download, Loader2 } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { Card, CardHeader, CardTitle, CardDescription, CardContent } from '@/components/ui/card'
 
@@ -13,7 +13,12 @@ function DataExportCard({ status, onExport }: DataExportCardProps) {
   return (
     <Card>
       <CardHeader>
-        <CardTitle>Export Your Data</CardTitle>
+        <div className="flex items-center gap-2">
+          <div className="flex size-9 items-center justify-center rounded-full bg-accent text-accent-foreground">
+            <Download className="size-4" aria-hidden="true" />
+          </div>
+          <CardTitle>Export Your Data</CardTitle>
+        </div>
         <CardDescription>
           Download your complete HerHealth history, not just the selected range above. Files are generated
           in your browser and are never uploaded anywhere.

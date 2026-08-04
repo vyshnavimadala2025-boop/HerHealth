@@ -1,6 +1,8 @@
 import { useEffect, useState } from 'react'
 import { Pencil } from 'lucide-react'
 import { Button } from '@/components/ui/button'
+import { Badge } from '@/components/ui/badge'
+import { cn } from '@/lib/utils'
 import DeleteGoalDialog from '@/features/goals/DeleteGoalDialog'
 import { useAuth } from '@/features/auth/useAuth'
 import { getCheckInCount } from '@/features/checkins/checkinService'
@@ -23,6 +25,16 @@ function categoryLabel(category: string) {
 function periodLabel(period: string | null) {
   if (!period) return null
   return TARGET_PERIODS.find((option) => option.value === period)?.label ?? period
+}
+
+function statusBadge(status: WellnessGoal['status']) {
+  if (status === 'completed') {
+    return { label: 'Completed', className: 'bg-support text-support-foreground' }
+  }
+  if (status === 'archived') {
+    return { label: 'Archived', className: 'bg-muted text-muted-foreground' }
+  }
+  return { label: 'Active', className: 'bg-primary/10 text-primary' }
 }
 
 interface GoalCardProps {
@@ -94,7 +106,12 @@ function GoalCard({ goal, onEdit, onComplete, onReopen, onArchive, onDeleted }: 
     <li className="flex flex-col gap-2 rounded-lg border border-border p-3 text-sm">
       <div className="flex flex-wrap items-start justify-between gap-2">
         <div className="min-w-0">
-          <p className="font-medium break-words">{goal.title}</p>
+          <div className="flex flex-wrap items-center gap-2">
+            <p className="font-medium break-words">{goal.title}</p>
+            <Badge className={cn(statusBadge(goal.status).className)}>
+              {statusBadge(goal.status).label}
+            </Badge>
+          </div>
           <p className="text-caption text-muted-foreground">{categoryLabel(goal.category)}</p>
         </div>
         <div className="flex shrink-0 items-center gap-1">
@@ -114,11 +131,16 @@ function GoalCard({ goal, onEdit, onComplete, onReopen, onArchive, onDeleted }: 
       {goal.note && <p className="text-muted-foreground break-words">{goal.note}</p>}
 
       {goal.targetCount && (
-        <p className="text-caption text-muted-foreground">
-          Target: {goal.targetCount}
-          {periodLabel(goal.targetPeriod) ? ` ${periodLabel(goal.targetPeriod)}` : ' (one-time)'}
-          {windowCount !== null && ` — ${windowCount} of ${goal.targetCount} so far`}
-        </p>
+        <div className="flex flex-wrap items-center gap-2">
+          <p className="text-caption text-muted-foreground">
+            Target: {goal.targetCount}
+            {periodLabel(goal.targetPeriod) ? ` ${periodLabel(goal.targetPeriod)}` : ' (one-time)'}
+            {windowCount !== null && ` — ${windowCount} of ${goal.targetCount} so far`}
+          </p>
+          {windowCount !== null && windowCount >= goal.targetCount && (
+            <Badge className="bg-support text-support-foreground">Target reached</Badge>
+          )}
+        </div>
       )}
 
       <p className="text-caption text-muted-foreground">

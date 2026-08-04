@@ -1,6 +1,8 @@
-import { Loader2 } from 'lucide-react'
+import { BookOpen, Loader2, SearchX } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/card'
+import Skeleton from '@/components/shared/Skeleton'
+import EmptyState from '@/components/shared/EmptyState'
 import JournalEntryCard from '@/features/journal/JournalEntryCard'
 import type { JournalEntry } from '@/features/journal/types'
 
@@ -34,14 +36,14 @@ function JournalEntryList({
       </CardHeader>
       <CardContent>
         {status === 'loading' && (
-          <div className="flex items-center gap-2 py-4 text-sm text-muted-foreground">
-            <Loader2 className="size-4 animate-spin" aria-hidden="true" />
-            Loading your journal…
+          <div role="status" className="flex flex-col gap-2 py-1">
+            <Skeleton className="h-20 w-full" />
+            <Skeleton className="h-20 w-full" />
           </div>
         )}
 
         {status === 'error' && (
-          <div className="flex flex-col items-start gap-2 py-4">
+          <div role="alert" className="flex flex-col items-start gap-2 py-4">
             <p className="text-sm text-muted-foreground">
               We couldn&apos;t load your journal entries. Please try again.
             </p>
@@ -52,14 +54,19 @@ function JournalEntryList({
         )}
 
         {status === 'ready' && !hasLoadedEntries && (
-          <p className="py-4 text-sm text-muted-foreground">
-            Your journal is ready when you are. Add your first entry to begin recording your
-            personal observations.
-          </p>
+          <EmptyState
+            icon={BookOpen}
+            title="Your journal is ready when you are"
+            description="Add your first entry above to begin recording your personal reflections."
+          />
         )}
 
         {status === 'ready' && hasLoadedEntries && entries.length === 0 && (
-          <p className="py-4 text-sm text-muted-foreground">No journal entries match your search.</p>
+          <EmptyState
+            icon={SearchX}
+            title="No matching entries"
+            description="Try a different search term."
+          />
         )}
 
         {status === 'ready' && entries.length > 0 && (

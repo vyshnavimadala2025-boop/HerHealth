@@ -1,13 +1,21 @@
-import { useEffect, useState } from 'react'
-import { Link } from 'react-router-dom'
-import { Loader2 } from 'lucide-react'
-import { Button } from '@/components/ui/button'
-import { Card, CardHeader, CardTitle, CardContent, CardFooter } from '@/components/ui/card'
+import { useEffect, useRef, useState } from 'react'
+import { BookOpen } from 'lucide-react'
+import NextStepTile from '@/components/shared/NextStepTile'
 import { useAuth } from '@/features/auth/useAuth'
 import { getLatestJournalEntryDate } from '@/features/journal/journalService'
 import { formatFriendlyDate } from '@/features/journal/types'
 
 type LoadStatus = 'loading' | 'ready' | 'error'
+
+interface DashboardJournalCardProps {
+  /**
+   * Optional — lets a sibling (SuggestedNextStep) reuse this card's own
+   * fetch result instead of issuing a second, duplicate query for the
+   * same value. This is the only change to this component's data
+   * behavior: the query itself, and when it runs, are unchanged.
+   */
+  onLoaded?: (status: LoadStatus, latestDate: string | null) => void
+}
 
 /**
  * Deliberately independent of useInsightsData — its own tiny query for only
@@ -15,10 +23,17 @@ type LoadStatus = 'loading' | 'ready' | 'error'
  * getLatestJournalEntryDate), so journal data never enters the insights
  * pipeline and this card never displays journal text.
  */
-function DashboardJournalCard() {
+function DashboardJournalCard({ onLoaded }: DashboardJournalCardProps) {
   const { user } = useAuth()
   const [status, setStatus] = useState<LoadStatus>('loading')
   const [latestDate, setLatestDate] = useState<string | null>(null)
+
+  // Keeps the fetch effect below tied only to `user` (not re-running on
+  // every parent re-render just because it passes a new inline callback).
+  const onLoadedRef = useRef(onLoaded)
+  useEffect(() => {
+    onLoadedRef.current = onLoaded
+  })
 
   useEffect(() => {
     if (!user) return
@@ -29,49 +44,36 @@ function DashboardJournalCard() {
         if (!active) return
         setLatestDate(date)
         setStatus('ready')
+        onLoadedRef.current?.('ready', date)
       })
       .catch(() => {
         if (!active) return
         setStatus('error')
+        onLoadedRef.current?.('error', null)
       })
     return () => {
       active = false
     }
   }, [user])
 
+  const description =
+    status === 'error'
+      ? "We couldn't load your journal summary."
+      : status === 'ready' && latestDate
+        ? `Last entry on ${formatFriendlyDate(latestDate)}`
+        : status === 'ready'
+          ? 'Ready when you are'
+          : 'Loading…'
+
   return (
-    <Card>
-      <CardHeader>
-        <CardTitle>Journal</CardTitle>
-      </CardHeader>
-      <CardContent className="text-sm">
-        {status === 'loading' && (
-          <div className="flex items-center gap-2 text-muted-foreground">
-            <Loader2 className="size-4 animate-spin" aria-hidden="true" />
-            Loading…
-          </div>
-        )}
-
-        {status === 'error' && (
-          <p className="text-muted-foreground">We couldn&apos;t load your journal summary.</p>
-        )}
-
-        {status === 'ready' && latestDate && (
-          <p className="text-muted-foreground">Last entry on {formatFriendlyDate(latestDate)}.</p>
-        )}
-
-        {status === 'ready' && !latestDate && (
-          <p className="text-muted-foreground">
-            Your journal is ready when you are &mdash; write your first entry any time.
-          </p>
-        )}
-      </CardContent>
-      <CardFooter>
-        <Button asChild variant="outline" className="w-full">
-          <Link to="/journal">Open Journal</Link>
-        </Button>
-      </CardFooter>
-    </Card>
+    <NextStepTile
+      icon={BookOpen}
+      label="Journal"
+      description={description}
+      href="/journal"
+      isLoading={status === 'loading'}
+      accentClassName="bg-blush text-blush-foreground"
+    />
   )
 }
 

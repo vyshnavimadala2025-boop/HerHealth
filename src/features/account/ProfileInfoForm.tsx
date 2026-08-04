@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState, type FormEvent } from 'react'
-import { Loader2 } from 'lucide-react'
+import { Loader2, User } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
@@ -11,6 +11,7 @@ import {
   CardContent,
   CardFooter,
 } from '@/components/ui/card'
+import Skeleton from '@/components/shared/Skeleton'
 import { useAuth } from '@/features/auth/useAuth'
 import { updateFullName } from '@/features/profile/profileService'
 import { AGE_RANGES, TRACKING_PREFERENCES } from '@/features/profile/types'
@@ -63,9 +64,10 @@ function ProfileInfoForm() {
   if (profileStatus === 'loading') {
     return (
       <Card>
-        <CardContent className="flex items-center gap-2 py-6 text-sm text-muted-foreground">
-          <Loader2 className="size-4 animate-spin" aria-hidden="true" />
-          Loading your profile…
+        <CardContent role="status" className="flex flex-col gap-3 py-2">
+          <Skeleton className="h-4 w-1/3" />
+          <Skeleton className="h-9 w-full" />
+          <Skeleton className="h-4 w-1/2" />
         </CardContent>
       </Card>
     )
@@ -74,7 +76,12 @@ function ProfileInfoForm() {
   return (
     <Card>
       <CardHeader>
-        <CardTitle>Profile</CardTitle>
+        <div className="flex items-center gap-2">
+          <div className="flex size-9 items-center justify-center rounded-full bg-lavender text-lavender-foreground">
+            <User className="size-4" aria-hidden="true" />
+          </div>
+          <CardTitle>Profile</CardTitle>
+        </div>
         <CardDescription>Your profile information is private to your account.</CardDescription>
       </CardHeader>
       <form onSubmit={handleSubmit} noValidate>

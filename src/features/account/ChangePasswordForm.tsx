@@ -1,7 +1,7 @@
 import { useRef, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
-import { Loader2 } from 'lucide-react'
+import { Loader2, Lock } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { Label } from '@/components/ui/label'
 import { PasswordInput } from '@/components/shared/PasswordInput'
@@ -57,7 +57,12 @@ function ChangePasswordForm() {
   return (
     <Card>
       <CardHeader>
-        <CardTitle>Change password</CardTitle>
+        <div className="flex items-center gap-2">
+          <div className="flex size-9 items-center justify-center rounded-full bg-primary/10 text-primary">
+            <Lock className="size-4" aria-hidden="true" />
+          </div>
+          <CardTitle>Change password</CardTitle>
+        </div>
         <CardDescription>Choose a new password for your account.</CardDescription>
       </CardHeader>
       <form onSubmit={handleSubmit(onSubmit)} noValidate>

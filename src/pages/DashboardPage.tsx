@@ -1,13 +1,11 @@
-import { LogOut } from 'lucide-react'
-
-import { Button } from '@/components/ui/button'
+import { useState } from 'react'
+import { ClipboardList, HeartPulse, Target } from 'lucide-react'
 import { useAuth } from '@/features/auth/useAuth'
-import { useLogout } from '@/features/auth/useLogout'
 import { useDashboardData } from '@/features/checkins/useDashboardData'
-import { formatFriendlyDate } from '@/features/checkins/types'
-import CheckInStatusCard from '@/features/checkins/CheckInStatusCard'
 import CheckInForm from '@/features/checkins/CheckInForm'
 import RecentCheckIns from '@/features/checkins/RecentCheckIns'
+import TodayHero from '@/features/checkins/TodayHero'
+import SuggestedNextStep from '@/features/checkins/SuggestedNextStep'
 import DashboardCycleCard from '@/features/periods/DashboardCycleCard'
 import DashboardJournalCard from '@/features/journal/DashboardJournalCard'
 import DashboardPcosWellnessCard from '@/features/pcosWellness/DashboardPcosWellnessCard'
@@ -15,12 +13,17 @@ import { useInsightsData } from '@/features/insights/useInsightsData'
 import WeeklyCheckInSummaryCard from '@/features/insights/WeeklyCheckInSummaryCard'
 import TrendsCard from '@/features/insights/TrendsCard'
 import WellnessInsightsCard from '@/features/insights/WellnessInsightsCard'
+import NextStepTile from '@/components/shared/NextStepTile'
+
+type LoadStatus = 'loading' | 'ready' | 'error'
 
 function DashboardPage() {
   const { user, profile } = useAuth()
-  const { logout, isLoggingOut } = useLogout()
   const { todayCheckIn, todayStatus, recentCheckIns, recentStatus, refresh } = useDashboardData()
   const insightsData = useInsightsData()
+
+  const [journalStatus, setJournalStatus] = useState<LoadStatus>('loading')
+  const [latestJournalDate, setLatestJournalDate] = useState<string | null>(null)
 
   const firstName = profile?.fullName?.trim().split(' ')[0] || user?.email
 
@@ -30,62 +33,109 @@ function DashboardPage() {
   }
 
   return (
-    <main className="mx-auto flex w-full max-w-2xl flex-1 flex-col gap-6 p-4 py-8 sm:p-6">
-      <div className="flex flex-col gap-2">
-        <div className="flex flex-wrap items-start justify-between gap-3">
-          <div>
-            <h1 className="text-2xl font-semibold">Welcome back, {firstName}</h1>
-            <p className="text-muted-foreground">{formatFriendlyDate()}</p>
-          </div>
-          <Button variant="outline" size="sm" onClick={logout} disabled={isLoggingOut}>
-            <LogOut />
-            {isLoggingOut ? 'Logging out…' : 'Log out'}
-          </Button>
-        </div>
-        <p className="text-body text-muted-foreground">
-          Take a moment to check in with yourself today.
-        </p>
-        <p className="text-caption text-muted-foreground">
-          Your entries are private and visible only to you.
-        </p>
-        <p className="text-caption text-muted-foreground">
-          Your health overview is based on the information you choose to record.
-        </p>
+    <main className="mx-auto flex w-full max-w-5xl flex-1 flex-col gap-8 p-4 py-8 animate-in fade-in duration-500 motion-reduce:animate-none sm:p-6">
+      <div id="checkin" className="scroll-mt-24">
+        <TodayHero
+          firstName={firstName ?? ''}
+          todayStatus={todayStatus}
+          todayCheckIn={todayCheckIn}
+          insightsStatus={insightsData.status}
+          weeklySummary={insightsData.weeklySummary}
+          moodTrend={insightsData.moodTrend}
+          energyTrend={insightsData.energyTrend}
+          periodRecords={insightsData.periodRecords}
+          estimatedNextPeriod={insightsData.estimatedNextPeriod}
+        />
       </div>
 
-      <CheckInStatusCard status={todayStatus} checkIn={todayCheckIn} />
+      <p className="text-caption text-muted-foreground">
+        Your entries are private and visible only to you. Your health overview is based on the
+        information you choose to record.
+      </p>
 
-      {user && (
-        <CheckInForm
-          userId={user.id}
-          initialCheckIn={todayCheckIn}
-          todayStatus={todayStatus}
-          onSaved={handleCheckInSaved}
+      <div id="checkin-form" className="scroll-mt-24">
+        {user && (
+          <CheckInForm
+            userId={user.id}
+            initialCheckIn={todayCheckIn}
+            todayStatus={todayStatus}
+            onSaved={handleCheckInSaved}
+          />
+        )}
+      </div>
+
+      <SuggestedNextStep
+        todayStatus={todayStatus}
+        todayCheckIn={todayCheckIn}
+        journalStatus={journalStatus}
+        latestJournalDate={latestJournalDate}
+      />
+
+      <details className="group rounded-xl border border-border">
+        <summary className="flex cursor-pointer list-none items-center justify-between rounded-xl px-4 py-3 text-sm font-medium text-foreground marker:content-none focus-visible:ring-3 focus-visible:ring-ring/50">
+          View recent check-ins
+          <span className="text-caption text-muted-foreground transition-transform duration-200 group-open:rotate-180">
+            ▾
+          </span>
+        </summary>
+        <div className="border-t border-border p-4 pt-3">
+          <RecentCheckIns status={recentStatus} checkIns={recentCheckIns} />
+        </div>
+      </details>
+
+      <section id="insights" className="flex scroll-mt-24 flex-col gap-4">
+        <h2 className="font-display text-lg text-foreground">Your wellness overview</h2>
+        <WeeklyCheckInSummaryCard status={insightsData.status} summary={insightsData.weeklySummary} />
+
+        <TrendsCard
+          status={insightsData.status}
+          moodTrend={insightsData.moodTrend}
+          energyTrend={insightsData.energyTrend}
         />
-      )}
 
-      <RecentCheckIns status={recentStatus} checkIns={recentCheckIns} />
+        <DashboardCycleCard
+          status={insightsData.status}
+          records={insightsData.periodRecords}
+          cycleLength={insightsData.cycleLength}
+          estimatedNextPeriod={insightsData.estimatedNextPeriod}
+        />
 
-      <WeeklyCheckInSummaryCard status={insightsData.status} summary={insightsData.weeklySummary} />
+        <WellnessInsightsCard status={insightsData.status} insights={insightsData.insights} />
+      </section>
 
-      <TrendsCard
-        status={insightsData.status}
-        moodTrend={insightsData.moodTrend}
-        energyTrend={insightsData.energyTrend}
-      />
-
-      <DashboardCycleCard
-        status={insightsData.status}
-        records={insightsData.periodRecords}
-        cycleLength={insightsData.cycleLength}
-        estimatedNextPeriod={insightsData.estimatedNextPeriod}
-      />
-
-      <WellnessInsightsCard status={insightsData.status} insights={insightsData.insights} />
-
-      <DashboardJournalCard />
-
-      <DashboardPcosWellnessCard />
+      <section className="flex flex-col gap-4">
+        <h2 className="font-display text-lg text-foreground">Continue your journey</h2>
+        <div className="flex flex-wrap gap-3">
+          <DashboardJournalCard
+            onLoaded={(status, date) => {
+              setJournalStatus(status)
+              setLatestJournalDate(date)
+            }}
+          />
+          <DashboardPcosWellnessCard />
+          <NextStepTile
+            icon={HeartPulse}
+            label="Cycle Tracker"
+            description="Review your cycle history"
+            href="/cycle-tracker"
+            accentClassName="bg-lavender text-lavender-foreground"
+          />
+          <NextStepTile
+            icon={Target}
+            label="Wellness Goals"
+            description="Review your goals and progress"
+            href="/goals"
+            accentClassName="bg-accent text-accent-foreground"
+          />
+          <NextStepTile
+            icon={ClipboardList}
+            label="Wellness Reports"
+            description="See a private summary of your data"
+            href="/reports"
+            accentClassName="bg-accent text-accent-foreground"
+          />
+        </div>
+      </section>
     </main>
   )
 }

@@ -1,6 +1,8 @@
-import { Loader2, Pencil } from 'lucide-react'
+import { Pencil, ScrollText } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/card'
+import Skeleton from '@/components/shared/Skeleton'
+import EmptyState from '@/components/shared/EmptyState'
 import DeletePeriodDialog from '@/features/periods/DeletePeriodDialog'
 import { calculatePeriodDuration } from '@/features/periods/cycleCalculations'
 import { formatFriendlyDate } from '@/features/periods/dateUtils'
@@ -26,22 +28,24 @@ function PeriodHistory({ status, records, onEdit, onDeleted }: PeriodHistoryProp
       </CardHeader>
       <CardContent>
         {status === 'loading' && (
-          <div className="flex items-center gap-2 py-4 text-sm text-muted-foreground">
-            <Loader2 className="size-4 animate-spin" aria-hidden="true" />
-            Loading your period history…
+          <div role="status" className="flex flex-col gap-2 py-1">
+            <Skeleton className="h-14 w-full" />
+            <Skeleton className="h-14 w-full" />
           </div>
         )}
 
         {status === 'error' && (
-          <p className="py-4 text-sm text-muted-foreground">
+          <p role="alert" className="py-4 text-sm text-muted-foreground">
             We couldn&apos;t load your period history. Please try again later.
           </p>
         )}
 
         {status === 'ready' && records.length === 0 && (
-          <p className="py-4 text-sm text-muted-foreground">
-            No period records yet. Add your first period to begin tracking your cycle.
-          </p>
+          <EmptyState
+            icon={ScrollText}
+            title="No period records yet"
+            description="Add your first period to begin tracking your cycle."
+          />
         )}
 
         {status === 'ready' && records.length > 0 && (
@@ -52,7 +56,7 @@ function PeriodHistory({ status, records, onEdit, onDeleted }: PeriodHistoryProp
               return (
                 <li
                   key={record.id}
-                  className="flex flex-col gap-1 rounded-lg border border-border p-3 text-sm"
+                  className="flex flex-col gap-1 rounded-lg border border-border p-3 text-sm transition-[box-shadow,border-color] hover:border-primary/30 hover:shadow-sm"
                 >
                   <div className="flex flex-wrap items-start justify-between gap-2">
                     <div>

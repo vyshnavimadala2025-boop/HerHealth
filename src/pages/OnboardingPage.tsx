@@ -66,8 +66,8 @@ function OnboardingPage() {
   }
 
   return (
-    <main className="flex flex-1 flex-col items-center justify-center p-6">
-      <Card className="w-full max-w-md">
+    <main className="flex flex-1 flex-col items-center justify-center bg-muted/30 p-6 py-12 animate-in fade-in duration-500 motion-reduce:animate-none">
+      <Card className="w-full max-w-md shadow-lg">
         {step === 0 && <WelcomeStep onContinue={() => setStep(1)} />}
         {step === 1 && (
           <ProfileStep

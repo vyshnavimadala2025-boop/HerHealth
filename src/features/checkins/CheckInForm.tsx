@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState, type FormEvent } from 'react'
-import { Loader2 } from 'lucide-react'
+import { Check, ClipboardCheck, Loader2 } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { Label } from '@/components/ui/label'
 import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group'
@@ -60,12 +60,15 @@ function OptionGroup<T extends string>({
               key={option.value}
               htmlFor={`${name}-${option.value}`}
               className={cn(
-                'flex cursor-pointer items-center gap-2 rounded-lg border p-2.5 text-sm transition-colors hover:bg-muted/50',
+                'flex cursor-pointer items-center justify-between gap-2 rounded-lg border p-2.5 text-sm transition-colors hover:bg-muted/50',
                 checked ? 'border-primary bg-accent/40' : 'border-border',
               )}
             >
-              <RadioGroupItem id={`${name}-${option.value}`} value={option.value} />
-              {option.label}
+              <span className="flex items-center gap-2">
+                <RadioGroupItem id={`${name}-${option.value}`} value={option.value} />
+                {option.label}
+              </span>
+              {checked && <Check className="size-3.5 text-primary" aria-hidden="true" />}
             </label>
           )
         })}
@@ -154,7 +157,12 @@ function CheckInForm({ userId, initialCheckIn, todayStatus, onSaved }: CheckInFo
   return (
     <Card>
       <CardHeader>
-        <CardTitle>How are you feeling today?</CardTitle>
+        <div className="flex items-center gap-2">
+          <div className="flex size-9 items-center justify-center rounded-full bg-primary/10 text-primary">
+            <ClipboardCheck className="size-4" aria-hidden="true" />
+          </div>
+          <CardTitle>How are you feeling today?</CardTitle>
+        </div>
         <CardDescription>
           HerHealth supports personal wellness tracking and does not provide medical diagnosis.
         </CardDescription>

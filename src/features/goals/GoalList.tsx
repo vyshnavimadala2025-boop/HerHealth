@@ -1,6 +1,8 @@
-import { Loader2 } from 'lucide-react'
+import { ListChecks } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/card'
+import Skeleton from '@/components/shared/Skeleton'
+import EmptyState from '@/components/shared/EmptyState'
 import GoalCard from '@/features/goals/GoalCard'
 import type { WellnessGoal } from '@/features/goals/types'
 
@@ -53,9 +55,9 @@ function GoalList({ status, goals, onRetry, ...actions }: GoalListProps) {
       </CardHeader>
       <CardContent className="flex flex-col gap-5">
         {status === 'loading' && (
-          <div className="flex items-center gap-2 py-4 text-sm text-muted-foreground">
-            <Loader2 className="size-4 animate-spin" aria-hidden="true" />
-            Loading your wellness goals…
+          <div role="status" className="flex flex-col gap-2 py-1">
+            <Skeleton className="h-16 w-full" />
+            <Skeleton className="h-16 w-full" />
           </div>
         )}
 
@@ -71,9 +73,11 @@ function GoalList({ status, goals, onRetry, ...actions }: GoalListProps) {
         )}
 
         {status === 'ready' && goals.length === 0 && (
-          <p className="text-sm text-muted-foreground">
-            You haven&apos;t set any wellness goals yet. Add one whenever you&apos;re ready.
-          </p>
+          <EmptyState
+            icon={ListChecks}
+            title="No wellness goals yet"
+            description="Add one whenever you're ready — a simple habit or routine you'd like to build."
+          />
         )}
 
         {status === 'ready' && goals.length > 0 && (

@@ -1,4 +1,5 @@
 import { Link } from 'react-router-dom'
+import { ShieldAlert } from 'lucide-react'
 import { Card, CardHeader, CardTitle, CardDescription, CardContent } from '@/components/ui/card'
 import DeleteCategoryDialog from '@/features/dataPrivacy/DeleteCategoryDialog'
 import DeleteAllDataDialog from '@/features/dataPrivacy/DeleteAllDataDialog'
@@ -11,7 +12,12 @@ function DataPrivacySection() {
   return (
     <Card>
       <CardHeader>
-        <CardTitle>Data &amp; Privacy</CardTitle>
+        <div className="flex items-center gap-2">
+          <div className="flex size-9 items-center justify-center rounded-full bg-attention text-attention-foreground">
+            <ShieldAlert className="size-4" aria-hidden="true" />
+          </div>
+          <CardTitle>Data &amp; Privacy</CardTitle>
+        </div>
         <CardDescription>
           Permanently delete your recorded HerHealth data. This does not close your account or
           remove your login — see the Account section below.

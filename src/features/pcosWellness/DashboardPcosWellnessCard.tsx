@@ -1,8 +1,6 @@
 import { useEffect, useState } from 'react'
-import { Link } from 'react-router-dom'
-import { Loader2 } from 'lucide-react'
-import { Button } from '@/components/ui/button'
-import { Card, CardHeader, CardTitle, CardContent, CardFooter } from '@/components/ui/card'
+import { Leaf } from 'lucide-react'
+import NextStepTile from '@/components/shared/NextStepTile'
 import { useAuth } from '@/features/auth/useAuth'
 import {
   getLatestPcosWellnessEntryDate,
@@ -57,39 +55,24 @@ function DashboardPcosWellnessCard() {
     return null
   }
 
+  const description =
+    status === 'error'
+      ? "We couldn't load your wellness summary."
+      : status === 'ready' && latestDate
+        ? `Last entry on ${formatFriendlyDate(latestDate)}`
+        : status === 'ready'
+          ? 'Ready when you are'
+          : 'Loading…'
+
   return (
-    <Card>
-      <CardHeader>
-        <CardTitle>PCOS/PCOD Wellness</CardTitle>
-      </CardHeader>
-      <CardContent className="text-sm">
-        {status === 'loading' && (
-          <div className="flex items-center gap-2 text-muted-foreground">
-            <Loader2 className="size-4 animate-spin" aria-hidden="true" />
-            Loading…
-          </div>
-        )}
-
-        {status === 'error' && (
-          <p className="text-muted-foreground">We couldn&apos;t load your wellness summary.</p>
-        )}
-
-        {status === 'ready' && enabled && latestDate && (
-          <p className="text-muted-foreground">Last entry on {formatFriendlyDate(latestDate)}.</p>
-        )}
-
-        {status === 'ready' && enabled && !latestDate && (
-          <p className="text-muted-foreground">
-            Your wellness tracker is ready when you are &mdash; add your first entry any time.
-          </p>
-        )}
-      </CardContent>
-      <CardFooter>
-        <Button asChild variant="outline" className="w-full">
-          <Link to="/wellness-tracker">Open Wellness Tracker</Link>
-        </Button>
-      </CardFooter>
-    </Card>
+    <NextStepTile
+      icon={Leaf}
+      label="PCOS/PCOD Wellness"
+      description={description}
+      href="/wellness-tracker"
+      isLoading={status === 'loading'}
+      accentClassName="bg-support text-support-foreground"
+    />
   )
 }
 

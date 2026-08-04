@@ -3,6 +3,8 @@ import { useJournalData } from '@/features/journal/useJournalData'
 import JournalEntryForm from '@/features/journal/JournalEntryForm'
 import JournalSearch from '@/features/journal/JournalSearch'
 import JournalEntryList from '@/features/journal/JournalEntryList'
+import PageHeader from '@/components/shared/PageHeader'
+import PrivacyBadge from '@/components/shared/PrivacyBadge'
 import type { JournalEntry } from '@/features/journal/types'
 
 function JournalPage() {
@@ -32,17 +34,15 @@ function JournalPage() {
   }
 
   return (
-    <main className="mx-auto flex w-full max-w-2xl flex-1 flex-col gap-6 p-4 py-8 sm:p-6">
-      <div className="flex flex-col gap-2">
-        <h1 className="text-2xl font-semibold">Journal</h1>
-        <p className="text-body text-muted-foreground">
-          A private space for longer personal reflections and observations.
-        </p>
-        <p className="text-caption text-muted-foreground">
-          Your journal entries are private personal records and are not analyzed for medical
-          purposes.
-        </p>
-      </div>
+    <main className="mx-auto flex w-full max-w-2xl flex-1 flex-col gap-6 p-4 py-8 animate-in fade-in duration-500 motion-reduce:animate-none sm:p-6">
+      <PageHeader
+        title="Journal"
+        description="A private space for longer personal reflections and observations."
+        captions={[
+          'Your journal entries are private personal records and are not analyzed for medical purposes.',
+        ]}
+      />
+      <PrivacyBadge label="Never used in insights or reports" />
 
       <JournalEntryForm
         editingEntry={editingEntry}

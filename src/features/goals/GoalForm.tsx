@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState, type FormEvent } from 'react'
-import { Loader2 } from 'lucide-react'
+import { Loader2, Target } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
@@ -13,6 +13,7 @@ import {
   CardContent,
   CardFooter,
 } from '@/components/ui/card'
+import { cn } from '@/lib/utils'
 import {
   GOAL_CATEGORIES,
   NOTE_MAX_LENGTH,
@@ -159,7 +160,12 @@ function GoalForm({ editingGoal, onCreate, onUpdate, onSaved, onCancelEdit }: Go
   return (
     <Card>
       <CardHeader>
-        <CardTitle>{isEditing ? 'Edit Wellness Goal' : 'Add a Wellness Goal'}</CardTitle>
+        <div className="flex items-center gap-2">
+          <div className="flex size-9 items-center justify-center rounded-full bg-accent text-accent-foreground">
+            <Target className="size-4" aria-hidden="true" />
+          </div>
+          <CardTitle>{isEditing ? 'Edit Wellness Goal' : 'Add a Wellness Goal'}</CardTitle>
+        </div>
         <CardDescription>
           This is a personal wellness routine and self-tracking tool, not a medical treatment
           plan. You can adjust this goal at any time.
@@ -195,7 +201,10 @@ function GoalForm({ editingGoal, onCreate, onUpdate, onSaved, onCancelEdit }: Go
                 <label
                   key={option.value}
                   htmlFor={`goal-category-${option.value}`}
-                  className="flex cursor-pointer items-center gap-2 rounded-lg border border-border p-2.5 text-sm"
+                  className={cn(
+                    'flex cursor-pointer items-center gap-2 rounded-lg border border-border p-2.5 text-sm transition-colors',
+                    category === option.value && 'border-primary bg-accent/40',
+                  )}
                 >
                   <RadioGroupItem id={`goal-category-${option.value}`} value={option.value} />
                   {option.label}

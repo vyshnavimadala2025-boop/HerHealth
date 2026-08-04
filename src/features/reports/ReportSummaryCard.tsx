@@ -1,6 +1,8 @@
-import { Loader2 } from 'lucide-react'
+import { ClipboardList } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { Card, CardHeader, CardTitle, CardDescription, CardContent } from '@/components/ui/card'
+import ProgressRing from '@/components/shared/ProgressRing'
+import Skeleton from '@/components/shared/Skeleton'
 import { ENERGY_LEVEL_OPTIONS, MOOD_OPTIONS, WELLBEING_OPTIONS } from '@/features/checkins/types'
 import { getReportRangeLabel } from '@/features/reports/dateRangePresets'
 import type { ReportDateRange, ReportSummary, ValueBreakdown } from '@/features/reports/types'
@@ -49,7 +51,12 @@ function ReportSummaryCard({ status, summary, range, pcosWellnessEnabled, onRetr
   return (
     <Card>
       <CardHeader>
-        <CardTitle>Your Personal Report</CardTitle>
+        <div className="flex items-center gap-2">
+          <div className="flex size-9 items-center justify-center rounded-full bg-lavender text-lavender-foreground">
+            <ClipboardList className="size-4" aria-hidden="true" />
+          </div>
+          <CardTitle>Your Personal Report</CardTitle>
+        </div>
         <CardDescription>
           {getReportRangeLabel(range.preset)} ({range.startDate} to {range.endDate}). Based only on the
           information you recorded. This is not a health score.
@@ -57,9 +64,9 @@ function ReportSummaryCard({ status, summary, range, pcosWellnessEnabled, onRetr
       </CardHeader>
       <CardContent className="flex flex-col gap-4 text-sm">
         {status === 'loading' && (
-          <div role="status" className="flex items-center gap-2 text-muted-foreground">
-            <Loader2 className="size-4 animate-spin" aria-hidden="true" />
-            Loading your report…
+          <div role="status" className="flex flex-col gap-3">
+            <Skeleton className="h-16 w-full" />
+            <Skeleton className="h-16 w-full" />
           </div>
         )}
 
@@ -74,25 +81,38 @@ function ReportSummaryCard({ status, summary, range, pcosWellnessEnabled, onRetr
 
         {status === 'ready' && summary && (
           <>
-            <div role="status" className="flex flex-col gap-1">
-              <p className="text-sm font-medium">Check-in consistency</p>
-              {range.preset === 'all' ? (
-                <p className="text-lg font-medium">
-                  {summary.checkIns.count} check-in{summary.checkIns.count === 1 ? '' : 's'} recorded (all time)
-                </p>
-              ) : (
-                <>
-                  <p className="text-lg font-medium">
-                    {summary.checkIns.count} of {summary.checkIns.daysInRange} days
-                  </p>
-                  <p className="text-caption text-muted-foreground">
-                    {summary.checkIns.consistencyPercent}% check-in consistency in this range.
-                  </p>
-                </>
+            <div role="status" className="flex items-center gap-4">
+              {range.preset !== 'all' && (
+                <ProgressRing
+                  value={summary.checkIns.consistencyPercent}
+                  label={`${summary.checkIns.consistencyPercent}% check-in consistency in this range`}
+                  size={72}
+                  colorClassName="text-primary"
+                >
+                  <span className="text-body-lg font-display font-medium">
+                    {summary.checkIns.consistencyPercent}%
+                  </span>
+                </ProgressRing>
               )}
+              <div className="flex flex-col gap-1">
+                <p className="text-sm font-medium">Check-in consistency</p>
+                {range.preset === 'all' ? (
+                  <p className="text-lg font-medium">
+                    {summary.checkIns.count} check-in{summary.checkIns.count === 1 ? '' : 's'} recorded (all
+                    time)
+                  </p>
+                ) : (
+                  <>
+                    <p className="text-lg font-medium">
+                      {summary.checkIns.count} of {summary.checkIns.daysInRange} days
+                    </p>
+                    <p className="text-caption text-muted-foreground">Recorded in this date range.</p>
+                  </>
+                )}
+              </div>
             </div>
 
-            <div className="grid grid-cols-1 gap-4 sm:grid-cols-3">
+            <div className="grid grid-cols-1 gap-4 border-t border-border pt-4 sm:grid-cols-3">
               <BreakdownList title="Mood" breakdown={summary.moodEnergyWellbeing.mood} options={MOOD_OPTIONS} />
               <BreakdownList
                 title="Energy level"
@@ -106,19 +126,29 @@ function ReportSummaryCard({ status, summary, range, pcosWellnessEnabled, onRetr
               />
             </div>
 
-            <div className="flex flex-col gap-1">
+            <div className="flex flex-col gap-2 border-t border-border pt-4">
               <p className="text-sm font-medium">Period records</p>
               <p className="text-caption text-muted-foreground">
                 {summary.cycle.periodRecordCount} period record
-                {summary.cycle.periodRecordCount === 1 ? '' : 's'} in this range.
-                {summary.cycle.averageLoggedDurationDays !== null &&
-                  ` Average logged duration: ${summary.cycle.averageLoggedDurationDays} days.`}
-                {summary.cycle.cycleLength !== null &&
-                  ` Estimated cycle length from records in this range: ${summary.cycle.cycleLength} days.`}
+                {summary.cycle.periodRecordCount === 1 ? '' : 's'} recorded in this range.
               </p>
+              {(summary.cycle.averageLoggedDurationDays !== null || summary.cycle.cycleLength !== null) && (
+                <div className="flex flex-wrap gap-2">
+                  {summary.cycle.averageLoggedDurationDays !== null && (
+                    <span className="rounded-full bg-lavender px-2.5 py-1 text-caption text-lavender-foreground">
+                      Average logged duration: {summary.cycle.averageLoggedDurationDays} days
+                    </span>
+                  )}
+                  {summary.cycle.cycleLength !== null && (
+                    <span className="rounded-full bg-lavender px-2.5 py-1 text-caption text-lavender-foreground">
+                      Estimated cycle length: {summary.cycle.cycleLength} days
+                    </span>
+                  )}
+                </div>
+              )}
             </div>
 
-            <div className="flex flex-col gap-1">
+            <div className="flex flex-col gap-1 border-t border-border pt-4">
               <p className="text-sm font-medium">Wellness goals</p>
               <p className="text-caption text-muted-foreground">
                 {summary.goals.activeGoalCount} active, {summary.goals.completedGoalCount} completed overall.
@@ -128,7 +158,7 @@ function ReportSummaryCard({ status, summary, range, pcosWellnessEnabled, onRetr
               </p>
             </div>
 
-            <div className="flex flex-col gap-1">
+            <div className="flex flex-col gap-1 border-t border-border pt-4">
               <p className="text-sm font-medium">Reminder preferences</p>
               <p className="text-caption text-muted-foreground">
                 {summary.reminders.enabledCount} of {summary.reminders.totalCount} reminder types currently
@@ -137,7 +167,7 @@ function ReportSummaryCard({ status, summary, range, pcosWellnessEnabled, onRetr
             </div>
 
             {pcosWellnessEnabled && summary.pcosWellness && (
-              <div className="flex flex-col gap-1">
+              <div className="flex flex-col gap-1 border-t border-border pt-4">
                 <p className="text-sm font-medium">PCOS/PCOD wellness tracking</p>
                 <p className="text-caption text-muted-foreground">
                   {summary.pcosWellness.entryCount} wellness entr

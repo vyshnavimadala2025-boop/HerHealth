@@ -1,5 +1,7 @@
-import { Loader2 } from 'lucide-react'
+import { History } from 'lucide-react'
 import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/card'
+import Skeleton from '@/components/shared/Skeleton'
+import EmptyState from '@/components/shared/EmptyState'
 import { MOOD_OPTIONS, ENERGY_LEVEL_OPTIONS, WELLBEING_OPTIONS, type CheckIn } from '@/features/checkins/types'
 
 function labelFor(options: readonly { value: string; label: string }[], value: string) {
@@ -21,13 +23,18 @@ function RecentCheckIns({ status, checkIns }: RecentCheckInsProps) {
   return (
     <Card>
       <CardHeader>
-        <CardTitle>Your Recent Check-Ins</CardTitle>
+        <div className="flex items-center gap-2">
+          <div className="flex size-9 items-center justify-center rounded-full bg-muted text-muted-foreground">
+            <History className="size-4" aria-hidden="true" />
+          </div>
+          <CardTitle>Your Recent Check-Ins</CardTitle>
+        </div>
       </CardHeader>
       <CardContent>
         {status === 'loading' && (
-          <div className="flex items-center gap-2 py-4 text-sm text-muted-foreground">
-            <Loader2 className="size-4 animate-spin" aria-hidden="true" />
-            Loading your recent check-ins…
+          <div role="status" className="flex flex-col gap-2 py-1">
+            <Skeleton className="h-12 w-full" />
+            <Skeleton className="h-12 w-full" />
           </div>
         )}
 
@@ -38,9 +45,11 @@ function RecentCheckIns({ status, checkIns }: RecentCheckInsProps) {
         )}
 
         {status === 'ready' && checkIns.length === 0 && (
-          <p className="py-4 text-sm text-muted-foreground">
-            Your check-in history will appear here once you start tracking.
-          </p>
+          <EmptyState
+            icon={History}
+            title="No check-ins yet"
+            description="Your check-in history will appear here once you start tracking."
+          />
         )}
 
         {status === 'ready' && checkIns.length > 0 && (
@@ -48,7 +57,7 @@ function RecentCheckIns({ status, checkIns }: RecentCheckInsProps) {
             {checkIns.map((entry) => (
               <li
                 key={entry.id}
-                className="flex flex-col gap-1 rounded-lg border border-border p-3 text-sm sm:flex-row sm:items-center sm:justify-between"
+                className="flex flex-col gap-1 rounded-lg border border-border p-3 text-sm transition-[box-shadow,border-color] hover:border-primary/30 hover:shadow-sm sm:flex-row sm:items-center sm:justify-between"
               >
                 <span className="font-medium">{formatEntryDate(entry.checkinDate)}</span>
                 <span className="text-muted-foreground">

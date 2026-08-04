@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from 'react'
-import { Loader2 } from 'lucide-react'
+import { Bell, Loader2 } from 'lucide-react'
 import { Button } from '@/components/ui/button'
+import { Badge } from '@/components/ui/badge'
 import { Label } from '@/components/ui/label'
 import { Input } from '@/components/ui/input'
 import { Checkbox } from '@/components/ui/checkbox'
@@ -15,6 +16,27 @@ import {
 } from '@/features/reminders/types'
 import type { ReminderPreferenceInput } from '@/features/reminders/reminderService'
 import { cn } from '@/lib/utils'
+
+const WEEKDAY_ORDER: Weekday[] = WEEKDAYS.map((day) => day.value)
+
+/** Formats a 'HH:mm' 24-hour time string as e.g. "9:00 AM". */
+function formatTime12h(time: string): string {
+  const [hoursRaw, minutes] = time.split(':')
+  const hours = Number(hoursRaw)
+  if (Number.isNaN(hours) || !minutes) return time
+  const period = hours >= 12 ? 'PM' : 'AM'
+  const displayHours = hours % 12 === 0 ? 12 : hours % 12
+  return `${displayHours}:${minutes} ${period}`
+}
+
+/** Human-readable summary of selected reminder days, e.g. "every day", "weekdays", or "Mon, Wed, Fri". */
+function formatDaysSummary(days: Weekday[]): string {
+  if (days.length === ALL_WEEKDAYS.length) return 'every day'
+  const weekdaySet: Weekday[] = ['mon', 'tue', 'wed', 'thu', 'fri']
+  if (days.length === 5 && weekdaySet.every((day) => days.includes(day))) return 'on weekdays'
+  const ordered = WEEKDAY_ORDER.filter((day) => days.includes(day))
+  return ordered.map((day) => WEEKDAYS.find((item) => item.value === day)?.label).join(', ')
+}
 
 interface ReminderActivityRowProps {
   activityType: ReminderActivityType
@@ -64,18 +86,34 @@ function ReminderActivityRow({ activityType, label, preference, onSave }: Remind
   }
 
   return (
-    <div className="flex flex-col gap-3 rounded-lg border border-border p-3">
-      <label
-        htmlFor={`reminder-enabled-${activityType}`}
-        className="flex cursor-pointer items-center gap-2 text-sm font-medium"
-      >
-        <Checkbox
-          id={`reminder-enabled-${activityType}`}
-          checked={enabled}
-          onCheckedChange={(value) => setEnabled(value === true)}
-        />
-        {label}
-      </label>
+    <div
+      className={cn(
+        'flex flex-col gap-3 rounded-lg border p-3 transition-colors',
+        enabled ? 'border-primary/40 bg-accent/20' : 'border-border',
+      )}
+    >
+      <div className="flex flex-wrap items-center justify-between gap-2">
+        <label
+          htmlFor={`reminder-enabled-${activityType}`}
+          className="flex cursor-pointer items-center gap-2 text-sm font-medium"
+        >
+          <Checkbox
+            id={`reminder-enabled-${activityType}`}
+            checked={enabled}
+            onCheckedChange={(value) => setEnabled(value === true)}
+          />
+          {label}
+        </label>
+        <Badge
+          className={
+            preference?.enabled
+              ? 'bg-support text-support-foreground'
+              : 'bg-muted text-muted-foreground'
+          }
+        >
+          {preference?.enabled ? 'On' : 'Off'}
+        </Badge>
+      </div>
 
       {enabled && (
         <div className="flex flex-col gap-3">
@@ -118,7 +156,7 @@ function ReminderActivityRow({ activityType, label, preference, onSave }: Remind
 
       <p className="text-caption text-muted-foreground">
         {enabled && preference?.enabled
-          ? `Reminder set for ${time}.`
+          ? `Set for ${formatTime12h(time)}, ${formatDaysSummary(days)}.`
           : enabled
             ? 'Not saved yet — choose a time and days, then save.'
             : 'Reminder off.'}
@@ -160,7 +198,12 @@ function ReminderPreferencesForm({ status, preferences, onSave }: ReminderPrefer
   return (
     <Card>
       <CardHeader>
-        <CardTitle>Reminders</CardTitle>
+        <div className="flex items-center gap-2">
+          <div className="flex size-9 items-center justify-center rounded-full bg-accent text-accent-foreground">
+            <Bell className="size-4" aria-hidden="true" />
+          </div>
+          <CardTitle>Reminders</CardTitle>
+        </div>
         <CardDescription>
           In-app reminder preferences only — HerHealth does not send notifications outside the
           app yet. This shows your saved settings; it does not alert you automatically.
@@ -168,7 +211,7 @@ function ReminderPreferencesForm({ status, preferences, onSave }: ReminderPrefer
       </CardHeader>
       <CardContent className="flex flex-col gap-3">
         {status === 'loading' && (
-          <div className="flex items-center gap-2 text-sm text-muted-foreground">
+          <div role="status" className="flex items-center gap-2 text-sm text-muted-foreground">
             <Loader2 className="size-4 animate-spin" aria-hidden="true" />
             Loading your reminder preferences…
           </div>

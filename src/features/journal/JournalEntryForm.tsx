@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState, type FormEvent } from 'react'
-import { Loader2 } from 'lucide-react'
+import { Loader2, NotebookPen } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
@@ -124,7 +124,12 @@ function JournalEntryForm({
   return (
     <Card>
       <CardHeader>
-        <CardTitle>{isEditing ? 'Edit Journal Entry' : 'Write a Journal Entry'}</CardTitle>
+        <div className="flex items-center gap-2">
+          <div className="flex size-9 items-center justify-center rounded-full bg-blush text-blush-foreground">
+            <NotebookPen className="size-4" aria-hidden="true" />
+          </div>
+          <CardTitle>{isEditing ? 'Edit Journal Entry' : 'Write a Journal Entry'}</CardTitle>
+        </div>
         <CardDescription>
           Your journal entries are private personal records and are not analyzed for medical
           purposes.
@@ -182,7 +187,7 @@ function JournalEntryForm({
               value={content}
               maxLength={CONTENT_MAX_LENGTH}
               onChange={(event) => setContent(event.target.value)}
-              className="min-h-32"
+              className="min-h-48 font-display text-base leading-relaxed"
               aria-invalid={!!errors.content}
               aria-describedby={errors.content ? 'journal-content-error' : 'journal-content-count'}
             />

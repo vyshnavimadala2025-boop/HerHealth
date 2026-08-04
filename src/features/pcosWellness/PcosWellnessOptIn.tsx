@@ -1,6 +1,7 @@
-import { Loader2 } from 'lucide-react'
+import { Leaf, Loader2 } from 'lucide-react'
 import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group'
 import { Card, CardHeader, CardTitle, CardDescription, CardContent } from '@/components/ui/card'
+import { cn } from '@/lib/utils'
 
 interface PcosWellnessOptInProps {
   enabled: boolean
@@ -13,7 +14,12 @@ function PcosWellnessOptIn({ enabled, isToggling, suggestedDefault, onChange }: 
   return (
     <Card>
       <CardHeader>
-        <CardTitle>PCOS/PCOD Wellness Tracking</CardTitle>
+        <div className="flex items-center gap-2">
+          <div className="flex size-9 items-center justify-center rounded-full bg-support/60 text-support-foreground">
+            <Leaf className="size-4" aria-hidden="true" />
+          </div>
+          <CardTitle>PCOS/PCOD Wellness Tracking</CardTitle>
+        </div>
         <CardDescription>
           This is optional. HerHealth does not assume you have PCOS or PCOD — you choose whether
           to track this.
@@ -27,14 +33,20 @@ function PcosWellnessOptIn({ enabled, isToggling, suggestedDefault, onChange }: 
         >
           <label
             htmlFor="pcos-opt-in-enabled"
-            className="flex cursor-pointer items-center gap-2 rounded-lg border border-border p-3 text-sm"
+            className={cn(
+              'flex cursor-pointer items-center gap-2 rounded-lg border p-3 text-sm transition-colors',
+              enabled ? 'border-primary bg-accent/40' : 'border-border hover:bg-muted/50',
+            )}
           >
             <RadioGroupItem id="pcos-opt-in-enabled" value="enabled" disabled={isToggling} />
             I want to track PCOS/PCOD-related wellness information
           </label>
           <label
             htmlFor="pcos-opt-in-disabled"
-            className="flex cursor-pointer items-center gap-2 rounded-lg border border-border p-3 text-sm"
+            className={cn(
+              'flex cursor-pointer items-center gap-2 rounded-lg border p-3 text-sm transition-colors',
+              !enabled ? 'border-primary bg-accent/40' : 'border-border hover:bg-muted/50',
+            )}
           >
             <RadioGroupItem id="pcos-opt-in-disabled" value="disabled" disabled={isToggling} />
             Not currently tracking

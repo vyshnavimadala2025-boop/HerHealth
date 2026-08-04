@@ -1,4 +1,4 @@
-import { LogOut } from 'lucide-react'
+import { LogOut, UserCog } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { Card, CardHeader, CardTitle, CardDescription, CardContent } from '@/components/ui/card'
 import { useLogout } from '@/features/auth/useLogout'
@@ -9,7 +9,12 @@ function AccountSection() {
   return (
     <Card>
       <CardHeader>
-        <CardTitle>Account</CardTitle>
+        <div className="flex items-center gap-2">
+          <div className="flex size-9 items-center justify-center rounded-full bg-muted text-muted-foreground">
+            <UserCog className="size-4" aria-hidden="true" />
+          </div>
+          <CardTitle>Account</CardTitle>
+        </div>
         <CardDescription>Manage your session and account.</CardDescription>
       </CardHeader>
       <CardContent className="flex flex-col gap-4">

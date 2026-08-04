@@ -54,7 +54,7 @@ function LoginPage() {
   }
 
   return (
-    <main className="flex flex-1 flex-col items-center justify-center p-6">
+    <main className="flex flex-1 flex-col items-center justify-center p-6 animate-in fade-in duration-500 motion-reduce:animate-none">
       <Card className="w-full max-w-sm">
         <CardHeader>
           <CardTitle className="flex items-center gap-2">

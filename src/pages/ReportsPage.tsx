@@ -5,6 +5,8 @@ import DateRangeSelector from '@/features/reports/DateRangeSelector'
 import ReportSummaryCard from '@/features/reports/ReportSummaryCard'
 import PersonalTimeline from '@/features/reports/PersonalTimeline'
 import DataExportCard from '@/features/reports/DataExportCard'
+import PageHeader from '@/components/shared/PageHeader'
+import PrivacyBadge from '@/components/shared/PrivacyBadge'
 
 function ReportsPage() {
   const {
@@ -21,22 +23,19 @@ function ReportsPage() {
   } = useReportData()
 
   return (
-    <main className="mx-auto flex w-full max-w-2xl flex-1 flex-col gap-6 p-4 py-8 sm:p-6">
-      <div className="flex flex-col gap-2">
-        <h1 className="text-2xl font-semibold">Wellness Trends &amp; Personal Reports</h1>
-        <p className="text-body text-muted-foreground">
-          Review your own recorded wellness information over time and export it privately.
-        </p>
-        <p className="text-caption text-muted-foreground">
-          These summaries are based only on the information you record in HerHealth and are not medical
-          advice or a medical diagnosis.
-        </p>
-        <p className="text-caption text-muted-foreground">
-          Your reports, timeline, and exported data are private and visible only to you.
-        </p>
-      </div>
+    <main className="mx-auto flex w-full max-w-2xl flex-1 flex-col gap-6 p-4 py-8 animate-in fade-in duration-500 motion-reduce:animate-none sm:p-6">
+      <PageHeader
+        title="Wellness Trends & Personal Reports"
+        description="Review your own recorded wellness information over time and export it privately."
+        captions={[
+          'These summaries are based only on the information you record in HerHealth and are not medical advice or a medical diagnosis.',
+          'Your reports, timeline, and exported data are private and visible only to you.',
+        ]}
+      />
+      <PrivacyBadge label="Reports and exports are private to your account" />
 
-      <div className="print:hidden">
+      <div className="flex flex-col gap-2 print:hidden">
+        <p className="text-sm font-medium">Date range</p>
         <DateRangeSelector range={range} onSelectPreset={setPresetRange} onApplyCustomRange={setCustomRangeValue} />
       </div>
 
@@ -59,7 +58,9 @@ function ReportsPage() {
         onRetry={retry}
       />
 
-      <PersonalTimeline status={status} entries={timeline} onRetry={retry} />
+      <div id="timeline" className="scroll-mt-24">
+        <PersonalTimeline status={status} entries={timeline} onRetry={retry} />
+      </div>
 
       <div className="print:hidden">
         <DataExportCard status={exportStatus} onExport={exportData} />

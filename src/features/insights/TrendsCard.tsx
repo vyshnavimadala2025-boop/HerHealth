@@ -1,5 +1,7 @@
-import { Loader2 } from 'lucide-react'
+import { TrendingUp } from 'lucide-react'
+import { Badge } from '@/components/ui/badge'
 import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/card'
+import Skeleton from '@/components/shared/Skeleton'
 import type { EnergyTrendResult, MoodTrendResult } from '@/features/insights/types'
 
 function trendDescription(kind: 'mood' | 'energy', trend: MoodTrendResult | EnergyTrendResult) {
@@ -7,6 +9,13 @@ function trendDescription(kind: 'mood' | 'energy', trend: MoodTrendResult | Ener
   return kind === 'mood'
     ? 'Complete more check-ins to understand your personal mood pattern.'
     : 'Complete more check-ins to understand your personal energy pattern.'
+}
+
+function trendBadgeClassName(trend: MoodTrendResult | EnergyTrendResult) {
+  if (trend === 'Improving') return 'bg-support text-support-foreground'
+  if (trend === 'Stable') return 'bg-lavender text-lavender-foreground'
+  if (trend === 'Mixed' || trend === 'Decreasing') return 'bg-attention text-attention-foreground'
+  return 'bg-muted text-muted-foreground'
 }
 
 interface TrendsCardProps {
@@ -22,13 +31,18 @@ function TrendsCard({ status, moodTrend, energyTrend }: TrendsCardProps) {
   return (
     <Card>
       <CardHeader>
-        <CardTitle>Your Trends</CardTitle>
+        <div className="flex items-center gap-2">
+          <div className="flex size-9 items-center justify-center rounded-full bg-blush text-blush-foreground">
+            <TrendingUp className="size-4" aria-hidden="true" />
+          </div>
+          <CardTitle>Your Trends</CardTitle>
+        </div>
       </CardHeader>
       <CardContent className="text-sm">
         {status === 'loading' && (
-          <div className="flex items-center gap-2 text-muted-foreground">
-            <Loader2 className="size-4 animate-spin" aria-hidden="true" />
-            Loading your trends…
+          <div role="status" className="flex flex-col gap-2">
+            <Skeleton className="h-5 w-40" />
+            <Skeleton className="h-5 w-40" />
           </div>
         )}
 
@@ -38,18 +52,16 @@ function TrendsCard({ status, moodTrend, energyTrend }: TrendsCardProps) {
 
         {status === 'ready' && (
           <div className="flex flex-col gap-3">
-            <div>
-              <p>
-                Mood trend: <span className="font-medium">{moodTrend}</span>
-              </p>
-              {moodNote && <p className="text-caption text-muted-foreground">{moodNote}</p>}
+            <div className="flex flex-wrap items-center gap-2">
+              <span className="text-muted-foreground">Mood trend</span>
+              <Badge className={trendBadgeClassName(moodTrend)}>{moodTrend}</Badge>
             </div>
-            <div>
-              <p>
-                Energy trend: <span className="font-medium">{energyTrend}</span>
-              </p>
-              {energyNote && <p className="text-caption text-muted-foreground">{energyNote}</p>}
+            {moodNote && <p className="text-caption text-muted-foreground">{moodNote}</p>}
+            <div className="flex flex-wrap items-center gap-2">
+              <span className="text-muted-foreground">Energy trend</span>
+              <Badge className={trendBadgeClassName(energyTrend)}>{energyTrend}</Badge>
             </div>
+            {energyNote && <p className="text-caption text-muted-foreground">{energyNote}</p>}
             <p className="text-caption text-muted-foreground">
               This is based only on your recorded information.
             </p>
