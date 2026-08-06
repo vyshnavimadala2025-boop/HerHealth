@@ -62,7 +62,7 @@ function ReportsPage() {
         <PersonalTimeline status={status} entries={timeline} onRetry={retry} />
       </div>
 
-      <div className="print:hidden">
+      <div id="export" className="scroll-mt-24 print:hidden">
         <DataExportCard status={exportStatus} onExport={exportData} />
       </div>
     </main>

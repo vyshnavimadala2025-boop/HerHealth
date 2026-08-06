@@ -56,7 +56,7 @@ function PeriodHistory({ status, records, onEdit, onDeleted }: PeriodHistoryProp
               return (
                 <li
                   key={record.id}
-                  className="flex flex-col gap-1 rounded-lg border border-border p-3 text-sm transition-[box-shadow,border-color] hover:border-primary/30 hover:shadow-sm"
+                  className="flex flex-col gap-1 rounded-xl border border-border p-3.5 text-sm transition-[box-shadow,border-color] duration-200 hover:border-primary/30 hover:shadow-sm"
                 >
                   <div className="flex flex-wrap items-start justify-between gap-2">
                     <div>
@@ -75,6 +75,7 @@ function PeriodHistory({ status, records, onEdit, onDeleted }: PeriodHistoryProp
                         type="button"
                         variant="ghost"
                         size="icon-sm"
+                        className="size-11"
                         aria-label="Edit this period record"
                         onClick={() => onEdit(record)}
                       >

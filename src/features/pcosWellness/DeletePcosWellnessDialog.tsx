@@ -44,7 +44,13 @@ function DeletePcosWellnessDialog({ entry, onDeleted }: DeletePcosWellnessDialog
   return (
     <AlertDialog open={open} onOpenChange={(next) => !isDeleting && setOpen(next)}>
       <AlertDialogTrigger asChild>
-        <Button type="button" variant="ghost" size="icon-sm" aria-label="Delete this wellness entry">
+        <Button
+          type="button"
+          variant="ghost"
+          size="icon-sm"
+          className="size-11"
+          aria-label="Delete this wellness entry"
+        >
           <Trash2 />
         </Button>
       </AlertDialogTrigger>

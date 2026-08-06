@@ -1,9 +1,9 @@
 import { useRef, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { Card } from '@/components/ui/card'
 import { useAuth } from '@/features/auth/useAuth'
 import { completeOnboarding } from '@/features/profile/profileService'
 import type { AgeRange, TrackingPreference } from '@/features/profile/types'
+import OnboardingLayout from '@/features/onboarding/OnboardingLayout'
 import WelcomeStep from '@/features/onboarding/steps/WelcomeStep'
 import ProfileStep from '@/features/onboarding/steps/ProfileStep'
 import PreferencesStep from '@/features/onboarding/steps/PreferencesStep'
@@ -66,9 +66,15 @@ function OnboardingPage() {
   }
 
   return (
-    <main className="flex flex-1 flex-col items-center justify-center bg-muted/30 p-6 py-12 animate-in fade-in duration-500 motion-reduce:animate-none">
-      <Card className="w-full max-w-md shadow-lg">
-        {step === 0 && <WelcomeStep onContinue={() => setStep(1)} />}
+    <OnboardingLayout>
+      {/* `key={step}` remounts on every step change, retriggering the
+          entrance animation for a lightweight step-transition effect
+          without extra transition-state bookkeeping. */}
+      <div
+        key={step}
+        className="flex flex-col gap-6 animate-in fade-in slide-in-from-right-2 duration-300 motion-reduce:animate-none"
+      >
+        {step === 0 && <WelcomeStep onContinue={() => setStep(1)} onSkip={() => setStep(3)} />}
         {step === 1 && (
           <ProfileStep
             fullName={fullName}
@@ -96,13 +102,14 @@ function OnboardingPage() {
             onContinue={handleComplete}
             isSaving={isSaving}
             error={submitError}
+            selectedPreferences={trackingPreferences}
           />
         )}
         {step === 4 && (
           <CompletionStep onGoToDashboard={() => navigate('/dashboard', { replace: true })} />
         )}
-      </Card>
-    </main>
+      </div>
+    </OnboardingLayout>
   )
 }
 

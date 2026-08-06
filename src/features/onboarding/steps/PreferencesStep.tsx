@@ -1,9 +1,26 @@
+import {
+  Droplet,
+  Flower2,
+  HeartPulse,
+  Leaf,
+  NotebookPen,
+  Smile,
+  type LucideIcon,
+} from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { Checkbox } from '@/components/ui/checkbox'
-import { CardHeader, CardTitle, CardDescription, CardContent, CardFooter } from '@/components/ui/card'
 import OnboardingProgress from '@/features/onboarding/OnboardingProgress'
 import { TRACKING_PREFERENCES, type TrackingPreference } from '@/features/profile/types'
 import { cn } from '@/lib/utils'
+
+const PREFERENCE_ICONS: Record<TrackingPreference, LucideIcon> = {
+  menstrual_cycle: HeartPulse,
+  period_symptoms: Droplet,
+  mood_wellbeing: Smile,
+  lifestyle_habits: Leaf,
+  pcos_tracking: Flower2,
+  general_notes: NotebookPen,
+}
 
 interface PreferencesStepProps {
   selected: TrackingPreference[]
@@ -14,23 +31,29 @@ interface PreferencesStepProps {
 
 function PreferencesStep({ selected, onToggle, onBack, onContinue }: PreferencesStepProps) {
   return (
-    <>
-      <CardHeader>
-        <OnboardingProgress step={3} totalSteps={4} />
-        <CardTitle>Tracking preferences</CardTitle>
-        <CardDescription>Choose what you&apos;d like to track. You can change this later.</CardDescription>
-      </CardHeader>
-      <CardContent className="flex flex-col gap-3">
-        <div className="grid grid-cols-1 gap-2 sm:grid-cols-2">
+    <div className="flex flex-col gap-6">
+      <OnboardingProgress step={2} totalSteps={4} />
+
+      <div className="flex flex-col gap-2">
+        <h1 className="text-heading font-display text-foreground">What would you like to focus on?</h1>
+        <p className="text-body text-muted-foreground">
+          Choose the areas you&apos;d like HerHealth to support. There is no right or wrong
+          answer, and you can change these anytime.
+        </p>
+      </div>
+
+      <div className="flex flex-col gap-3">
+        <div className="grid grid-cols-1 gap-2.5 sm:grid-cols-2">
           {TRACKING_PREFERENCES.map((option) => {
             const checked = selected.includes(option.value)
+            const Icon = PREFERENCE_ICONS[option.value]
             return (
               <label
                 key={option.value}
                 htmlFor={`onboarding-pref-${option.value}`}
                 className={cn(
-                  'flex cursor-pointer items-center gap-3 rounded-lg border p-3 text-sm transition-colors hover:bg-muted/50',
-                  checked ? 'border-primary bg-accent/40' : 'border-border',
+                  'flex min-h-11 cursor-pointer items-center gap-3 rounded-xl border p-3.5 text-sm transition-all duration-200 hover:border-primary/40 hover:shadow-sm',
+                  checked ? 'border-primary bg-accent/50' : 'border-border bg-background',
                 )}
               >
                 <Checkbox
@@ -38,6 +61,7 @@ function PreferencesStep({ selected, onToggle, onBack, onContinue }: Preferences
                   checked={checked}
                   onCheckedChange={() => onToggle(option.value)}
                 />
+                <Icon className="size-4 shrink-0 text-primary" aria-hidden="true" />
                 {option.label}
               </label>
             )
@@ -47,16 +71,28 @@ function PreferencesStep({ selected, onToggle, onBack, onContinue }: Preferences
           Your selections help personalize your experience. HerHealth does not provide medical
           diagnosis.
         </p>
-      </CardContent>
-      <CardFooter className="flex gap-2">
-        <Button type="button" variant="outline" className="flex-1" onClick={onBack}>
+      </div>
+
+      <div className="flex gap-3">
+        <Button
+          type="button"
+          variant="outline"
+          size="lg"
+          className="h-14 flex-1 rounded-xl text-base"
+          onClick={onBack}
+        >
           Back
         </Button>
-        <Button type="button" className="flex-1" onClick={onContinue}>
+        <Button
+          type="button"
+          size="lg"
+          className="h-14 flex-1 rounded-xl text-base transition-transform duration-200 hover:-translate-y-0.5"
+          onClick={onContinue}
+        >
           Continue
         </Button>
-      </CardFooter>
-    </>
+      </div>
+    </div>
   )
 }
 

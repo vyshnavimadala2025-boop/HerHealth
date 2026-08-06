@@ -91,6 +91,7 @@ function PcosWellnessHistory({ status, entries, onEdit, onDeleted, onRetry }: Pc
                       type="button"
                       variant="ghost"
                       size="icon-sm"
+                      className="size-11"
                       aria-label="Edit this wellness entry"
                       onClick={() => onEdit(entry)}
                     >

@@ -16,9 +16,11 @@ function ProfilePage() {
       />
       <PrivacyBadge label="Visible only to you — never shared or made public" />
 
-      <ProfileInfoForm />
-      <ChangePasswordForm />
-      <AccountSection />
+      <div id="account-settings" className="flex scroll-mt-24 flex-col gap-6">
+        <ProfileInfoForm />
+        <ChangePasswordForm />
+        <AccountSection />
+      </div>
       <div id="privacy" className="scroll-mt-24">
         <DataPrivacySection />
       </div>

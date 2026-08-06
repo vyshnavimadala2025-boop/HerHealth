@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom'
 import { BookMarked, Compass, NotebookPen, ShieldOff } from 'lucide-react'
 import { Button } from '@/components/ui/button'
+import howItWorksImage from '@/assets/images/how-it-works-hero.png'
 
 const STEPS = [
   {
@@ -37,6 +38,34 @@ function HowItWorksPage() {
           information you choose to share.
         </p>
       </div>
+
+      <figure className="flex flex-col gap-3 animate-in fade-in slide-in-from-bottom-1 duration-500 motion-reduce:animate-none">
+        <div className="overflow-hidden rounded-2xl border border-border shadow-sm">
+          <img
+            src={howItWorksImage}
+            alt="Three moments in a HerHealth routine: journaling by candlelight, reviewing personal insights on the HerHealth app, and a quiet mindfulness practice"
+            width={1672}
+            height={941}
+            loading="eager"
+            decoding="async"
+            className="aspect-[16/9] w-full object-cover"
+          />
+        </div>
+        <figcaption className="flex flex-wrap items-center justify-center gap-x-6 gap-y-2 text-caption text-muted-foreground">
+          <span className="flex items-center gap-1.5">
+            <span className="size-2 rounded-full bg-lavender" aria-hidden="true" />
+            Record
+          </span>
+          <span className="flex items-center gap-1.5">
+            <span className="size-2 rounded-full bg-blush" aria-hidden="true" />
+            Understand
+          </span>
+          <span className="flex items-center gap-1.5">
+            <span className="size-2 rounded-full bg-support" aria-hidden="true" />
+            Reflect
+          </span>
+        </figcaption>
+      </figure>
 
       <div className="relative flex flex-col gap-8 rounded-2xl border border-border bg-card p-6 shadow-sm sm:p-8">
         {STEPS.map((step, index) => (

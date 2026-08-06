@@ -1,38 +1,47 @@
 import { Link } from 'react-router-dom'
 import {
   Ban,
-  Database,
   Download,
-  ShieldCheck,
+  HeartPulse,
+  Lock,
+  MessageCircle,
   Sparkles,
+  SlidersHorizontal,
+  Trash2,
   Users,
   type LucideIcon,
 } from 'lucide-react'
+import { Button } from '@/components/ui/button'
+import privacyImage from '@/assets/images/herhealth-privacy-personal-space.png'
 
-const STORES: { icon: LucideIcon; title: string; description: string }[] = [
+const PRINCIPLES: { icon: LucideIcon; accent: string; title: string; description: string }[] = [
   {
-    icon: Database,
-    title: 'What HerHealth stores',
+    icon: Lock,
+    accent: 'bg-lavender text-lavender-foreground',
+    title: 'Your information stays personal',
     description:
-      'Only the information you choose to enter: daily check-ins, cycle and period dates, journal entries, optional PCOS/PCOD wellness observations, goals and progress notes, and your reminder and account preferences. Nothing is inferred or added beyond what you record.',
+      'Everything you record — check-ins, cycle dates, journal entries, goals — is scoped to your own account and never visible to anyone else. Access is enforced at the database level, not only in the app itself.',
   },
   {
-    icon: ShieldCheck,
-    title: 'Private to your account',
+    icon: SlidersHorizontal,
+    accent: 'bg-blush text-blush-foreground',
+    title: 'You remain in control',
     description:
-      'Every piece of information you record is scoped to your own account and is not visible to any other user. Access is enforced at the database level, not only in the app itself, so your data stays isolated to your account by design.',
+      'Export a copy of your recorded data at any time, and permanently delete it — by category or all at once — whenever you choose. Deletion is permanent and cannot be undone.',
   },
   {
     icon: Sparkles,
-    title: 'Your journal stays private',
+    accent: 'bg-support text-support-foreground',
+    title: 'Designed for thoughtful wellness',
     description:
-      'Journal entries and PCOS/PCOD wellness notes are never analyzed, summarized, or included in your insights, reports, or timeline. They exist only where you wrote them.',
+      'HerHealth supports recording and reflection, not diagnosis. Your journal entries and wellness notes are never analyzed, summarized, or included in your insights, reports, or timeline.',
   },
   {
-    icon: Download,
-    title: 'You control your data',
+    icon: MessageCircle,
+    accent: 'bg-accent text-accent-foreground',
+    title: 'Clear and respectful',
     description:
-      'You can export a copy of your recorded data (JSON or CSV) at any time from Wellness Reports, and permanently delete your data — by category or all at once — from Profile & Account. Deletion is permanent and cannot be undone.',
+      "We describe our privacy practices plainly and avoid claims we can't support. What you read on this page reflects what HerHealth actually does, not marketing language.",
   },
 ]
 
@@ -43,66 +52,147 @@ const DOES_NOT = [
   'HerHealth does not share your data with other users.',
 ]
 
+/**
+ * The hero breaks out to the wider marketing container (matching the
+ * homepage's hero width) so the image can read as a large editorial
+ * visual rather than a thumbnail; everything below settles back into the
+ * narrower reading column already used by this page's sibling content
+ * pages (About, How It Works), since this page still leads with several
+ * paragraphs of privacy content and shouldn't become a wall of text at
+ * full container width.
+ */
 function PrivacyPage() {
   return (
-    <main className="mx-auto flex w-full max-w-3xl flex-1 flex-col gap-10 px-4 py-14 sm:px-6">
-      <div className="flex flex-col items-start gap-4 animate-in fade-in slide-in-from-bottom-1 duration-500 motion-reduce:animate-none">
-        <div className="flex size-14 items-center justify-center rounded-full bg-lavender text-lavender-foreground">
-          <ShieldCheck className="size-6" aria-hidden="true" />
-        </div>
-        <div className="flex flex-col gap-2">
-          <p className="text-caption font-medium tracking-wide text-primary uppercase">Privacy</p>
-          <h1 className="text-title font-display text-foreground">Privacy at HerHealth</h1>
-          <p className="text-body text-muted-foreground">
-            This page describes how HerHealth handles the information you choose to record.
-          </p>
-        </div>
-      </div>
+    <main className="flex flex-1 flex-col">
+      <section className="mx-auto w-full max-w-6xl px-4 pt-14 pb-4 sm:px-6 lg:pt-20 lg:pb-10">
+        <div className="grid grid-cols-1 gap-10 lg:grid-cols-2 lg:items-center lg:gap-14">
+          <div className="flex flex-col items-start gap-4 animate-in fade-in slide-in-from-bottom-2 duration-700 motion-reduce:animate-none">
+            <p className="text-caption font-medium tracking-wide text-primary uppercase">
+              Your Space, Your Control
+            </p>
+            <h1 className="text-title font-display text-foreground sm:text-display">
+              Your wellness journey is personal.
+            </h1>
+            <p className="max-w-lg text-body-lg text-muted-foreground">
+              HerHealth is designed to give you a private space to record, reflect on, and understand
+              your personal wellness information — with clear control over your data.
+            </p>
+          </div>
 
-      <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
-        {STORES.map((item) => (
-          <section
-            key={item.title}
-            className="flex flex-col gap-2 rounded-2xl border border-border bg-card p-5 shadow-sm transition-shadow hover:shadow-sm"
-          >
-            <div className="flex size-9 items-center justify-center rounded-full bg-accent text-accent-foreground">
-              <item.icon className="size-4" aria-hidden="true" />
+          <div className="animate-in fade-in slide-in-from-bottom-2 duration-700 delay-150 motion-reduce:animate-none">
+            <div className="overflow-hidden rounded-2xl shadow-md">
+              <img
+                src={privacyImage}
+                alt="Woman relaxing comfortably on a sofa in a warm, private living room, looking at her phone — representing a calm personal space where her wellness information stays her own"
+                width={1672}
+                height={941}
+                loading="eager"
+                decoding="async"
+                className="aspect-[4/3] w-full object-cover object-[28%_40%] sm:aspect-[16/10] sm:object-[26%_35%] lg:aspect-[4/5] lg:object-[22%_32%]"
+              />
             </div>
-            <h2 className="font-display text-base text-foreground">{item.title}</h2>
-            <p className="text-caption text-muted-foreground">{item.description}</p>
-          </section>
-        ))}
-      </div>
-
-      <section className="flex flex-col gap-3">
-        <div className="flex items-center gap-2">
-          <Ban className="size-5 text-muted-foreground" aria-hidden="true" />
-          <h2 className="font-display text-lg text-foreground">What HerHealth does not do</h2>
+          </div>
         </div>
-        <ul className="grid grid-cols-1 gap-2 sm:grid-cols-2">
-          {DOES_NOT.map((item) => (
-            <li
-              key={item}
-              className="flex items-start gap-2 rounded-lg border border-border p-3 text-body text-muted-foreground"
-            >
-              <Users className="mt-0.5 size-4 shrink-0 text-muted-foreground" aria-hidden="true" />
-              {item}
-            </li>
-          ))}
-        </ul>
       </section>
 
-      <section className="flex flex-col gap-2 rounded-2xl border border-border bg-muted/30 p-5">
-        <h2 className="font-display text-base text-foreground">A note on claims we don&apos;t make</h2>
-        <p className="text-caption text-muted-foreground">
-          HerHealth is not HIPAA-certified, does not claim clinical accuracy, and is not reviewed or
-          approved by a medical body. See our{' '}
-          <Link to="/medical-disclaimer" className="text-primary underline underline-offset-2">
-            Medical Disclaimer
-          </Link>{' '}
-          for more.
-        </p>
-      </section>
+      <div className="mx-auto flex w-full max-w-3xl flex-1 flex-col gap-14 px-4 py-14 sm:px-6">
+        <section className="flex flex-col gap-8">
+          <h2 className="font-display text-heading text-foreground">How we think about your privacy</h2>
+          <div className="flex flex-col gap-8">
+            {PRINCIPLES.map((principle) => (
+              <div key={principle.title} className="flex gap-4">
+                <div
+                  className={`flex size-11 shrink-0 items-center justify-center rounded-full ${principle.accent}`}
+                >
+                  <principle.icon className="size-5" aria-hidden="true" />
+                </div>
+                <div className="flex flex-col gap-1 pt-1">
+                  <h3 className="font-display text-lg text-foreground">{principle.title}</h3>
+                  <p className="text-body text-muted-foreground">{principle.description}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+
+          <div className="flex flex-col gap-2 rounded-2xl border border-border bg-muted/30 p-5">
+            <div className="flex items-center gap-2">
+              <Ban className="size-4 text-muted-foreground" aria-hidden="true" />
+              <p className="text-sm font-medium text-foreground">What HerHealth does not do</p>
+            </div>
+            <ul className="grid grid-cols-1 gap-2 sm:grid-cols-2">
+              {DOES_NOT.map((item) => (
+                <li key={item} className="flex items-start gap-2 text-caption text-muted-foreground">
+                  <Users className="mt-0.5 size-3.5 shrink-0" aria-hidden="true" />
+                  {item}
+                </li>
+              ))}
+            </ul>
+          </div>
+        </section>
+
+        <section className="flex flex-col gap-5">
+          <h2 className="font-display text-heading text-foreground">Your data controls</h2>
+          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+            <div className="flex flex-col gap-3 rounded-2xl border border-border bg-card p-5 shadow-sm">
+              <div className="flex size-9 items-center justify-center rounded-full bg-accent text-accent-foreground">
+                <Download className="size-4" aria-hidden="true" />
+              </div>
+              <h3 className="font-display text-base text-foreground">Export your data</h3>
+              <p className="text-caption text-muted-foreground">
+                Download your complete HerHealth history as JSON or CSV, generated in your browser.
+              </p>
+              <Button asChild variant="outline" size="sm" className="mt-1 w-fit">
+                <Link to="/reports">Go to Wellness Reports</Link>
+              </Button>
+            </div>
+            <div className="flex flex-col gap-3 rounded-2xl border border-border bg-card p-5 shadow-sm">
+              <div className="flex size-9 items-center justify-center rounded-full bg-attention text-attention-foreground">
+                <Trash2 className="size-4" aria-hidden="true" />
+              </div>
+              <h3 className="font-display text-base text-foreground">Delete your data</h3>
+              <p className="text-caption text-muted-foreground">
+                Permanently delete your recorded data — by category or all at once. This cannot be
+                undone.
+              </p>
+              <Button asChild variant="outline" size="sm" className="mt-1 w-fit">
+                <Link to="/profile#privacy">Go to Profile &amp; Account</Link>
+              </Button>
+            </div>
+          </div>
+        </section>
+
+        <section className="flex flex-col gap-2 rounded-2xl border border-border bg-muted/30 p-5">
+          <div className="flex items-center gap-2">
+            <HeartPulse className="size-4 text-muted-foreground" aria-hidden="true" />
+            <h2 className="font-display text-base text-foreground">A note on wellness and medical care</h2>
+          </div>
+          <p className="text-caption text-muted-foreground">
+            HerHealth helps you record, reflect, and understand your personal wellness information. It
+            is not a substitute for professional medical advice, diagnosis, or treatment. See our{' '}
+            <Link to="/medical-disclaimer" className="text-primary underline underline-offset-2">
+              Medical Disclaimer
+            </Link>{' '}
+            for more.
+          </p>
+        </section>
+
+        <section className="flex flex-col items-center gap-4 rounded-2xl border border-border bg-card px-6 py-12 text-center shadow-sm sm:px-10">
+          <h2 className="max-w-md text-title font-display text-foreground">
+            A more personal way to understand your wellness.
+          </h2>
+          <p className="max-w-md text-body text-muted-foreground">
+            Build awareness at your own pace in a space designed around your personal journey.
+          </p>
+          <div className="flex w-full flex-col gap-3 pt-2 sm:w-auto sm:flex-row">
+            <Button asChild size="lg" className="w-full sm:w-auto">
+              <Link to="/signup">Get Started</Link>
+            </Button>
+            <Button asChild variant="outline" size="lg" className="w-full sm:w-auto">
+              <Link to="/how-it-works">Learn How It Works</Link>
+            </Button>
+          </div>
+        </section>
+      </div>
     </main>
   )
 }

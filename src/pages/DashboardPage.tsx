@@ -1,10 +1,12 @@
 import { useState } from 'react'
-import { ClipboardList, HeartPulse, Target } from 'lucide-react'
+import { Baby, ClipboardList, Compass, HeartPulse, Sparkles, Target, Waves, Wind } from 'lucide-react'
 import { useAuth } from '@/features/auth/useAuth'
 import { useDashboardData } from '@/features/checkins/useDashboardData'
 import CheckInForm from '@/features/checkins/CheckInForm'
 import RecentCheckIns from '@/features/checkins/RecentCheckIns'
 import TodayHero from '@/features/checkins/TodayHero'
+import DashboardWelcomeHero from '@/features/checkins/DashboardWelcomeHero'
+import TodayWellnessOverview from '@/features/checkins/TodayWellnessOverview'
 import SuggestedNextStep from '@/features/checkins/SuggestedNextStep'
 import DashboardCycleCard from '@/features/periods/DashboardCycleCard'
 import DashboardJournalCard from '@/features/journal/DashboardJournalCard'
@@ -33,7 +35,19 @@ function DashboardPage() {
   }
 
   return (
-    <main className="mx-auto flex w-full max-w-5xl flex-1 flex-col gap-8 p-4 py-8 animate-in fade-in duration-500 motion-reduce:animate-none sm:p-6">
+    <main className="mx-auto flex w-full max-w-5xl flex-1 flex-col gap-10 p-4 py-8 animate-in fade-in duration-500 motion-reduce:animate-none sm:p-6">
+      <DashboardWelcomeHero firstName={firstName ?? ''} />
+
+      <div className="flex flex-col gap-4">
+        <h2 className="font-display text-lg text-foreground">Your Wellness Today</h2>
+        <TodayWellnessOverview
+          todayStatus={todayStatus}
+          todayCheckIn={todayCheckIn}
+          periodRecords={insightsData.periodRecords}
+          estimatedNextPeriod={insightsData.estimatedNextPeriod}
+        />
+      </div>
+
       <div id="checkin" className="scroll-mt-24">
         <TodayHero
           firstName={firstName ?? ''}
@@ -104,7 +118,7 @@ function DashboardPage() {
       </section>
 
       <section className="flex flex-col gap-4">
-        <h2 className="font-display text-lg text-foreground">Continue your journey</h2>
+        <h2 className="font-display text-lg text-foreground">Small steps for today</h2>
         <div className="flex flex-wrap gap-3">
           <DashboardJournalCard
             onLoaded={(status, date) => {
@@ -119,6 +133,41 @@ function DashboardPage() {
             description="Review your cycle history"
             href="/cycle-tracker"
             accentClassName="bg-lavender text-lavender-foreground"
+          />
+          <NextStepTile
+            icon={Sparkles}
+            label="Fertility Journey"
+            description="Track fertility wellness patterns"
+            href="/fertility-journey"
+            accentClassName="bg-lavender text-lavender-foreground"
+          />
+          <NextStepTile
+            icon={Baby}
+            label="Baby Growth"
+            description="Your pregnancy wellness companion"
+            href="/baby-growth"
+            accentClassName="bg-blush text-blush-foreground"
+          />
+          <NextStepTile
+            icon={Waves}
+            label="Hormone Balance"
+            description="Understand your hormonal patterns"
+            href="/hormone-balance"
+            accentClassName="bg-lavender text-lavender-foreground"
+          />
+          <NextStepTile
+            icon={Compass}
+            label="Lifestyle Intelligence"
+            description="Explore lifestyle and wellness patterns"
+            href="/lifestyle-intelligence"
+            accentClassName="bg-support text-support-foreground"
+          />
+          <NextStepTile
+            icon={Wind}
+            label="Environmental Wellness"
+            description="Understand your surroundings"
+            href="/environmental-wellness"
+            accentClassName="bg-support text-support-foreground"
           />
           <NextStepTile
             icon={Target}
@@ -136,6 +185,11 @@ function DashboardPage() {
           />
         </div>
       </section>
+
+      <p className="text-center text-caption text-muted-foreground">
+        HerHealth supports personal wellness awareness and reflection. It is not a substitute for
+        professional medical advice.
+      </p>
     </main>
   )
 }

@@ -34,6 +34,13 @@
   --input: oklch(0.92 0.012 20);
   --ring: oklch(0.48 0.1 335);
 
+  --hero-panel: oklch(0.19 0.045 335);
+  --hero-panel-foreground: oklch(0.97 0.01 335);
+  --hero-panel-accent: oklch(0.85 0.06 15);
+  --light-panel-foreground: oklch(0.2 0.02 20);
+  --light-panel-muted: oklch(0.4 0.03 20);
+  --auth-panel: oklch(0.97 0.012 20);
+
   --shadow-color: 12 40% 30%;
   --shadow-raw-xs: 0 1px 2px -1px hsl(var(--shadow-color) / 0.06);
   --shadow-raw-sm: 0 2px 6px -2px hsl(var(--shadow-color) / 0.08);
@@ -70,6 +77,7 @@
   --border: oklch(1 0 0 / 12%);
   --input: oklch(1 0 0 / 15%);
   --ring: oklch(0.62 0.11 335);
+  --auth-panel: oklch(0.19 0.025 335);
 
   --shadow-color: 12 60% 4%;
   --shadow-raw-xs: 0 1px 2px -1px hsl(var(--shadow-color) / 0.3);
@@ -111,6 +119,12 @@
   --color-border: var(--border);
   --color-input: var(--input);
   --color-ring: var(--ring);
+  --color-hero-panel: var(--hero-panel);
+  --color-hero-panel-foreground: var(--hero-panel-foreground);
+  --color-hero-panel-accent: var(--hero-panel-accent);
+  --color-light-panel-foreground: var(--light-panel-foreground);
+  --color-light-panel-muted: var(--light-panel-muted);
+  --color-auth-panel: var(--auth-panel);
 
   --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
   --font-display: "Fraunces", ui-serif, Georgia, serif;

@@ -122,6 +122,7 @@ function PeriodForm({ userId, editingRecord, onSaved, onCancelEdit }: PeriodForm
             <Input
               id="period-start"
               type="date"
+              className="h-11 rounded-xl"
               value={startDate}
               max={getLocalDateString()}
               onChange={(event) => setStartDate(event.target.value)}
@@ -142,6 +143,7 @@ function PeriodForm({ userId, editingRecord, onSaved, onCancelEdit }: PeriodForm
             <Input
               id="period-end"
               type="date"
+              className="h-11 rounded-xl"
               value={endDate}
               max={getLocalDateString()}
               onChange={(event) => setEndDate(event.target.value)}
@@ -182,11 +184,18 @@ function PeriodForm({ userId, editingRecord, onSaved, onCancelEdit }: PeriodForm
         </CardContent>
         <CardFooter className="flex gap-2">
           {isEditing && (
-            <Button type="button" variant="outline" className="flex-1" onClick={onCancelEdit} disabled={isSaving}>
+            <Button
+              type="button"
+              variant="outline"
+              size="lg"
+              className="h-11 flex-1 rounded-xl"
+              onClick={onCancelEdit}
+              disabled={isSaving}
+            >
               Cancel
             </Button>
           )}
-          <Button type="submit" className="flex-1" disabled={isSaving}>
+          <Button type="submit" size="lg" className="h-11 flex-1 rounded-xl" disabled={isSaving}>
             {isSaving && <Loader2 className="animate-spin" aria-hidden="true" />}
             {isSaving ? 'Saving period…' : isEditing ? 'Update Period' : 'Save Period'}
           </Button>

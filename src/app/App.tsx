@@ -12,6 +12,23 @@ import CycleTrackerPage from '@/pages/CycleTrackerPage'
 import JournalPage from '@/pages/JournalPage'
 import ProfilePage from '@/pages/ProfilePage'
 import WellnessTrackerPage from '@/pages/WellnessTrackerPage'
+import FertilityJourneyPage from '@/pages/FertilityJourneyPage'
+import BabyGrowthPage from '@/pages/BabyGrowthPage'
+import HormoneBalancePage from '@/pages/HormoneBalancePage'
+import LifestyleIntelligencePage from '@/pages/LifestyleIntelligencePage'
+import EnvironmentalWellnessPage from '@/pages/EnvironmentalWellnessPage'
+import InsightsPage from '@/pages/InsightsPage'
+import InsightsAiPage from '@/pages/InsightsAiPage'
+import InsightsWeeklyPage from '@/pages/InsightsWeeklyPage'
+import InsightsOverviewPage from '@/pages/InsightsOverviewPage'
+import InsightsTrendsPage from '@/pages/InsightsTrendsPage'
+import InsightsHistoryPage from '@/pages/InsightsHistoryPage'
+import InsightsRecommendationsPage from '@/pages/InsightsRecommendationsPage'
+import InsightsReportsPage from '@/pages/InsightsReportsPage'
+import KnowledgeHubPage from '@/pages/KnowledgeHubPage'
+import ComingSoonPage from '@/pages/ComingSoonPage'
+import HelpCenterPage from '@/pages/HelpCenterPage'
+import ReleaseNotesPage from '@/pages/ReleaseNotesPage'
 import GoalsPage from '@/pages/GoalsPage'
 import ReportsPage from '@/pages/ReportsPage'
 import DesignSystemPage from '@/pages/DesignSystemPage'
@@ -40,25 +57,59 @@ function App() {
           <Route path="/how-it-works" element={<HowItWorksPage />} />
 
           <Route element={<PublicOnlyRoute />}>
-            <Route path="/login" element={<LoginPage />} />
-            <Route path="/signup" element={<SignupPage />} />
             <Route path="/forgot-password" element={<ForgotPasswordPage />} />
+          </Route>
+        </Route>
+
+        {/*
+          Login/Signup render full-screen outside AppShell (no marketing
+          navbar/footer) for the immersive split-screen auth experience —
+          still gated by the same PublicOnlyRoute redirect-if-authenticated
+          guard used everywhere else.
+        */}
+        <Route element={<PublicOnlyRoute />}>
+          <Route path="/login" element={<LoginPage />} />
+          <Route path="/signup" element={<SignupPage />} />
+        </Route>
+
+        {/*
+          Onboarding renders full-screen outside AppShell too (same reason
+          as Login/Signup above) — still gated by the same ProtectedRoute +
+          OnboardingGuard used before this change.
+        */}
+        <Route element={<ProtectedRoute />}>
+          <Route element={<OnboardingGuard />}>
+            <Route path="/onboarding" element={<OnboardingPage />} />
           </Route>
         </Route>
 
         <Route element={<AppShell variant="authenticated" />}>
           <Route element={<ProtectedRoute />}>
-            <Route element={<OnboardingGuard />}>
-              <Route path="/onboarding" element={<OnboardingPage />} />
-            </Route>
             <Route element={<RequireOnboarding />}>
               <Route path="/dashboard" element={<DashboardPage />} />
               <Route path="/cycle-tracker" element={<CycleTrackerPage />} />
               <Route path="/journal" element={<JournalPage />} />
               <Route path="/profile" element={<ProfilePage />} />
               <Route path="/wellness-tracker" element={<WellnessTrackerPage />} />
+              <Route path="/fertility-journey" element={<FertilityJourneyPage />} />
+              <Route path="/baby-growth" element={<BabyGrowthPage />} />
+              <Route path="/hormone-balance" element={<HormoneBalancePage />} />
+              <Route path="/lifestyle-intelligence" element={<LifestyleIntelligencePage />} />
+              <Route path="/environmental-wellness" element={<EnvironmentalWellnessPage />} />
               <Route path="/goals" element={<GoalsPage />} />
               <Route path="/reports" element={<ReportsPage />} />
+              <Route path="/insights" element={<InsightsPage />} />
+              <Route path="/insights/ai" element={<InsightsAiPage />} />
+              <Route path="/insights/weekly" element={<InsightsWeeklyPage />} />
+              <Route path="/insights/overview" element={<InsightsOverviewPage />} />
+              <Route path="/insights/trends" element={<InsightsTrendsPage />} />
+              <Route path="/insights/history" element={<InsightsHistoryPage />} />
+              <Route path="/insights/recommendations" element={<InsightsRecommendationsPage />} />
+              <Route path="/insights/reports" element={<InsightsReportsPage />} />
+              <Route path="/learn" element={<KnowledgeHubPage />} />
+              <Route path="/help-center" element={<HelpCenterPage />} />
+              <Route path="/release-notes" element={<ReleaseNotesPage />} />
+              <Route path="/coming-soon/:slug" element={<ComingSoonPage />} />
             </Route>
           </Route>
         </Route>

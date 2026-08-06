@@ -1,34 +1,33 @@
 import { Link, NavLink } from 'react-router-dom'
-import { HeartPulse, LogOut, User } from 'lucide-react'
-import { Button } from '@/components/ui/button'
-import {
-  DropdownMenu,
-  DropdownMenuTrigger,
-  DropdownMenuContent,
-  DropdownMenuItem,
-} from '@/components/ui/dropdown-menu'
-import { cn } from '@/lib/utils'
-import ProductsMenu from '@/components/layout/ProductsMenu'
+import { HeartPulse } from 'lucide-react'
+import CategoryDropdownMenu from '@/components/layout/CategoryDropdownMenu'
+import SupportMenu from '@/components/layout/SupportMenu'
+import ProfileMenu from '@/components/layout/ProfileMenu'
 import MobileNav from '@/components/layout/MobileNav'
-import { AUTHENTICATED_CATEGORY_LABELS } from '@/components/layout/productCatalog'
+import { WELLNESS_ITEMS } from '@/components/layout/wellnessCatalog'
+import { LIFESTYLE_ITEMS } from '@/components/layout/lifestyleCatalog'
+import { navLinkClass } from '@/components/layout/navLinkClass'
 import { useAuth } from '@/features/auth/useAuth'
-import { useLogout } from '@/features/auth/useLogout'
-
-const NAV_LINK_CLASS = ({ isActive }: { isActive: boolean }) =>
-  cn(
-    'rounded-lg px-2.5 py-1.5 text-sm font-medium transition-colors hover:text-foreground',
-    isActive ? 'text-foreground' : 'text-muted-foreground',
-  )
 
 /**
  * Authenticated-app navbar. Renders nothing while auth status is
  * 'loading' or 'unauthenticated' — identical to the old HeaderNav's
  * behavior for those states — since this shell only wraps protected
  * routes and ProtectedRoute itself owns the loading/redirect UI.
+ *
+ * IA note: the old single "Products" mega-menu (3 grouped columns, up to
+ * 880px wide) has been split into two focused, compact dropdowns —
+ * Wellness (reproductive health) and Lifestyle (preventive/lifestyle) —
+ * plus two new first-level destinations, Insights and Learn, promoted out
+ * of what used to be buried inside Products. Daily Check-In / Journal /
+ * Goals / Reports ("Personal Wellness") aren't a separate nav dropdown —
+ * Daily Check-In already lives on Dashboard itself, and Journal/Goals/
+ * Reports are one tap away via Dashboard's own quick-actions row, so a
+ * fourth dropdown for just those three would add a click without adding
+ * real discoverability.
  */
 function AuthenticatedNav() {
   const { status } = useAuth()
-  const { logout, isLoggingOut } = useLogout()
 
   if (status !== 'authenticated') {
     return null
@@ -46,33 +45,22 @@ function AuthenticatedNav() {
         </Link>
 
         <nav aria-label="Primary" className="hidden items-center gap-1 md:flex">
-          <NavLink to="/dashboard" className={NAV_LINK_CLASS}>
+          <NavLink to="/dashboard" className={navLinkClass}>
             Dashboard
           </NavLink>
-          <ProductsMenu labels={AUTHENTICATED_CATEGORY_LABELS} />
+          <CategoryDropdownMenu label="Wellness" items={WELLNESS_ITEMS} />
+          <CategoryDropdownMenu label="Lifestyle" items={LIFESTYLE_ITEMS} />
+          <NavLink to="/insights" className={navLinkClass}>
+            Insights
+          </NavLink>
+          <NavLink to="/learn" className={navLinkClass}>
+            Learn
+          </NavLink>
+          <SupportMenu />
         </nav>
 
-        <div className="hidden shrink-0 items-center gap-2 md:flex">
-          <DropdownMenu>
-            <DropdownMenuTrigger asChild>
-              <Button type="button" variant="ghost" size="sm" aria-label="Open account menu">
-                <User />
-                Account
-              </Button>
-            </DropdownMenuTrigger>
-            <DropdownMenuContent align="end">
-              <DropdownMenuItem asChild>
-                <Link to="/profile">Profile</Link>
-              </DropdownMenuItem>
-              <DropdownMenuItem asChild>
-                <Link to="/profile#privacy">Privacy &amp; Data</Link>
-              </DropdownMenuItem>
-              <DropdownMenuItem onClick={logout} disabled={isLoggingOut}>
-                <LogOut />
-                {isLoggingOut ? 'Signing out…' : 'Sign Out'}
-              </DropdownMenuItem>
-            </DropdownMenuContent>
-          </DropdownMenu>
+        <div className="hidden shrink-0 items-center md:flex">
+          <ProfileMenu />
         </div>
 
         <MobileNav variant="authenticated" />

@@ -1,4 +1,5 @@
 import { CalendarHeart } from 'lucide-react'
+import { Button } from '@/components/ui/button'
 import Skeleton from '@/components/shared/Skeleton'
 import EmptyState from '@/components/shared/EmptyState'
 import {
@@ -53,8 +54,13 @@ function CycleOverview({ status, records }: CycleOverviewProps) {
         {status === 'ready' && !latest && (
           <EmptyState
             icon={CalendarHeart}
-            title="No cycle records yet"
-            description="Add your first period below to start seeing your personal cycle overview."
+            title="Start with what you know."
+            description="Add your most recent cycle information to begin building a personal timeline."
+            action={
+              <Button asChild size="sm" className="mt-1">
+                <a href="#add-period">Add Cycle Information</a>
+              </Button>
+            }
           />
         )}
 

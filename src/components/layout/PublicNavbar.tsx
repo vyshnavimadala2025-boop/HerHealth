@@ -1,21 +1,17 @@
 import { Link, NavLink } from 'react-router-dom'
 import { HeartPulse } from 'lucide-react'
 import { Button } from '@/components/ui/button'
-import { cn } from '@/lib/utils'
-import ProductsMenu from '@/components/layout/ProductsMenu'
+import CategoryDropdownMenu from '@/components/layout/CategoryDropdownMenu'
 import MobileNav from '@/components/layout/MobileNav'
-import { PUBLIC_CATEGORY_LABELS } from '@/components/layout/productCatalog'
-
-const NAV_LINK_CLASS = ({ isActive }: { isActive: boolean }) =>
-  cn(
-    'rounded-lg px-2.5 py-1.5 text-sm font-medium transition-colors hover:text-foreground',
-    isActive ? 'text-foreground' : 'text-muted-foreground',
-  )
+import { WELLNESS_ITEMS } from '@/components/layout/wellnessCatalog'
+import { LIFESTYLE_ITEMS } from '@/components/layout/lifestyleCatalog'
+import { navLinkClass } from '@/components/layout/navLinkClass'
 
 /**
  * Public-facing marketing navbar — kept as its own component, separate
  * from AuthenticatedNav, so the two navigation surfaces can evolve
- * independently even though they share ProductsMenu/productCatalog.
+ * independently even though they share CategoryDropdownMenu and the
+ * underlying catalogs.
  */
 function PublicNavbar() {
   return (
@@ -27,17 +23,18 @@ function PublicNavbar() {
         </Link>
 
         <nav aria-label="Primary" className="hidden items-center gap-1 md:flex">
-          <NavLink to="/" end className={NAV_LINK_CLASS}>
+          <NavLink to="/" end className={navLinkClass}>
             Home
           </NavLink>
-          <ProductsMenu labels={PUBLIC_CATEGORY_LABELS} />
-          <NavLink to="/how-it-works" className={NAV_LINK_CLASS}>
+          <CategoryDropdownMenu label="Wellness" items={WELLNESS_ITEMS} />
+          <CategoryDropdownMenu label="Lifestyle" items={LIFESTYLE_ITEMS} />
+          <NavLink to="/how-it-works" className={navLinkClass}>
             How It Works
           </NavLink>
-          <NavLink to="/privacy" className={NAV_LINK_CLASS}>
+          <NavLink to="/privacy" className={navLinkClass}>
             Privacy
           </NavLink>
-          <NavLink to="/about" className={NAV_LINK_CLASS}>
+          <NavLink to="/about" className={navLinkClass}>
             About
           </NavLink>
         </nav>
