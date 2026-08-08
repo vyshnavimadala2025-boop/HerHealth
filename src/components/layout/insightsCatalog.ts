@@ -1,5 +1,5 @@
 import {
-  Bookmark,
+  CalendarRange,
   Compass,
   Download,
   Feather,
@@ -50,9 +50,9 @@ export const INSIGHT_GROUPS: InsightGroup[] = [
   },
   {
     key: 'overview',
-    label: 'Overview',
-    description: 'A rule-based summary of your recorded patterns, this week and this month.',
-    icon: Bookmark,
+    label: 'Monthly Summary',
+    description: 'A premium, in-depth wellness report for the last 30 days — score, trends, and an AI reflection.',
+    icon: CalendarRange,
     href: '/insights/overview',
   },
   {
@@ -116,10 +116,9 @@ export const INSIGHT_CARDS: InsightCardConfig[] = [
   {
     key: 'monthly-summary',
     name: 'Monthly Summary',
-    description: 'Your recorded activity over the last 30 days.',
-    icon: Bookmark,
+    description: 'A premium wellness score, trends, and AI reflection for the last 30 days.',
+    icon: CalendarRange,
     group: 'overview',
-    anchor: 'monthly-summary',
   },
   // Health Trends
   {
