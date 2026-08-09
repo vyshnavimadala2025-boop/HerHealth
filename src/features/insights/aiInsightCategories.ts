@@ -16,14 +16,10 @@ import type { EnergyTrendResult, MoodTrendResult } from '@/features/insights/typ
 import type { GoalProgressReportSummary } from '@/features/reports/types'
 import type { SleepSummary } from '@/features/sleepIntelligence/sleepCalculations'
 import type { StressRecoverySummary } from '@/features/stressRecovery/stressRecoveryCalculations'
+import type { SourceStatus } from '@/components/shared/dataStateText'
+import { capitalize } from '@/components/shared/dataStateText'
 
 export type ConfidenceLevel = 'High consistency' | 'Moderate consistency' | 'Limited data' | 'Not tracked yet'
-
-type SourceStatus = 'loading' | 'ready' | 'error'
-
-function capitalize(value: string): string {
-  return value.length > 0 ? value[0].toUpperCase() + value.slice(1).replace('_', ' ') : value
-}
 
 export interface AiInsightCategory {
   key: string

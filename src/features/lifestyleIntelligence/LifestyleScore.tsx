@@ -1,8 +1,8 @@
 import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/card'
 import Skeleton from '@/components/shared/Skeleton'
 import type { MoodTrendResult, EnergyTrendResult } from '@/features/insights/types'
-import type { SourceStatus } from '@/features/lifestyleIntelligence/trackedFactorText'
-import { describeTrackedFactor } from '@/features/lifestyleIntelligence/trackedFactorText'
+import type { SourceStatus } from '@/components/shared/dataStateText'
+import { describeTrackedFactor, capitalize } from '@/components/shared/dataStateText'
 import type { SleepSummary } from '@/features/sleepIntelligence/sleepCalculations'
 import type { NutritionSummary } from '@/features/nutritionCompanion/nutritionCalculations'
 import type { StressRecoverySummary } from '@/features/stressRecovery/stressRecoveryCalculations'
@@ -10,10 +10,6 @@ import { cn } from '@/lib/utils'
 
 const RADIUS = 70
 const CIRCUMFERENCE = 2 * Math.PI * RADIUS
-
-function capitalize(value: string): string {
-  return value.length > 0 ? value[0].toUpperCase() + value.slice(1).replace('_', ' ') : value
-}
 
 interface LifestyleScoreProps {
   status: 'loading' | 'ready' | 'error'

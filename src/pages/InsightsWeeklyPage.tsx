@@ -20,11 +20,7 @@ import { useSleepData } from '@/features/sleepIntelligence/useSleepData'
 import { calculateSleepSummary } from '@/features/sleepIntelligence/sleepCalculations'
 import { useStressRecoveryData } from '@/features/stressRecovery/useStressRecoveryData'
 import { calculateStressRecoverySummary } from '@/features/stressRecovery/stressRecoveryCalculations'
-import { describeTrackedFactor } from '@/features/lifestyleIntelligence/trackedFactorText'
-
-function capitalize(value: string): string {
-  return value.length > 0 ? value[0].toUpperCase() + value.slice(1).replace('_', ' ') : value
-}
+import { describeTrackedFactor, capitalize } from '@/components/shared/dataStateText'
 
 /**
  * Insights → Weekly Summary. Reuses useInsightsData() (mood/energy trend,
