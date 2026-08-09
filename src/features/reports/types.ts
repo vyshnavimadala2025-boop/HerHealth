@@ -139,4 +139,41 @@ export interface ExportBundle {
     observations: string[]
     note: string | null
   }> | null
+  symptomEntries: Array<{
+    entryDate: string
+    symptoms: string[]
+    severity: string | null
+    timing: string | null
+    note: string | null
+  }>
+  sleepEntries: Array<{
+    entryDate: string
+    bedtime: string | null
+    wakeTime: string | null
+    durationMinutes: number | null
+    quality: string | null
+    note: string | null
+  }>
+  nutritionEntries: Array<{
+    entryDate: string
+    mealsLogged: string[]
+    foodCategories: string[]
+    hydrationGlasses: number | null
+    note: string | null
+  }>
+  stressRecoveryEntries: Array<{
+    entryDate: string
+    stressLevel: string | null
+    recoveryLevel: string | null
+    recoveryActions: string[]
+    reflection: string | null
+  }>
+  screeningItems: Array<{
+    title: string
+    category: string | null
+    plannedDate: string | null
+    completedDate: string | null
+    status: string
+    note: string | null
+  }>
 }

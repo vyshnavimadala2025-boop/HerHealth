@@ -20,6 +20,7 @@ function ReportsPage() {
     pcosWellnessEnabled,
     exportStatus,
     exportData,
+    goalsDataUnavailable,
   } = useReportData()
 
   return (
@@ -55,11 +56,12 @@ function ReportsPage() {
         summary={summary}
         range={range}
         pcosWellnessEnabled={pcosWellnessEnabled}
+        goalsDataUnavailable={goalsDataUnavailable}
         onRetry={retry}
       />
 
       <div id="timeline" className="scroll-mt-24">
-        <PersonalTimeline status={status} entries={timeline} onRetry={retry} />
+        <PersonalTimeline status={status} entries={timeline} onRetry={retry} goalsDataUnavailable={goalsDataUnavailable} />
       </div>
 
       <div id="export" className="scroll-mt-24 print:hidden">

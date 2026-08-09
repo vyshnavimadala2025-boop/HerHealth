@@ -5,6 +5,11 @@ import type { JournalEntry } from '@/features/journal/types'
 import type { WellnessGoal, GoalProgressEntry } from '@/features/goals/types'
 import type { ReminderPreference } from '@/features/reminders/types'
 import type { PcosWellnessEntry } from '@/features/pcosWellness/types'
+import type { SymptomEntry } from '@/features/symptomExplorer/types'
+import type { SleepEntry } from '@/features/sleepIntelligence/types'
+import type { NutritionEntry } from '@/features/nutritionCompanion/types'
+import type { StressRecoveryEntry } from '@/features/stressRecovery/types'
+import type { ScreeningItem } from '@/features/screeningPlanner/types'
 import type { ExportBundle } from '@/features/reports/types'
 
 export const EXPORT_DISCLAIMER =
@@ -18,6 +23,11 @@ export interface ExportSourceData {
   goalProgressEntries: GoalProgressEntry[]
   reminderPreferences: ReminderPreference[]
   pcosWellnessEntries: PcosWellnessEntry[] | null
+  symptomEntries: SymptomEntry[]
+  sleepEntries: SleepEntry[]
+  nutritionEntries: NutritionEntry[]
+  stressRecoveryEntries: StressRecoveryEntry[]
+  screeningItems: ScreeningItem[]
 }
 
 /** Maps already-fetched, already-typed rows into the flat export shape. No Supabase calls here. */
@@ -71,6 +81,43 @@ export function buildExportBundle(source: ExportSourceData): ExportBundle {
           note: entry.note,
         }))
       : null,
+    symptomEntries: source.symptomEntries.map((entry) => ({
+      entryDate: entry.entryDate,
+      symptoms: entry.symptoms,
+      severity: entry.severity,
+      timing: entry.timing,
+      note: entry.note,
+    })),
+    sleepEntries: source.sleepEntries.map((entry) => ({
+      entryDate: entry.entryDate,
+      bedtime: entry.bedtime,
+      wakeTime: entry.wakeTime,
+      durationMinutes: entry.durationMinutes,
+      quality: entry.quality,
+      note: entry.note,
+    })),
+    nutritionEntries: source.nutritionEntries.map((entry) => ({
+      entryDate: entry.entryDate,
+      mealsLogged: entry.mealsLogged,
+      foodCategories: entry.foodCategories,
+      hydrationGlasses: entry.hydrationGlasses,
+      note: entry.note,
+    })),
+    stressRecoveryEntries: source.stressRecoveryEntries.map((entry) => ({
+      entryDate: entry.entryDate,
+      stressLevel: entry.stressLevel,
+      recoveryLevel: entry.recoveryLevel,
+      recoveryActions: entry.recoveryActions,
+      reflection: entry.reflection,
+    })),
+    screeningItems: source.screeningItems.map((item) => ({
+      title: item.title,
+      category: item.category,
+      plannedDate: item.plannedDate,
+      completedDate: item.completedDate,
+      status: item.status,
+      note: item.note,
+    })),
   }
 }
 
@@ -111,6 +158,11 @@ export function buildExportCsv(bundle: ExportBundle): string {
     csvSection('Wellness goals', bundle.goals),
     csvSection('Goal progress entries', bundle.goalProgressEntries),
     csvSection('Reminder preferences', bundle.reminderPreferences),
+    csvSection('Symptom entries', bundle.symptomEntries),
+    csvSection('Sleep entries', bundle.sleepEntries),
+    csvSection('Nutrition entries', bundle.nutritionEntries),
+    csvSection('Stress & recovery entries', bundle.stressRecoveryEntries),
+    csvSection('Preventive screening plans', bundle.screeningItems),
   ]
   if (bundle.pcosWellnessEntries) {
     sections.push(csvSection('PCOS/PCOD wellness entries', bundle.pcosWellnessEntries))

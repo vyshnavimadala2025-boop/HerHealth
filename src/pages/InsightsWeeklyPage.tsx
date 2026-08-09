@@ -33,7 +33,7 @@ function InsightsWeeklyPage() {
   const series = useMoodEnergySeries('week')
 
   const status = insightsData.status === 'loading' || series.status === 'loading' ? 'loading' : 'ready'
-  const reportDataUnavailable = reportData.status === 'error'
+  const reportDataUnavailable = reportData.status === 'error' || reportData.goalsDataUnavailable
 
   const today = getLocalDateString()
   const weekStart = addDays(today, -6)
@@ -356,7 +356,12 @@ function InsightsWeeklyPage() {
           )}
 
           <div id="weekly-timeline" className="scroll-mt-24">
-            <PersonalTimeline status={reportData.status} entries={reportData.timeline} onRetry={reportData.retry} />
+            <PersonalTimeline
+              status={reportData.status}
+              entries={reportData.timeline}
+              onRetry={reportData.retry}
+              goalsDataUnavailable={reportData.goalsDataUnavailable}
+            />
           </div>
         </>
       )}

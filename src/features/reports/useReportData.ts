@@ -7,6 +7,11 @@ import { getGoals } from '@/features/goals/goalService'
 import { getAllGoalProgressEntries } from '@/features/goals/goalProgressService'
 import { getReminderPreferences } from '@/features/reminders/reminderService'
 import { getPcosTrackingEnabled, getPcosWellnessEntries } from '@/features/pcosWellness/pcosWellnessService'
+import { getSymptomEntries } from '@/features/symptomExplorer/symptomService'
+import { getSleepEntries } from '@/features/sleepIntelligence/sleepService'
+import { getNutritionEntries } from '@/features/nutritionCompanion/nutritionService'
+import { getStressRecoveryEntries } from '@/features/stressRecovery/stressRecoveryService'
+import { getScreeningItems } from '@/features/screeningPlanner/screeningService'
 import {
   calculateCheckInConsistency,
   calculateCycleReportSummary,
@@ -53,11 +58,13 @@ export function useReportData() {
   const [reminderPreferences, setReminderPreferences] = useState<ReminderPreference[]>([])
   const [pcosWellnessEnabled, setPcosWellnessEnabled] = useState(false)
   const [pcosWellnessEntries, setPcosWellnessEntries] = useState<PcosWellnessEntry[] | null>(null)
+  const [goalsStaticUnavailable, setGoalsStaticUnavailable] = useState(false)
 
   const [rangedStatus, setRangedStatus] = useState<LoadStatus>('loading')
   const [checkIns, setCheckIns] = useState<CheckIn[]>([])
   const [journalEntries, setJournalEntries] = useState<JournalEntry[]>([])
   const [goalProgressEntries, setGoalProgressEntries] = useState<GoalProgressEntry[]>([])
+  const [goalsRangedUnavailable, setGoalsRangedUnavailable] = useState(false)
 
   const [exportStatus, setExportStatus] = useState<ExportStatus>('idle')
 
@@ -66,17 +73,34 @@ export function useReportData() {
     setStaticStatus('loading')
     try {
       const enabled = await getPcosTrackingEnabled(user.id)
-      const [periodResult, goalResult, reminderResult, pcosResult] = await Promise.all([
+      const [periodResult, reminderResult, pcosResult] = await Promise.all([
         getPeriodRecords(user.id),
-        getGoals(user.id),
         getReminderPreferences(user.id),
         enabled ? getPcosWellnessEntries(user.id) : Promise.resolve(null),
       ])
+
+      /**
+       * Goals are fetched separately and never allowed to fail the whole
+       * static load — same isolation pattern as useHealthTrendsData.ts's
+       * goalsDataUnavailable. Period records, reminders, and PCOS data (and
+       * everything built from them) still render normally; only
+       * goals-dependent numbers degrade to an empty list with an honest
+       * goalsStaticUnavailable flag — never silently.
+       */
+      let goalResult: WellnessGoal[] = []
+      let unavailable = false
+      try {
+        goalResult = await getGoals(user.id)
+      } catch {
+        unavailable = true
+      }
+
       setPeriodRecords(periodResult)
       setGoals(goalResult)
       setReminderPreferences(reminderResult)
       setPcosWellnessEnabled(enabled)
       setPcosWellnessEntries(pcosResult)
+      setGoalsStaticUnavailable(unavailable)
       setStaticStatus('ready')
     } catch {
       setStaticStatus('error')
@@ -87,14 +111,30 @@ export function useReportData() {
     if (!user) return
     setRangedStatus('loading')
     try {
-      const [checkInResult, journalResult, progressResult] = await Promise.all([
+      const [checkInResult, journalResult] = await Promise.all([
         getCheckInsInRange(user.id, { startDate: range.startDate, endDate: range.endDate }),
         getJournalEntriesInRange(user.id, { startDate: range.startDate, endDate: range.endDate }),
-        getAllGoalProgressEntries(user.id, { startDate: range.startDate, endDate: range.endDate }),
       ])
+
+      /**
+       * Same isolation as goals above — goal progress entries share the
+       * same migration/table family as wellness_goals, so a goals outage
+       * takes this fetch down too. Isolated here for the same reason:
+       * check-ins and journal entries (and everything built from them)
+       * must not be blocked by a goals-family outage.
+       */
+      let progressResult: GoalProgressEntry[] = []
+      let unavailable = false
+      try {
+        progressResult = await getAllGoalProgressEntries(user.id, { startDate: range.startDate, endDate: range.endDate })
+      } catch {
+        unavailable = true
+      }
+
       setCheckIns(checkInResult)
       setJournalEntries(journalResult)
       setGoalProgressEntries(progressResult)
+      setGoalsRangedUnavailable(unavailable)
       setRangedStatus('ready')
     } catch {
       setRangedStatus('error')
@@ -115,6 +155,8 @@ export function useReportData() {
       : staticStatus === 'ready' && rangedStatus === 'ready'
         ? 'ready'
         : 'loading'
+
+  const goalsDataUnavailable = goalsStaticUnavailable || goalsRangedUnavailable
 
   const summary: ReportSummary | null =
     status === 'ready'
@@ -161,19 +203,35 @@ export function useReportData() {
    * Exports the user's complete history, not just the selected report
    * range. Period records, goals, reminder preferences, and PCOS entries
    * are already loaded in full (those queries are never range-filtered);
-   * only check-ins, journal entries, and goal progress are re-fetched here
-   * with no range, since the main hook load deliberately windows those
-   * three to the selected report range.
+   * check-ins, journal entries, and goal progress are re-fetched here with
+   * no range, since the main hook load deliberately windows those three to
+   * the selected report range. Symptom, sleep, nutrition, stress/recovery,
+   * and screening data have no range concept in the main hook at all (it
+   * never loads them), so they're fetched here in full for the first time.
    */
   const exportData = useCallback(
     async (format: 'json' | 'csv') => {
       if (!user) return
       setExportStatus('loading')
       try {
-        const [allCheckIns, allJournalEntries, allGoalProgressEntries] = await Promise.all([
+        const [
+          allCheckIns,
+          allJournalEntries,
+          allGoalProgressEntries,
+          symptomEntries,
+          sleepEntries,
+          nutritionEntries,
+          stressRecoveryEntries,
+          screeningItems,
+        ] = await Promise.all([
           getCheckInsInRange(user.id),
           getJournalEntriesInRange(user.id),
           getAllGoalProgressEntries(user.id),
+          getSymptomEntries(user.id),
+          getSleepEntries(user.id),
+          getNutritionEntries(user.id),
+          getStressRecoveryEntries(user.id),
+          getScreeningItems(user.id),
         ])
         downloadExport(format, {
           checkIns: allCheckIns,
@@ -183,6 +241,11 @@ export function useReportData() {
           goalProgressEntries: allGoalProgressEntries,
           reminderPreferences,
           pcosWellnessEntries: pcosWellnessEnabled ? pcosWellnessEntries : null,
+          symptomEntries,
+          sleepEntries,
+          nutritionEntries,
+          stressRecoveryEntries,
+          screeningItems,
         })
         setExportStatus('idle')
       } catch {
@@ -203,5 +266,6 @@ export function useReportData() {
     pcosWellnessEnabled,
     exportStatus,
     exportData,
+    goalsDataUnavailable,
   }
 }

@@ -74,8 +74,17 @@ function InsightsOverviewPage() {
   const consistencyPercent = monthly.summary?.checkIns.consistencyPercent ?? 0
   const journalCountInRange = monthly.timeline.filter((entry) => entry.type === 'journal').length
   const cycleEventsInRange = insightsData.periodRecords.filter((record) => record.startDate >= monthStart).length
+  const goalsUnavailable = monthly.goalsDataUnavailable
   const goalsCompletedInRange = monthly.summary?.goals.goalsCompletedInRange ?? 0
   const progressEntriesInRange = monthly.summary?.goals.progressEntriesInRange ?? 0
+  /**
+   * Passed to the goal-aware calculation functions below instead of the raw
+   * counts above — those functions already accept `number | null` (same
+   * contract Weekly Summary uses) so an unavailable goals fetch degrades
+   * honestly instead of reading as "zero goals this month".
+   */
+  const goalsCompletedInRangeOrNull = goalsUnavailable ? null : goalsCompletedInRange
+  const progressEntriesInRangeOrNull = goalsUnavailable ? null : progressEntriesInRange
 
   const avgMood = monthly.summary ? weightedAverageScore(monthly.summary.moodEnergyWellbeing.mood, MOOD_SCORES) : null
   const avgEnergy = monthly.summary
@@ -90,13 +99,19 @@ function InsightsOverviewPage() {
     avgMood,
     avgEnergy,
     journalCountInRange,
-    goalsCompletedInRange,
-    progressEntriesInRange,
+    goalsCompletedInRange: goalsCompletedInRangeOrNull,
+    progressEntriesInRange: progressEntriesInRangeOrNull,
   })
 
   const achievements =
     status === 'ready'
-      ? buildMonthlyAchievements({ streak, consistencyPercent, checkInCount, journalCountInRange, goalsCompletedInRange })
+      ? buildMonthlyAchievements({
+          streak,
+          consistencyPercent,
+          checkInCount,
+          journalCountInRange,
+          goalsCompletedInRange: goalsCompletedInRangeOrNull,
+        })
       : []
 
   const reflection =
@@ -107,7 +122,7 @@ function InsightsOverviewPage() {
           moodTrend: insightsData.moodTrend,
           energyTrend: insightsData.energyTrend,
           journalCountInRange,
-          goalsCompletedInRange,
+          goalsCompletedInRange: goalsCompletedInRangeOrNull,
           streak,
         })
       : null
@@ -188,11 +203,13 @@ function InsightsOverviewPage() {
       key: 'goals',
       icon: Target,
       label: 'Goals completed',
-      status: `${goalsCompletedInRange}`,
-      trend: 'This month',
-      caption: 'Wellness goals marked complete this month.',
+      status: goalsUnavailable ? 'Unavailable' : `${goalsCompletedInRange}`,
+      trend: goalsUnavailable ? 'Try refreshing' : 'This month',
+      caption: goalsUnavailable
+        ? 'We couldn’t load this right now.'
+        : 'Wellness goals marked complete this month.',
       accentClassName: 'bg-accent text-accent-foreground',
-      tracked: goalsCompletedInRange > 0,
+      tracked: !goalsUnavailable && goalsCompletedInRange > 0,
     },
     {
       key: 'streak',
@@ -313,12 +330,16 @@ function InsightsOverviewPage() {
                 </div>
                 <div className="flex flex-col gap-2">
                   <p className="text-caption font-medium tracking-wide text-muted-foreground uppercase">Goal activity</p>
-                  <MiniTrendChart
-                    points={goalBucketPoints}
-                    maxValue={maxGoalBucketValue}
-                    colorClassName="bg-support"
-                    ariaLabel="Goal activity per week this month"
-                  />
+                  {goalsUnavailable ? (
+                    <p className="text-sm text-muted-foreground">Goal data unavailable right now.</p>
+                  ) : (
+                    <MiniTrendChart
+                      points={goalBucketPoints}
+                      maxValue={maxGoalBucketValue}
+                      colorClassName="bg-support"
+                      ariaLabel="Goal activity per week this month"
+                    />
+                  )}
                 </div>
               </div>
               <p className="text-caption text-muted-foreground">
@@ -389,7 +410,12 @@ function InsightsOverviewPage() {
             </Card>
           )}
 
-          <PersonalTimeline status={monthly.status} entries={monthly.timeline} onRetry={monthly.retry} />
+          <PersonalTimeline
+            status={monthly.status}
+            entries={monthly.timeline}
+            onRetry={monthly.retry}
+            goalsDataUnavailable={monthly.goalsDataUnavailable}
+          />
         </>
       )}
     </main>

@@ -5,6 +5,11 @@ import { deleteAllJournalEntries } from '@/features/journal/journalService'
 import { deleteAllPcosWellnessEntries } from '@/features/pcosWellness/pcosWellnessService'
 import { deleteAllGoals } from '@/features/goals/goalService'
 import { deleteAllReminderPreferences } from '@/features/reminders/reminderService'
+import { deleteAllSymptomEntries } from '@/features/symptomExplorer/symptomService'
+import { deleteAllSleepEntries } from '@/features/sleepIntelligence/sleepService'
+import { deleteAllNutritionEntries } from '@/features/nutritionCompanion/nutritionService'
+import { deleteAllStressRecoveryEntries } from '@/features/stressRecovery/stressRecoveryService'
+import { deleteAllScreeningItems } from '@/features/screeningPlanner/screeningService'
 import { DATA_CATEGORIES } from '@/features/dataPrivacy/types'
 import type { DataCategory, DeletionOutcome } from '@/features/dataPrivacy/types'
 
@@ -15,6 +20,11 @@ const CATEGORY_DELETE_FUNCTIONS: Record<DataCategory, (userId: string) => Promis
   pcosWellness: deleteAllPcosWellnessEntries,
   goals: deleteAllGoals,
   reminders: deleteAllReminderPreferences,
+  symptoms: deleteAllSymptomEntries,
+  sleep: deleteAllSleepEntries,
+  nutrition: deleteAllNutritionEntries,
+  stressRecovery: deleteAllStressRecoveryEntries,
+  screenings: deleteAllScreeningItems,
 }
 
 const CATEGORY_ORDER: DataCategory[] = DATA_CATEGORIES.map((category) => category.value)

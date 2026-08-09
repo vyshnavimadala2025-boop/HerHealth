@@ -49,6 +49,7 @@ interface PersonalTimelineProps {
   status: 'loading' | 'ready' | 'error'
   entries: TimelineEntry[]
   onRetry: () => void
+  goalsDataUnavailable?: boolean
 }
 
 /**
@@ -65,7 +66,7 @@ interface PersonalTimelineProps {
  * data is retried), so a stale filter can never silently hide newly
  * relevant data after the range changes.
  */
-function PersonalTimeline({ status, entries, onRetry }: PersonalTimelineProps) {
+function PersonalTimeline({ status, entries, onRetry, goalsDataUnavailable = false }: PersonalTimelineProps) {
   const [selectedTypes, setSelectedTypes] = useState<TimelineEntryType[]>(() => presentTypesIn(entries))
 
   useEffect(() => {
@@ -111,6 +112,13 @@ function PersonalTimeline({ status, entries, onRetry }: PersonalTimelineProps) {
               Try again
             </Button>
           </div>
+        )}
+
+        {status === 'ready' && goalsDataUnavailable && (
+          <p role="status" className="text-caption text-muted-foreground">
+            Goal-related timeline entries are temporarily unavailable and may not appear below. Other recorded
+            activity is unaffected.
+          </p>
         )}
 
         {status === 'ready' && entries.length === 0 && (

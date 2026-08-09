@@ -5,6 +5,11 @@ export const DATA_CATEGORIES = [
   { value: 'pcosWellness', label: 'PCOS/PCOD wellness entries' },
   { value: 'goals', label: 'Wellness goals & progress' },
   { value: 'reminders', label: 'Reminder preferences' },
+  { value: 'symptoms', label: 'Symptom entries' },
+  { value: 'sleep', label: 'Sleep entries' },
+  { value: 'nutrition', label: 'Nutrition entries' },
+  { value: 'stressRecovery', label: 'Stress & recovery entries' },
+  { value: 'screenings', label: 'Preventive screening plans' },
 ] as const
 
 export type DataCategory = (typeof DATA_CATEGORIES)[number]['value']

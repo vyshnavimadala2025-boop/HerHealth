@@ -44,10 +44,18 @@ interface ReportSummaryCardProps {
   summary: ReportSummary | null
   range: ReportDateRange
   pcosWellnessEnabled: boolean
+  goalsDataUnavailable: boolean
   onRetry: () => void
 }
 
-function ReportSummaryCard({ status, summary, range, pcosWellnessEnabled, onRetry }: ReportSummaryCardProps) {
+function ReportSummaryCard({
+  status,
+  summary,
+  range,
+  pcosWellnessEnabled,
+  goalsDataUnavailable,
+  onRetry,
+}: ReportSummaryCardProps) {
   return (
     <Card>
       <CardHeader>
@@ -150,12 +158,18 @@ function ReportSummaryCard({ status, summary, range, pcosWellnessEnabled, onRetr
 
             <div className="flex flex-col gap-1 border-t border-border pt-4">
               <p className="text-sm font-medium">Wellness goals</p>
-              <p className="text-caption text-muted-foreground">
-                {summary.goals.activeGoalCount} active, {summary.goals.completedGoalCount} completed overall.
-                In this range: {summary.goals.goalsCreatedInRange} created, {summary.goals.goalsCompletedInRange}{' '}
-                completed, {summary.goals.progressEntriesInRange} progress entr
-                {summary.goals.progressEntriesInRange === 1 ? 'y' : 'ies'} logged.
-              </p>
+              {goalsDataUnavailable ? (
+                <p className="text-caption text-muted-foreground">
+                  Goal information is temporarily unavailable. Please try again shortly.
+                </p>
+              ) : (
+                <p className="text-caption text-muted-foreground">
+                  {summary.goals.activeGoalCount} active, {summary.goals.completedGoalCount} completed overall.
+                  In this range: {summary.goals.goalsCreatedInRange} created, {summary.goals.goalsCompletedInRange}{' '}
+                  completed, {summary.goals.progressEntriesInRange} progress entr
+                  {summary.goals.progressEntriesInRange === 1 ? 'y' : 'ies'} logged.
+                </p>
+              )}
             </div>
 
             <div className="flex flex-col gap-1 border-t border-border pt-4">
