@@ -5,6 +5,7 @@ import Skeleton from '@/components/shared/Skeleton'
 import {
   MOOD_OPTIONS,
   ENERGY_LEVEL_OPTIONS,
+  WELLBEING_OPTIONS,
   formatFriendlyTime,
   type CheckIn,
 } from '@/features/checkins/types'
@@ -36,6 +37,7 @@ interface TodayHeroProps {
   moodTrend: MoodTrendResult
   energyTrend: EnergyTrendResult
   periodRecords: PeriodRecord[]
+  cycleLength: number | null
   estimatedNextPeriod: string | null
 }
 
@@ -55,6 +57,7 @@ function TodayHero({
   moodTrend,
   energyTrend,
   periodRecords,
+  cycleLength,
   estimatedNextPeriod,
 }: TodayHeroProps) {
   const hasCycleData = periodRecords.length > 0
@@ -100,6 +103,9 @@ function TodayHero({
                 <span className="rounded-full bg-blush px-3 py-1 text-caption font-medium text-blush-foreground">
                   Energy: {labelFor(ENERGY_LEVEL_OPTIONS, todayCheckIn.energyLevel)}
                 </span>
+                <span className="rounded-full bg-blush px-3 py-1 text-caption font-medium text-blush-foreground">
+                  Wellbeing: {labelFor(WELLBEING_OPTIONS, todayCheckIn.wellbeing)}
+                </span>
               </div>
               <a href="#checkin-form" className="w-fit text-sm font-medium text-primary underline-offset-4 hover:underline">
                 Edit today&apos;s check-in
@@ -120,11 +126,21 @@ function TodayHero({
           )}
 
           {hasCycleData && (estimatedNextPeriod || periodRecords[0]) && (
-            <div className="flex w-fit items-center gap-2 rounded-full bg-lavender px-3 py-1.5 text-caption font-medium text-lavender-foreground">
-              <CalendarHeart className="size-3.5" aria-hidden="true" />
-              {estimatedNextPeriod
-                ? `Estimated next period: ${formatCycleDate(estimatedNextPeriod)}`
-                : `Last period started ${formatCycleDate(periodRecords[0].startDate)}`}
+            <div className="flex flex-wrap items-center gap-2">
+              <div className="flex w-fit items-center gap-2 rounded-full bg-lavender px-3 py-1.5 text-caption font-medium text-lavender-foreground">
+                <CalendarHeart className="size-3.5" aria-hidden="true" />
+                {estimatedNextPeriod
+                  ? `Estimated next period: ${formatCycleDate(estimatedNextPeriod)}`
+                  : `Last period started ${formatCycleDate(periodRecords[0].startDate)}`}
+              </div>
+              {cycleLength && (
+                <span className="rounded-full bg-lavender px-3 py-1.5 text-caption font-medium text-lavender-foreground">
+                  Cycle length: {cycleLength} days
+                </span>
+              )}
+              <span className="text-caption text-muted-foreground">
+                {periodRecords.length} period record{periodRecords.length === 1 ? '' : 's'} recorded
+              </span>
             </div>
           )}
         </div>

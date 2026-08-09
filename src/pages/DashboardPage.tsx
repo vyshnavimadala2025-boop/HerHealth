@@ -1,24 +1,36 @@
 import { useState } from 'react'
-import { Baby, ClipboardList, Compass, HeartPulse, Sparkles, Target, Waves, Wind } from 'lucide-react'
+import { ClipboardList, Compass, HeartPulse } from 'lucide-react'
 import { useAuth } from '@/features/auth/useAuth'
 import { useDashboardData } from '@/features/checkins/useDashboardData'
 import CheckInForm from '@/features/checkins/CheckInForm'
 import RecentCheckIns from '@/features/checkins/RecentCheckIns'
 import TodayHero from '@/features/checkins/TodayHero'
 import DashboardWelcomeHero from '@/features/checkins/DashboardWelcomeHero'
-import TodayWellnessOverview from '@/features/checkins/TodayWellnessOverview'
 import SuggestedNextStep from '@/features/checkins/SuggestedNextStep'
-import DashboardCycleCard from '@/features/periods/DashboardCycleCard'
+import WellnessJourneySnapshot from '@/features/checkins/WellnessJourneySnapshot'
 import DashboardJournalCard from '@/features/journal/DashboardJournalCard'
 import DashboardPcosWellnessCard from '@/features/pcosWellness/DashboardPcosWellnessCard'
 import { useInsightsData } from '@/features/insights/useInsightsData'
-import WeeklyCheckInSummaryCard from '@/features/insights/WeeklyCheckInSummaryCard'
-import TrendsCard from '@/features/insights/TrendsCard'
 import WellnessInsightsCard from '@/features/insights/WellnessInsightsCard'
 import NextStepTile from '@/components/shared/NextStepTile'
 
 type LoadStatus = 'loading' | 'ready' | 'error'
 
+/**
+ * Dashboard (UI/UX Phase 3). Check-in consistency / mood trend / energy
+ * trend / cycle context previously appeared in four different places on
+ * this one page (TodayHero's side panel, the retired TodayWellnessOverview,
+ * WeeklyCheckInSummaryCard, TrendsCard, and DashboardCycleCard) — all
+ * reading the exact same useInsightsData() values. TodayHero now absorbs
+ * every one of those real facts (mood/energy/wellbeing/cycle length/record
+ * count) so each is shown exactly once; WeeklyCheckInSummaryCard, TrendsCard,
+ * and DashboardCycleCard remain untouched as components (still used by
+ * InsightsWeeklyPage.tsx, StressRecoveryPage.tsx, and InsightsTrendsPage.tsx
+ * respectively) — only their Dashboard *usage* was removed. Sleep, Nutrition,
+ * Stress & Recovery, Wellness Score, and Goals — previously absent from this
+ * page entirely — are now represented via WellnessJourneySnapshot, composed
+ * entirely from existing Stage 3/4C2/2 hooks and calculations.
+ */
 function DashboardPage() {
   const { user, profile } = useAuth()
   const { todayCheckIn, todayStatus, recentCheckIns, recentStatus, refresh } = useDashboardData()
@@ -38,16 +50,6 @@ function DashboardPage() {
     <main className="mx-auto flex w-full max-w-5xl flex-1 flex-col gap-10 p-4 py-8 animate-in fade-in duration-500 motion-reduce:animate-none sm:p-6">
       <DashboardWelcomeHero firstName={firstName ?? ''} />
 
-      <div className="flex flex-col gap-4">
-        <h2 className="font-display text-lg text-foreground">Your Wellness Today</h2>
-        <TodayWellnessOverview
-          todayStatus={todayStatus}
-          todayCheckIn={todayCheckIn}
-          periodRecords={insightsData.periodRecords}
-          estimatedNextPeriod={insightsData.estimatedNextPeriod}
-        />
-      </div>
-
       <div id="checkin" className="scroll-mt-24">
         <TodayHero
           firstName={firstName ?? ''}
@@ -58,6 +60,7 @@ function DashboardPage() {
           moodTrend={insightsData.moodTrend}
           energyTrend={insightsData.energyTrend}
           periodRecords={insightsData.periodRecords}
+          cycleLength={insightsData.cycleLength}
           estimatedNextPeriod={insightsData.estimatedNextPeriod}
         />
       </div>
@@ -97,28 +100,15 @@ function DashboardPage() {
         </div>
       </details>
 
+      <WellnessJourneySnapshot />
+
       <section id="insights" className="flex scroll-mt-24 flex-col gap-4">
-        <h2 className="font-display text-lg text-foreground">Your wellness overview</h2>
-        <WeeklyCheckInSummaryCard status={insightsData.status} summary={insightsData.weeklySummary} />
-
-        <TrendsCard
-          status={insightsData.status}
-          moodTrend={insightsData.moodTrend}
-          energyTrend={insightsData.energyTrend}
-        />
-
-        <DashboardCycleCard
-          status={insightsData.status}
-          records={insightsData.periodRecords}
-          cycleLength={insightsData.cycleLength}
-          estimatedNextPeriod={insightsData.estimatedNextPeriod}
-        />
-
+        <h2 className="font-display text-lg text-foreground">Wellness Insights</h2>
         <WellnessInsightsCard status={insightsData.status} insights={insightsData.insights} />
       </section>
 
       <section className="flex flex-col gap-4">
-        <h2 className="font-display text-lg text-foreground">Small steps for today</h2>
+        <h2 className="font-display text-lg text-foreground">Continue your journey</h2>
         <div className="flex flex-wrap gap-3">
           <DashboardJournalCard
             onLoaded={(status, date) => {
@@ -135,46 +125,11 @@ function DashboardPage() {
             accentClassName="bg-lavender text-lavender-foreground"
           />
           <NextStepTile
-            icon={Sparkles}
-            label="Fertility Journey"
-            description="Track fertility wellness patterns"
-            href="/fertility-journey"
-            accentClassName="bg-lavender text-lavender-foreground"
-          />
-          <NextStepTile
-            icon={Baby}
-            label="Baby Growth"
-            description="Your pregnancy wellness companion"
-            href="/baby-growth"
-            accentClassName="bg-blush text-blush-foreground"
-          />
-          <NextStepTile
-            icon={Waves}
-            label="Hormone Balance"
-            description="Understand your hormonal patterns"
-            href="/hormone-balance"
-            accentClassName="bg-lavender text-lavender-foreground"
-          />
-          <NextStepTile
             icon={Compass}
             label="Lifestyle Intelligence"
             description="Explore lifestyle and wellness patterns"
             href="/lifestyle-intelligence"
             accentClassName="bg-support text-support-foreground"
-          />
-          <NextStepTile
-            icon={Wind}
-            label="Environmental Wellness"
-            description="Understand your surroundings"
-            href="/environmental-wellness"
-            accentClassName="bg-support text-support-foreground"
-          />
-          <NextStepTile
-            icon={Target}
-            label="Wellness Goals"
-            description="Review your goals and progress"
-            href="/goals"
-            accentClassName="bg-accent text-accent-foreground"
           />
           <NextStepTile
             icon={ClipboardList}
