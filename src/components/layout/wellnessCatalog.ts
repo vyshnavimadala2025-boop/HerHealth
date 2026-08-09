@@ -13,7 +13,6 @@ export interface WellnessCatalogItem {
   description: string
   href: string
   icon: LucideIcon
-  comingSoon?: boolean
 }
 
 export const WELLNESS_ITEMS: WellnessCatalogItem[] = [

@@ -17,7 +17,8 @@ export interface CategoryMenuItem {
   description: string
   href: string
   icon: LucideIcon
-  comingSoon?: boolean
+  /** Optional presentational grouping label (UI/UX Phase 2) — items sharing consecutive group values render under one small heading; omit for a flat list (e.g. "Wellness"). */
+  group?: string
 }
 
 interface CategoryDropdownMenuProps {
@@ -50,20 +51,21 @@ function CategoryDropdownMenu({ label, items }: CategoryDropdownMenuProps) {
                 twoColumn && 'sm:w-[min(90vw,560px)] sm:grid-cols-2',
               )}
             >
-              {items.map((item) => {
+              {items.map((item, index) => {
                 const active = isProductItemActive(pathname, item.href)
+                const showGroupLabel = item.group && item.group !== items[index - 1]?.group
                 return (
                   <li key={item.key}>
+                    {showGroupLabel && (
+                      <p className="px-2 pt-2 pb-1 text-[0.7rem] font-medium tracking-wide text-muted-foreground uppercase first:pt-0.5">
+                        {item.group}
+                      </p>
+                    )}
                     <NavigationMenuLink asChild aria-current={active ? 'page' : undefined}>
                       <Link to={item.href} className={cn(active && 'bg-accent/60')}>
                         <span className="flex items-center gap-2 text-sm font-medium text-foreground">
                           <item.icon className="size-4 text-primary" aria-hidden="true" />
                           {item.name}
-                          {item.comingSoon && (
-                            <span className="rounded-full border border-dashed border-border px-1.5 py-0.5 text-[0.6rem] font-medium tracking-wide text-muted-foreground uppercase">
-                              Soon
-                            </span>
-                          )}
                         </span>
                         <span className="text-caption text-muted-foreground">{item.description}</span>
                       </Link>

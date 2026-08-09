@@ -34,26 +34,23 @@ interface MobileNavProps {
   variant: 'public' | 'authenticated'
 }
 
-const TOP_LINK_CLASS = 'rounded-lg px-2 py-2.5 text-sm font-medium text-foreground hover:bg-muted'
-
-function ComingSoonBadge() {
-  return (
-    <span className="ml-auto shrink-0 rounded-full border border-dashed border-border px-1.5 py-0.5 text-[0.6rem] font-medium tracking-wide text-muted-foreground uppercase">
-      Soon
-    </span>
-  )
-}
+const TOP_LINK_CLASS = 'flex min-h-11 items-center rounded-lg px-2 py-2.5 text-sm font-medium text-foreground hover:bg-muted'
+/** Comfortable touch target (~44px) for nested nav links, consistent across every CategoryDetails/Support group. */
+const NESTED_LINK_CLASS =
+  'flex min-h-11 items-center gap-2 rounded-lg px-2 py-2.5 text-sm text-muted-foreground hover:bg-muted hover:text-foreground'
+/** Same comfortable touch target as NESTED_LINK_CLASS, but full-weight text for the top-level Profile section. */
+const PROFILE_LINK_CLASS = 'flex min-h-11 items-center gap-2 rounded-lg px-2 py-2.5 text-sm font-medium text-foreground hover:bg-muted'
 
 interface CategoryDetailsProps {
   label: string
-  items: { key: string; name: string; href: string; icon: typeof User; comingSoon?: boolean }[]
+  items: { key: string; name: string; href: string; icon: typeof User }[]
   pathname: string
 }
 
 function CategoryDetails({ label, items, pathname }: CategoryDetailsProps) {
   return (
     <details className="group px-2">
-      <summary className="flex cursor-pointer list-none items-center justify-between rounded-lg py-2 text-sm font-medium text-foreground marker:content-none focus-visible:ring-3 focus-visible:ring-ring/50">
+      <summary className="flex min-h-11 cursor-pointer list-none items-center justify-between rounded-lg py-2 text-sm font-medium text-foreground marker:content-none focus-visible:ring-3 focus-visible:ring-ring/50">
         {label}
         <ChevronDown
           className="size-4 text-muted-foreground transition-transform duration-200 group-open:rotate-180"
@@ -69,14 +66,10 @@ function CategoryDetails({ label, items, pathname }: CategoryDetailsProps) {
                 <Link
                   to={item.href}
                   aria-current={active ? 'page' : undefined}
-                  className={cn(
-                    'flex items-center gap-2 rounded-lg px-2 py-2 text-sm text-muted-foreground hover:bg-muted hover:text-foreground',
-                    active && 'bg-accent/60 text-foreground',
-                  )}
+                  className={cn(NESTED_LINK_CLASS, active && 'bg-accent/60 text-foreground')}
                 >
                   <item.icon className="size-4 text-primary" aria-hidden="true" />
                   {item.name}
-                  {item.comingSoon && <ComingSoonBadge />}
                 </Link>
               </SheetClose>
             </li>
@@ -184,7 +177,7 @@ function MobileNav({ variant }: MobileNavProps) {
               </SheetClose>
 
               <details className="group px-2">
-                <summary className="flex cursor-pointer list-none items-center justify-between rounded-lg py-2 text-sm font-medium text-foreground marker:content-none focus-visible:ring-3 focus-visible:ring-ring/50">
+                <summary className="flex min-h-11 cursor-pointer list-none items-center justify-between rounded-lg py-2 text-sm font-medium text-foreground marker:content-none focus-visible:ring-3 focus-visible:ring-ring/50">
                   Support
                   <ChevronDown
                     className="size-4 text-muted-foreground transition-transform duration-200 group-open:rotate-180"
@@ -196,18 +189,12 @@ function MobileNav({ variant }: MobileNavProps) {
                     <li key={item.key}>
                       <SheetClose asChild>
                         {item.external ? (
-                          <a
-                            href={item.href}
-                            className="flex items-center gap-2 rounded-lg px-2 py-2 text-sm text-muted-foreground hover:bg-muted hover:text-foreground"
-                          >
+                          <a href={item.href} className={NESTED_LINK_CLASS}>
                             <item.icon className="size-4 text-primary" aria-hidden="true" />
                             {item.name}
                           </a>
                         ) : (
-                          <Link
-                            to={item.href}
-                            className="flex items-center gap-2 rounded-lg px-2 py-2 text-sm text-muted-foreground hover:bg-muted hover:text-foreground"
-                          >
+                          <Link to={item.href} className={NESTED_LINK_CLASS}>
                             <item.icon className="size-4 text-primary" aria-hidden="true" />
                             {item.name}
                           </Link>
@@ -224,43 +211,43 @@ function MobileNav({ variant }: MobileNavProps) {
                 Profile
               </p>
               <SheetClose asChild>
-                <Link to="/profile" className="flex items-center gap-2 rounded-lg px-2 py-2.5 text-sm font-medium text-foreground hover:bg-muted">
+                <Link to="/profile" className={PROFILE_LINK_CLASS}>
                   <User className="size-4 text-primary" aria-hidden="true" />
                   Profile
                 </Link>
               </SheetClose>
               <SheetClose asChild>
-                <Link to="/profile#account-settings" className="flex items-center gap-2 rounded-lg px-2 py-2.5 text-sm font-medium text-foreground hover:bg-muted">
+                <Link to="/profile#account-settings" className={PROFILE_LINK_CLASS}>
                   <Settings className="size-4 text-primary" aria-hidden="true" />
                   Account Settings
                 </Link>
               </SheetClose>
               <SheetClose asChild>
-                <Link to="/goals#reminders" className="flex items-center gap-2 rounded-lg px-2 py-2.5 text-sm font-medium text-foreground hover:bg-muted">
+                <Link to="/goals#reminders" className={PROFILE_LINK_CLASS}>
                   <Bell className="size-4 text-primary" aria-hidden="true" />
                   Notifications
                 </Link>
               </SheetClose>
               <SheetClose asChild>
-                <Link to="/profile#privacy" className="flex items-center gap-2 rounded-lg px-2 py-2.5 text-sm font-medium text-foreground hover:bg-muted">
+                <Link to="/profile#privacy" className={PROFILE_LINK_CLASS}>
                   <ShieldCheck className="size-4 text-primary" aria-hidden="true" />
                   Privacy
                 </Link>
               </SheetClose>
               <SheetClose asChild>
-                <Link to="/profile#privacy" className="flex items-center gap-2 rounded-lg px-2 py-2.5 text-sm font-medium text-foreground hover:bg-muted">
+                <Link to="/profile#privacy" className={PROFILE_LINK_CLASS}>
                   <Lock className="size-4 text-primary" aria-hidden="true" />
                   Security
                 </Link>
               </SheetClose>
               <SheetClose asChild>
-                <Link to="/reports#export" className="flex items-center gap-2 rounded-lg px-2 py-2.5 text-sm font-medium text-foreground hover:bg-muted">
+                <Link to="/reports#export" className={PROFILE_LINK_CLASS}>
                   <Download className="size-4 text-primary" aria-hidden="true" />
                   Export Data
                 </Link>
               </SheetClose>
               <SheetClose asChild>
-                <Link to="/profile#privacy" className="flex items-center gap-2 rounded-lg px-2 py-2.5 text-sm font-medium text-foreground hover:bg-muted">
+                <Link to="/profile#privacy" className={PROFILE_LINK_CLASS}>
                   <Trash2 className="size-4 text-destructive" aria-hidden="true" />
                   Delete Data
                 </Link>
