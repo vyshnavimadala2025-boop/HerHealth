@@ -15,13 +15,15 @@ import {
 } from 'lucide-react'
 
 /**
- * Single source of truth for the Knowledge Hub's topic cards. Several
- * topics (Lifestyle, Nutrition, Sleep, Mental Wellness, Preventive Care)
- * now point at their real, built product pages rather than educational
- * articles of their own — no dedicated Knowledge Hub content exists yet
- * for any topic, so each of those five links to the closest real,
- * working feature instead. The remaining topics still point at the
- * shared coming-soon placeholder until real content is written.
+ * Single source of truth for the Knowledge Hub's topic cards. Every topic
+ * now resolves to something real: five (Lifestyle, Nutrition, Sleep,
+ * Mental Wellness, Preventive Care) link to their matching built product;
+ * five more (Hormones, Cycle Health, PCOS, Fertility, Pregnancy) retarget
+ * to their matching built product the same way (Stage 4C1); FAQs points
+ * directly at the real Help Center instead of a placeholder; and Women's
+ * Health — the one topic broad enough that no single product is a natural
+ * fit — gets its own real, static educational article page instead of a
+ * retarget or a placeholder.
  */
 export interface KnowledgeHubTopic {
   key: string
@@ -36,42 +38,42 @@ export const KNOWLEDGE_HUB_TOPICS: KnowledgeHubTopic[] = [
     key: 'womens-health',
     title: "Women's Health",
     description: 'A general, educational overview of women’s health topics.',
-    href: '/coming-soon/womens-knowledge-hub',
+    href: '/womens-health',
     icon: Flower2,
   },
   {
     key: 'hormones',
     title: 'Hormones',
     description: 'Understanding hormones and their role in wellbeing.',
-    href: '/coming-soon/womens-knowledge-hub',
+    href: '/hormone-balance',
     icon: Waves,
   },
   {
     key: 'cycle-health',
     title: 'Cycle Health',
     description: 'Educational content about the menstrual cycle.',
-    href: '/coming-soon/womens-knowledge-hub',
+    href: '/cycle-tracker',
     icon: HeartPulse,
   },
   {
     key: 'pcos',
     title: 'PCOS',
     description: 'General information about PCOS/PCOD wellness.',
-    href: '/coming-soon/womens-knowledge-hub',
+    href: '/wellness-tracker',
     icon: Leaf,
   },
   {
     key: 'fertility',
     title: 'Fertility',
     description: 'Educational content about fertility wellness.',
-    href: '/coming-soon/womens-knowledge-hub',
+    href: '/fertility-journey',
     icon: Sparkles,
   },
   {
     key: 'pregnancy',
     title: 'Pregnancy',
     description: 'General pregnancy wellness education.',
-    href: '/coming-soon/womens-knowledge-hub',
+    href: '/baby-growth',
     icon: Baby,
   },
   {
@@ -113,7 +115,7 @@ export const KNOWLEDGE_HUB_TOPICS: KnowledgeHubTopic[] = [
     key: 'faqs',
     title: 'FAQs',
     description: 'Answers to frequently asked questions.',
-    href: '/coming-soon/help-center',
+    href: '/help-center',
     icon: HelpCircle,
   },
 ]

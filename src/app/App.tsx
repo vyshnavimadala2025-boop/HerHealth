@@ -34,6 +34,7 @@ import InsightsHistoryPage from '@/pages/InsightsHistoryPage'
 import InsightsRecommendationsPage from '@/pages/InsightsRecommendationsPage'
 import InsightsReportsPage from '@/pages/InsightsReportsPage'
 import KnowledgeHubPage from '@/pages/KnowledgeHubPage'
+import WomensHealthArticlePage from '@/pages/WomensHealthArticlePage'
 import ComingSoonPage from '@/pages/ComingSoonPage'
 import HelpCenterPage from '@/pages/HelpCenterPage'
 import ReleaseNotesPage from '@/pages/ReleaseNotesPage'
@@ -124,6 +125,7 @@ function App() {
               <Route path="/insights/recommendations" element={<InsightsRecommendationsPage />} />
               <Route path="/insights/reports" element={<InsightsReportsPage />} />
               <Route path="/learn" element={<KnowledgeHubPage />} />
+              <Route path="/womens-health" element={<WomensHealthArticlePage />} />
               <Route path="/help-center" element={<HelpCenterPage />} />
               <Route path="/release-notes" element={<ReleaseNotesPage />} />
               <Route path="/coming-soon/:slug" element={<ComingSoonPage />} />
