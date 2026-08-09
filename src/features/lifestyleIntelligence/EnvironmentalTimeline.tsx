@@ -15,10 +15,12 @@ interface EnvironmentalTimelineProps {
 
 /**
  * Mood and Energy have real averages, derived entirely from the user's
- * own recorded check-ins. The spec's other requested series (Stress,
- * Weather, Movement, Hydration, Outdoor Time) have no tracked field
- * anywhere in HerHealth, so they're named honestly in the legend as not
- * yet tracked rather than plotted with invented data.
+ * own recorded check-ins. Weather, Movement, and Outdoor Time still have
+ * no tracked field anywhere in HerHealth. Stress and Hydration are now
+ * genuinely tracked (Stress & Recovery, Nutrition Companion — Stage 3),
+ * just not plotted on this particular chart, so the caption below points
+ * to where they can actually be reviewed instead of calling them
+ * unavailable (Stage 4C2).
  */
 function EnvironmentalTimeline({ status, range, onRangeChange, points }: EnvironmentalTimelineProps) {
   const hasAnyData = points.some((point) => point.entryCount > 0)
@@ -84,9 +86,10 @@ function EnvironmentalTimeline({ status, range, onRangeChange, points }: Environ
             <MoodEnergyBarChart points={points} ariaLabel="Mood and energy averages over the selected time range" />
 
             <p className="text-caption text-muted-foreground">
-              Stress, Weather, Movement, Hydration, and Outdoor Time tracking aren&apos;t available
-              yet, so they aren&apos;t shown here. Mood and Energy are based only on your recorded
-              check-ins.
+              Weather, Movement, and Outdoor Time tracking aren&apos;t available yet, so they
+              aren&apos;t shown here. Stress and Hydration are tracked in Stress &amp; Recovery and
+              Nutrition Companion — not plotted on this chart, but reviewable there. Mood and
+              Energy are based only on your recorded check-ins.
             </p>
           </>
         )}

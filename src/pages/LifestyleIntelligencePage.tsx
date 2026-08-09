@@ -6,6 +6,13 @@ import {
   generateWeeklyReflection,
 } from '@/features/lifestyleIntelligence/lifestyleInsightEngine'
 import type { TimelineRange } from '@/features/lifestyleIntelligence/lifestyleCalculations'
+import { useSleepData } from '@/features/sleepIntelligence/useSleepData'
+import { calculateSleepSummary } from '@/features/sleepIntelligence/sleepCalculations'
+import { useNutritionData } from '@/features/nutritionCompanion/useNutritionData'
+import { calculateNutritionSummary } from '@/features/nutritionCompanion/nutritionCalculations'
+import { useStressRecoveryData } from '@/features/stressRecovery/useStressRecoveryData'
+import { calculateStressRecoverySummary } from '@/features/stressRecovery/stressRecoveryCalculations'
+import { getLocalDateString } from '@/features/periods/dateUtils'
 import LifestyleIntelligenceHero from '@/features/lifestyleIntelligence/LifestyleIntelligenceHero'
 import TodaySnapshot from '@/features/lifestyleIntelligence/TodaySnapshot'
 import EnvironmentalWellness from '@/features/lifestyleIntelligence/EnvironmentalWellness'
@@ -20,18 +27,31 @@ import PrivacyBadge from '@/components/shared/PrivacyBadge'
 
 /**
  * Lifestyle Intelligence is a presentation-layer feature per its spec: no
- * new tables, services, or backend logic. Only daily check-ins (mood,
- * energy, wellbeing, consistency) are real, already-tracked HerHealth
- * data — everything the schema doesn't yet capture (sleep quality,
- * hydration, movement, weather, air quality, screen time, and so on) is
- * labeled honestly as not yet tracked rather than filled with invented
- * numbers. "AI" sections use the same deterministic, rule-based pattern
- * as the rest of HerHealth — never a real model call.
+ * new tables, services, or backend logic. Daily check-ins (mood, energy,
+ * wellbeing, consistency) power the score/insights/reflection sections
+ * exactly as before (Stage 4C2 leaves that untouched). Sleep, Nutrition,
+ * and Stress & Recovery are Stage 3 additions this page didn't know about
+ * when it was first built — it now composes their existing hooks and
+ * calculate*Summary() functions directly (the same pattern
+ * RecoveryPlannerPage.tsx already established) purely to display real
+ * data honestly instead of a stale "not yet tracked" placeholder. No new
+ * calculation, no new table, no new service. Everything still genuinely
+ * untracked (movement, mindfulness, social connection, work-life balance,
+ * weather, air quality, and the rest of Environmental Wellness) stays
+ * labeled that way — never filled with invented numbers.
  */
 function LifestyleIntelligencePage() {
   const [timelineRange, setTimelineRange] = useState<TimelineRange>('week')
   const { status, weeklySummary, moodTrend, energyTrend, consistencyScore, timeline } =
     useLifestyleIntelligenceData(timelineRange)
+
+  const sleepData = useSleepData()
+  const nutritionData = useNutritionData()
+  const stressRecoveryData = useStressRecoveryData()
+  const today = getLocalDateString()
+  const sleepSummary = calculateSleepSummary(sleepData.entries, today)
+  const nutritionSummary = calculateNutritionSummary(nutritionData.entries, today)
+  const stressRecoverySummary = calculateStressRecoverySummary(stressRecoveryData.entries, today)
 
   const insights = generateLifestyleInsights({ weeklySummary, moodTrend, energyTrend, consistencyScore })
   const recommendations = generateHabitRecommendations({ moodTrend, energyTrend })
@@ -43,11 +63,26 @@ function LifestyleIntelligencePage() {
 
       <PrivacyBadge label="Your wellness information is private to your account" />
 
-      <TodaySnapshot status={status} />
+      <TodaySnapshot
+        status={status}
+        sleepStatus={sleepData.status}
+        sleepSummary={sleepSummary}
+        nutritionStatus={nutritionData.status}
+        nutritionSummary={nutritionSummary}
+        stressRecoveryStatus={stressRecoveryData.status}
+        stressRecoverySummary={stressRecoverySummary}
+      />
 
       <EnvironmentalWellness status={status} />
 
-      <LifestyleFactorsSection />
+      <LifestyleFactorsSection
+        sleepStatus={sleepData.status}
+        sleepSummary={sleepSummary}
+        nutritionStatus={nutritionData.status}
+        nutritionSummary={nutritionSummary}
+        stressRecoveryStatus={stressRecoveryData.status}
+        stressRecoverySummary={stressRecoverySummary}
+      />
 
       <LifestyleInsights status={status} insights={insights} />
 
@@ -55,7 +90,18 @@ function LifestyleIntelligencePage() {
 
       <HabitRecommendations status={status} recommendations={recommendations} />
 
-      <LifestyleScore status={status} consistencyScore={consistencyScore} moodTrend={moodTrend} energyTrend={energyTrend} />
+      <LifestyleScore
+        status={status}
+        consistencyScore={consistencyScore}
+        moodTrend={moodTrend}
+        energyTrend={energyTrend}
+        sleepStatus={sleepData.status}
+        sleepSummary={sleepSummary}
+        nutritionStatus={nutritionData.status}
+        nutritionSummary={nutritionSummary}
+        stressRecoveryStatus={stressRecoveryData.status}
+        stressRecoverySummary={stressRecoverySummary}
+      />
 
       <LifestyleLearningCenter />
 

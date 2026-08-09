@@ -1,38 +1,89 @@
 import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/card'
 import Skeleton from '@/components/shared/Skeleton'
 import type { MoodTrendResult, EnergyTrendResult } from '@/features/insights/types'
-import type { ScoreDimension } from '@/features/lifestyleIntelligence/types'
-
-const SCORE_DIMENSIONS: ScoreDimension[] = [
-  { key: 'sleep-consistency', label: 'Sleep Consistency', tracked: false },
-  { key: 'recovery', label: 'Recovery', tracked: false },
-  { key: 'movement', label: 'Movement', tracked: false },
-  { key: 'hydration', label: 'Hydration', tracked: false },
-  { key: 'stress-balance', label: 'Stress Balance', tracked: false },
-  { key: 'environmental-comfort', label: 'Environmental Comfort', tracked: false },
-]
+import type { SourceStatus } from '@/features/lifestyleIntelligence/trackedFactorText'
+import { describeTrackedFactor } from '@/features/lifestyleIntelligence/trackedFactorText'
+import type { SleepSummary } from '@/features/sleepIntelligence/sleepCalculations'
+import type { NutritionSummary } from '@/features/nutritionCompanion/nutritionCalculations'
+import type { StressRecoverySummary } from '@/features/stressRecovery/stressRecoveryCalculations'
+import { cn } from '@/lib/utils'
 
 const RADIUS = 70
 const CIRCUMFERENCE = 2 * Math.PI * RADIUS
+
+function capitalize(value: string): string {
+  return value.length > 0 ? value[0].toUpperCase() + value.slice(1).replace('_', ' ') : value
+}
 
 interface LifestyleScoreProps {
   status: 'loading' | 'ready' | 'error'
   consistencyScore: number
   moodTrend: MoodTrendResult
   energyTrend: EnergyTrendResult
+  sleepStatus: SourceStatus
+  sleepSummary: SleepSummary
+  nutritionStatus: SourceStatus
+  nutritionSummary: NutritionSummary
+  stressRecoveryStatus: SourceStatus
+  stressRecoverySummary: StressRecoverySummary
 }
 
 /**
- * "Lifestyle Balance" is the one genuinely real, whole-of-lifestyle
- * number HerHealth can honestly report today: the share of the last 30
- * days with a recorded check-in. The six requested sub-dimensions (sleep
- * consistency, recovery, movement, hydration, stress balance,
- * environmental comfort) have no tracked field yet, so they're shown as a
- * legend of what this score will incorporate as more tracking becomes
- * available — never blended in as if they were already measured.
+ * "Lifestyle Balance" is still the one genuinely real, whole-of-lifestyle
+ * number HerHealth reports — the share of the last 30 days with a
+ * recorded check-in, via the unmodified calculateConsistencyScore(). The
+ * dimensions legend below it now reflects real Sleep/Nutrition/Stress &
+ * Recovery data where it exists (Stage 4C2) instead of a blanket "not yet
+ * tracked" — but the score itself is untouched: no new scoring model, no
+ * blending of these dimensions into the number or ring.
  */
-function LifestyleScore({ status, consistencyScore, moodTrend, energyTrend }: LifestyleScoreProps) {
+function LifestyleScore({
+  status,
+  consistencyScore,
+  moodTrend,
+  energyTrend,
+  sleepStatus,
+  sleepSummary,
+  nutritionStatus,
+  nutritionSummary,
+  stressRecoveryStatus,
+  stressRecoverySummary,
+}: LifestyleScoreProps) {
   const offset = CIRCUMFERENCE - (consistencyScore / 100) * CIRCUMFERENCE
+
+  const sleepConsistency = describeTrackedFactor(
+    sleepStatus,
+    sleepSummary.hasSufficientData,
+    `${sleepSummary.consistencyPercent}% of nights logged`,
+    '',
+  )
+  const hydration = describeTrackedFactor(
+    nutritionStatus,
+    nutritionSummary.hasSufficientData && nutritionSummary.avgHydrationGlasses !== null,
+    `Avg ${nutritionSummary.avgHydrationGlasses} glasses/day`,
+    '',
+  )
+  const stressBalance = describeTrackedFactor(
+    stressRecoveryStatus,
+    stressRecoverySummary.hasSufficientData,
+    `Trending ${stressRecoverySummary.stressTrend.toLowerCase()}`,
+    '',
+  )
+  const recovery = describeTrackedFactor(
+    stressRecoveryStatus,
+    stressRecoverySummary.hasSufficientData && stressRecoverySummary.recentRecoveryLevel !== null,
+    `${capitalize(stressRecoverySummary.recentRecoveryLevel ?? '')}, trending ${stressRecoverySummary.recoveryTrend.toLowerCase()}`,
+    '',
+  )
+
+  const dimensions = [
+    { key: 'sleep-consistency', label: 'Sleep Consistency', tracked: true, valueText: sleepConsistency.statusText },
+    { key: 'recovery', label: 'Recovery', tracked: true, valueText: recovery.statusText },
+    { key: 'movement', label: 'Movement', tracked: false, valueText: 'Not yet tracked' },
+    { key: 'hydration', label: 'Hydration', tracked: true, valueText: hydration.statusText },
+    { key: 'stress-balance', label: 'Stress Balance', tracked: true, valueText: stressBalance.statusText },
+    { key: 'environmental-comfort', label: 'Environmental Comfort', tracked: false, valueText: 'Not yet tracked' },
+  ]
 
   return (
     <Card>
@@ -73,18 +124,26 @@ function LifestyleScore({ status, consistencyScore, moodTrend, energyTrend }: Li
             <div className="flex w-full max-w-sm flex-col gap-2.5">
               <p className="text-caption text-muted-foreground">
                 Lifestyle Balance currently reflects your check-in consistency over the last 30
-                days. It will incorporate the factors below as HerHealth adds tracking for them.
+                days. The factors below are shown for awareness and aren&apos;t blended into this
+                score.
               </p>
               <div className="flex flex-wrap gap-2 text-caption text-muted-foreground">
                 <span className="rounded-full bg-muted/50 px-2.5 py-1">Mood trend: {moodTrend}</span>
                 <span className="rounded-full bg-muted/50 px-2.5 py-1">Energy trend: {energyTrend}</span>
               </div>
               <ul className="flex flex-col gap-1.5">
-                {SCORE_DIMENSIONS.map((dimension) => (
+                {dimensions.map((dimension) => (
                   <li key={dimension.key} className="flex items-center justify-between text-caption">
                     <span className="text-foreground">{dimension.label}</span>
-                    <span className="rounded-full border border-dashed border-border px-2 py-0.5 text-muted-foreground">
-                      Not yet tracked
+                    <span
+                      className={cn(
+                        'rounded-full border px-2 py-0.5',
+                        dimension.tracked
+                          ? 'border-transparent bg-accent/40 text-foreground'
+                          : 'border-dashed border-border text-muted-foreground',
+                      )}
+                    >
+                      {dimension.valueText}
                     </span>
                   </li>
                 ))}

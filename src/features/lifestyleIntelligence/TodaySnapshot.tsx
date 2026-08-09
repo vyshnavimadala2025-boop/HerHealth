@@ -1,35 +1,22 @@
 import { Briefcase, Droplet, Footprints, Home, Moon, Smartphone, Sun, Waves } from 'lucide-react'
 import MetricCardGrid, { type MetricCard } from '@/components/shared/MetricCardGrid'
+import type { SourceStatus } from '@/features/lifestyleIntelligence/trackedFactorText'
+import { describeTrackedFactor } from '@/features/lifestyleIntelligence/trackedFactorText'
+import type { SleepSummary } from '@/features/sleepIntelligence/sleepCalculations'
+import type { NutritionSummary } from '@/features/nutritionCompanion/nutritionCalculations'
+import type { StressRecoverySummary } from '@/features/stressRecovery/stressRecoveryCalculations'
 
 const NOT_TRACKED = 'Not yet tracked'
 const NOT_TRACKED_ACCENT = 'bg-muted text-muted-foreground'
+const TRACKED_ACCENT = 'bg-lavender text-lavender-foreground'
 
 /**
- * None of these eight metrics have a tracked field anywhere in HerHealth
- * today, so every card is honestly shown as "not yet tracked" rather than
- * filled with an invented reading.
+ * Movement, Outdoor Time, Screen Time, Work Environment, and
+ * Environmental Comfort have no tracked field anywhere in HerHealth
+ * today, so these five stay honestly "not yet tracked". Sleep Quality,
+ * Hydration, and Stress are built from real Stage 3 data below.
  */
-const SNAPSHOT_CARDS: MetricCard[] = [
-  {
-    key: 'sleep-quality',
-    icon: Moon,
-    label: 'Sleep Quality',
-    status: NOT_TRACKED,
-    trend: 'Weekly trend: not yet available',
-    caption: 'Restful, consistent sleep supports the body’s natural rhythms.',
-    accentClassName: NOT_TRACKED_ACCENT,
-    tracked: false,
-  },
-  {
-    key: 'hydration',
-    icon: Droplet,
-    label: 'Hydration',
-    status: NOT_TRACKED,
-    trend: 'Weekly trend: not yet available',
-    caption: 'Staying hydrated throughout the day supports overall wellbeing.',
-    accentClassName: NOT_TRACKED_ACCENT,
-    tracked: false,
-  },
+const UNTRACKED_CARDS: MetricCard[] = [
   {
     key: 'movement',
     icon: Footprints,
@@ -37,16 +24,6 @@ const SNAPSHOT_CARDS: MetricCard[] = [
     status: NOT_TRACKED,
     trend: 'Weekly trend: not yet available',
     caption: 'Gentle, regular movement supports mood and energy.',
-    accentClassName: NOT_TRACKED_ACCENT,
-    tracked: false,
-  },
-  {
-    key: 'stress',
-    icon: Waves,
-    label: 'Stress',
-    status: NOT_TRACKED,
-    trend: 'Weekly trend: not yet available',
-    caption: 'How the body responds to stress can shift throughout the day.',
     accentClassName: NOT_TRACKED_ACCENT,
     tracked: false,
   },
@@ -94,9 +71,80 @@ const SNAPSHOT_CARDS: MetricCard[] = [
 
 interface TodaySnapshotProps {
   status: 'loading' | 'ready' | 'error'
+  sleepStatus: SourceStatus
+  sleepSummary: SleepSummary
+  nutritionStatus: SourceStatus
+  nutritionSummary: NutritionSummary
+  stressRecoveryStatus: SourceStatus
+  stressRecoverySummary: StressRecoverySummary
 }
 
-function TodaySnapshot({ status }: TodaySnapshotProps) {
+function TodaySnapshot({
+  status,
+  sleepStatus,
+  sleepSummary,
+  nutritionStatus,
+  nutritionSummary,
+  stressRecoveryStatus,
+  stressRecoverySummary,
+}: TodaySnapshotProps) {
+  const sleep = describeTrackedFactor(
+    sleepStatus,
+    sleepSummary.hasSufficientData,
+    sleepSummary.qualityTrend,
+    'From Sleep Intelligence',
+  )
+  const hydration = describeTrackedFactor(
+    nutritionStatus,
+    nutritionSummary.hasSufficientData && nutritionSummary.avgHydrationGlasses !== null,
+    `Avg ${nutritionSummary.avgHydrationGlasses} glasses/day`,
+    'From Nutrition Companion',
+  )
+  const stress = describeTrackedFactor(
+    stressRecoveryStatus,
+    stressRecoverySummary.hasSufficientData,
+    stressRecoverySummary.stressTrend,
+    'From Stress & Recovery',
+  )
+
+  const cards: MetricCard[] = [
+    {
+      key: 'sleep-quality',
+      icon: Moon,
+      label: 'Sleep Quality',
+      status: sleep.statusText,
+      trend: sleep.trendText,
+      caption: 'Restful, consistent sleep supports the body’s natural rhythms.',
+      accentClassName: TRACKED_ACCENT,
+      tracked: true,
+    },
+    {
+      key: 'hydration',
+      icon: Droplet,
+      label: 'Hydration',
+      status: hydration.statusText,
+      trend: hydration.trendText,
+      caption: 'Staying hydrated throughout the day supports overall wellbeing.',
+      accentClassName: TRACKED_ACCENT,
+      tracked: true,
+    },
+    UNTRACKED_CARDS[0],
+    {
+      key: 'stress',
+      icon: Waves,
+      label: 'Stress',
+      status: stress.statusText,
+      trend: stress.trendText,
+      caption: 'How the body responds to stress can shift throughout the day.',
+      accentClassName: TRACKED_ACCENT,
+      tracked: true,
+    },
+    UNTRACKED_CARDS[1],
+    UNTRACKED_CARDS[2],
+    UNTRACKED_CARDS[3],
+    UNTRACKED_CARDS[4],
+  ]
+
   return (
     <section className="flex flex-col gap-4">
       <div>
@@ -105,7 +153,7 @@ function TodaySnapshot({ status }: TodaySnapshotProps) {
           A snapshot of the everyday factors that may influence how you feel.
         </p>
       </div>
-      <MetricCardGrid status={status} cards={SNAPSHOT_CARDS} />
+      <MetricCardGrid status={status} cards={cards} />
     </section>
   )
 }

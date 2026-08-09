@@ -1,44 +1,20 @@
 import { Apple, Dumbbell, Droplet, Heart, Moon, Scale, Sparkles, Waves } from 'lucide-react'
 import type { LifestyleFactorCard } from '@/features/lifestyleIntelligence/types'
+import type { SourceStatus } from '@/features/lifestyleIntelligence/trackedFactorText'
+import { describeTrackedFactor } from '@/features/lifestyleIntelligence/trackedFactorText'
+import type { SleepSummary } from '@/features/sleepIntelligence/sleepCalculations'
+import type { NutritionSummary } from '@/features/nutritionCompanion/nutritionCalculations'
+import type { StressRecoverySummary } from '@/features/stressRecovery/stressRecoveryCalculations'
 
 const NOT_TRACKED = 'Not yet tracked'
 
 /**
- * None of these eight factors have a dedicated tracked field in HerHealth
- * today (only mood, energy, and general wellbeing are recorded), so
- * "Current consistency" and "Weekly progress" are shown honestly as not
- * yet tracked. The "AI observation" for each is general educational
- * context — never a claim about the user's own data for a factor
- * HerHealth doesn't actually measure.
+ * Exercise, Mindfulness, Social Connection, and Work-Life Balance have no
+ * dedicated tracked field anywhere in HerHealth today, so they stay
+ * honestly "not yet tracked". Sleep, Nutrition, Hydration, and Stress are
+ * built from LifestyleIntelligencePage's real Stage 3 data below.
  */
-const LIFESTYLE_FACTORS: LifestyleFactorCard[] = [
-  {
-    key: 'sleep',
-    icon: Moon,
-    title: 'Sleep',
-    description: 'Consistent, quality sleep supports the body’s natural rhythms.',
-    consistency: NOT_TRACKED,
-    observation: 'A steady sleep and wake schedule is one of the most supportive everyday habits.',
-    tracked: false,
-  },
-  {
-    key: 'nutrition',
-    icon: Apple,
-    title: 'Nutrition',
-    description: 'Regular, balanced meals help support steady energy.',
-    consistency: NOT_TRACKED,
-    observation: 'Regular meals with protein, fiber, and healthy fats can help avoid energy dips.',
-    tracked: false,
-  },
-  {
-    key: 'hydration',
-    icon: Droplet,
-    title: 'Hydration',
-    description: 'Staying hydrated supports overall bodily function.',
-    consistency: NOT_TRACKED,
-    observation: 'Keeping water nearby throughout the day is a simple way to build the habit.',
-    tracked: false,
-  },
+const UNTRACKED_FACTORS: LifestyleFactorCard[] = [
   {
     key: 'exercise',
     icon: Dumbbell,
@@ -46,15 +22,6 @@ const LIFESTYLE_FACTORS: LifestyleFactorCard[] = [
     description: 'Gentle, regular movement supports overall wellbeing.',
     consistency: NOT_TRACKED,
     observation: 'Short, frequent movement breaks can be as supportive as longer sessions.',
-    tracked: false,
-  },
-  {
-    key: 'stress',
-    icon: Waves,
-    title: 'Stress',
-    description: 'How the body responds to stress can shift day to day.',
-    consistency: NOT_TRACKED,
-    observation: 'Small, repeatable moments of calm can support how you navigate stress over time.',
     tracked: false,
   },
   {
@@ -86,11 +53,102 @@ const LIFESTYLE_FACTORS: LifestyleFactorCard[] = [
   },
 ]
 
+interface LifestyleFactorsSectionProps {
+  sleepStatus: SourceStatus
+  sleepSummary: SleepSummary
+  nutritionStatus: SourceStatus
+  nutritionSummary: NutritionSummary
+  stressRecoveryStatus: SourceStatus
+  stressRecoverySummary: StressRecoverySummary
+}
+
 /**
  * Reuses the same accessible <details>/<summary> expand pattern already
  * used on the Dashboard and Hormone Balance for "interactive" cards.
  */
-function LifestyleFactorsSection() {
+function LifestyleFactorsSection({
+  sleepStatus,
+  sleepSummary,
+  nutritionStatus,
+  nutritionSummary,
+  stressRecoveryStatus,
+  stressRecoverySummary,
+}: LifestyleFactorsSectionProps) {
+  const sleep = describeTrackedFactor(
+    sleepStatus,
+    sleepSummary.hasSufficientData,
+    `${sleepSummary.consistencyPercent}% of nights logged`,
+    `Quality trend: ${sleepSummary.qualityTrend}`,
+  )
+  const nutrition = describeTrackedFactor(
+    nutritionStatus,
+    nutritionSummary.hasSufficientData,
+    `${nutritionSummary.consistencyPercent}% of days logged`,
+    `${nutritionSummary.totalMealsLogged} meals logged this month`,
+  )
+  const hydration = describeTrackedFactor(
+    nutritionStatus,
+    nutritionSummary.hasSufficientData && nutritionSummary.avgHydrationGlasses !== null,
+    `Avg ${nutritionSummary.avgHydrationGlasses} glasses/day`,
+    `Trend: ${nutritionSummary.hydrationTrend}`,
+  )
+  const stress = describeTrackedFactor(
+    stressRecoveryStatus,
+    stressRecoverySummary.hasSufficientData,
+    `${stressRecoverySummary.consistencyPercent}% of days logged`,
+    `Trend: ${stressRecoverySummary.stressTrend}`,
+  )
+
+  const lifestyleFactors: LifestyleFactorCard[] = [
+    {
+      key: 'sleep',
+      icon: Moon,
+      title: 'Sleep',
+      description: 'Consistent, quality sleep supports the body’s natural rhythms.',
+      consistency: sleep.statusText,
+      observation: 'A steady sleep and wake schedule is one of the most supportive everyday habits.',
+      tracked: true,
+    },
+    {
+      key: 'nutrition',
+      icon: Apple,
+      title: 'Nutrition',
+      description: 'Regular, balanced meals help support steady energy.',
+      consistency: nutrition.statusText,
+      observation: 'Regular meals with protein, fiber, and healthy fats can help avoid energy dips.',
+      tracked: true,
+    },
+    {
+      key: 'hydration',
+      icon: Droplet,
+      title: 'Hydration',
+      description: 'Staying hydrated supports overall bodily function.',
+      consistency: hydration.statusText,
+      observation: 'Keeping water nearby throughout the day is a simple way to build the habit.',
+      tracked: true,
+    },
+    UNTRACKED_FACTORS[0],
+    {
+      key: 'stress',
+      icon: Waves,
+      title: 'Stress',
+      description: 'How the body responds to stress can shift day to day.',
+      consistency: stress.statusText,
+      observation: 'Small, repeatable moments of calm can support how you navigate stress over time.',
+      tracked: true,
+    },
+    UNTRACKED_FACTORS[1],
+    UNTRACKED_FACTORS[2],
+    UNTRACKED_FACTORS[3],
+  ]
+
+  const weeklyProgress: Record<string, string> = {
+    sleep: sleep.trendText,
+    nutrition: nutrition.trendText,
+    hydration: hydration.trendText,
+    stress: stress.trendText,
+  }
+
   return (
     <section className="flex flex-col gap-4">
       <div>
@@ -100,7 +158,7 @@ function LifestyleFactorsSection() {
         </p>
       </div>
       <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
-        {LIFESTYLE_FACTORS.map((factor) => (
+        {lifestyleFactors.map((factor) => (
           <details
             key={factor.key}
             className="group rounded-2xl border border-border bg-card p-4 shadow-sm transition-shadow hover:shadow-md"
@@ -124,7 +182,7 @@ function LifestyleFactorsSection() {
               </div>
               <div className="flex items-center justify-between text-caption">
                 <span className="text-muted-foreground">Weekly progress</span>
-                <span className="font-medium text-foreground">{NOT_TRACKED}</span>
+                <span className="font-medium text-foreground">{weeklyProgress[factor.key] ?? NOT_TRACKED}</span>
               </div>
               <p className="text-caption text-muted-foreground">{factor.observation}</p>
             </div>
