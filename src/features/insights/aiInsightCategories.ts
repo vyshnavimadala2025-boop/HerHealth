@@ -14,8 +14,16 @@ import {
 } from 'lucide-react'
 import type { EnergyTrendResult, MoodTrendResult } from '@/features/insights/types'
 import type { GoalProgressReportSummary } from '@/features/reports/types'
+import type { SleepSummary } from '@/features/sleepIntelligence/sleepCalculations'
+import type { StressRecoverySummary } from '@/features/stressRecovery/stressRecoveryCalculations'
 
 export type ConfidenceLevel = 'High consistency' | 'Moderate consistency' | 'Limited data' | 'Not tracked yet'
+
+type SourceStatus = 'loading' | 'ready' | 'error'
+
+function capitalize(value: string): string {
+  return value.length > 0 ? value[0].toUpperCase() + value.slice(1).replace('_', ' ') : value
+}
 
 export interface AiInsightCategory {
   key: string
@@ -52,6 +60,12 @@ export interface AiInsightCategoriesInput {
   pcosEnabled: boolean
   pcosEntryCount: number
   lastPcosEntryDate: string | null
+  sleepStatus: SourceStatus
+  sleepSummary: SleepSummary
+  lastSleepEntryDate: string | null
+  stressRecoveryStatus: SourceStatus
+  stressRecoverySummary: StressRecoverySummary
+  lastStressRecoveryEntryDate: string | null
   /**
    * True when the goals/journal/PCOS summary couldn't be loaded (e.g. a
    * pre-existing environment gap, not user data) — Journal, Goals, and
@@ -66,12 +80,17 @@ export interface AiInsightCategoriesInput {
  * rule-based, reusing only real signals already computed elsewhere
  * (moodTrend/energyTrend from the existing insight engine in
  * useInsightsData, cycle data from the same hook, goal/journal/PCOS
- * counts and dates from useReportData's timeline/summary). Categories
- * with no tracked field anywhere in HerHealth yet (Sleep, Recovery,
- * Environment, Stress) are shown honestly as not tracked — never a
- * fabricated observation. Language throughout is deliberately
- * observational ("we noticed", "you may be experiencing"), never
- * diagnostic.
+ * counts and dates from useReportData's timeline/summary). Sleep, Stress,
+ * and Recovery (Stage 5A) reuse useSleepData()/calculateSleepSummary() and
+ * useStressRecoveryData()/calculateStressRecoverySummary() — the same
+ * hooks/functions Lifestyle Intelligence already composes (Stage 4C2) —
+ * gated on hasSufficientData exactly like Mood/Energy/Cycle above; a
+ * failure in either source degrades only its own category via
+ * unavailableCard(), never the rest of the page. Environment has no
+ * tracked field anywhere in HerHealth yet and is shown honestly as not
+ * tracked — never a fabricated observation. Language throughout is
+ * deliberately observational ("we noticed", "you may be experiencing"),
+ * never diagnostic.
  */
 export function buildAiInsightCategories(input: AiInsightCategoriesInput): AiInsightCategory[] {
   const categories: AiInsightCategory[] = []
@@ -270,31 +289,73 @@ export function buildAiInsightCategories(input: AiInsightCategoriesInput): AiIns
         },
   )
 
-  // Sleep — not tracked anywhere yet
-  categories.push({
-    key: 'sleep',
-    label: 'Sleep',
-    icon: Moon,
-    tracked: false,
-    confidence: 'Not tracked yet',
-    observation: 'Nothing recorded here yet.',
-    wellnessInterpretation: 'Sleep tracking isn’t available in HerHealth yet — this is on the roadmap.',
-    suggestedNextHabit: 'Check back once sleep tracking is available.',
-    lastUpdated: null,
-  })
+  // Sleep
+  categories.push(
+    input.sleepStatus === 'error'
+      ? unavailableCard('sleep', 'Sleep', Moon)
+      : !input.sleepSummary.hasSufficientData || input.sleepSummary.qualityTrend === 'Limited data'
+        ? {
+            key: 'sleep',
+            label: 'Sleep',
+            icon: Moon,
+            tracked: false,
+            confidence: 'Limited data',
+            observation: 'Not enough recorded nights yet to describe a sleep pattern.',
+            wellnessInterpretation: 'Once you log a few more nights in Sleep Intelligence, a pattern will appear here.',
+            suggestedNextHabit: 'Log tonight’s sleep in Sleep Intelligence.',
+            lastUpdated: input.lastSleepEntryDate,
+          }
+        : {
+            key: 'sleep',
+            label: 'Sleep',
+            icon: Moon,
+            tracked: true,
+            confidence: confidenceFromCount(input.sleepSummary.nightsTracked),
+            observation: `We noticed your recorded sleep quality has been ${input.sleepSummary.qualityTrend.toLowerCase()} recently.`,
+            wellnessInterpretation:
+              input.sleepSummary.qualityTrend === 'Improving'
+                ? 'You may be experiencing steadier, more restful nights.'
+                : input.sleepSummary.qualityTrend === 'Decreasing'
+                  ? 'Your recorded sleep quality has dipped recently — routine and rest can both play a part.'
+                  : 'Your recorded sleep quality appears fairly steady.',
+            suggestedNextHabit: 'Keep a consistent bedtime — track it in Sleep Intelligence.',
+            lastUpdated: input.lastSleepEntryDate,
+          },
+  )
 
-  // Stress — not tracked anywhere yet
-  categories.push({
-    key: 'stress',
-    label: 'Stress',
-    icon: Brain,
-    tracked: false,
-    confidence: 'Not tracked yet',
-    observation: 'Nothing recorded here yet.',
-    wellnessInterpretation: 'Stress tracking isn’t available in HerHealth yet — this is on the roadmap.',
-    suggestedNextHabit: 'Check back once stress tracking is available.',
-    lastUpdated: null,
-  })
+  // Stress
+  categories.push(
+    input.stressRecoveryStatus === 'error'
+      ? unavailableCard('stress', 'Stress', Brain)
+      : !input.stressRecoverySummary.hasSufficientData || input.stressRecoverySummary.stressTrend === 'Limited data'
+        ? {
+            key: 'stress',
+            label: 'Stress',
+            icon: Brain,
+            tracked: false,
+            confidence: 'Limited data',
+            observation: 'Not enough recorded days yet to describe a stress pattern.',
+            wellnessInterpretation: 'Once you log a few more days in Stress & Recovery, a pattern will appear here.',
+            suggestedNextHabit: 'Log today’s stress level in Stress & Recovery.',
+            lastUpdated: input.lastStressRecoveryEntryDate,
+          }
+        : {
+            key: 'stress',
+            label: 'Stress',
+            icon: Brain,
+            tracked: true,
+            confidence: confidenceFromCount(input.stressRecoverySummary.daysTracked),
+            observation: `We noticed your recorded stress has been ${input.stressRecoverySummary.stressTrend.toLowerCase()} recently.`,
+            wellnessInterpretation:
+              input.stressRecoverySummary.stressTrend === 'Rising'
+                ? 'Your recorded stress may be trending upward — small, repeatable moments of calm can help.'
+                : input.stressRecoverySummary.stressTrend === 'Easing'
+                  ? 'Your recorded stress appears to be easing recently.'
+                  : 'Your recorded stress appears fairly steady.',
+            suggestedNextHabit: 'Log a recovery action after a stressful moment in Stress & Recovery.',
+            lastUpdated: input.lastStressRecoveryEntryDate,
+          },
+  )
 
   // Lifestyle — real feature exists with its own deep view; point there rather than duplicate
   categories.push({
@@ -322,18 +383,41 @@ export function buildAiInsightCategories(input: AiInsightCategoriesInput): AiIns
     lastUpdated: null,
   })
 
-  // Recovery — not tracked anywhere yet
-  categories.push({
-    key: 'recovery',
-    label: 'Recovery',
-    icon: Waves,
-    tracked: false,
-    confidence: 'Not tracked yet',
-    observation: 'Nothing recorded here yet.',
-    wellnessInterpretation: 'Recovery tracking isn’t available in HerHealth yet — this is on the roadmap.',
-    suggestedNextHabit: 'Check back once recovery tracking is available.',
-    lastUpdated: null,
-  })
+  // Recovery
+  categories.push(
+    input.stressRecoveryStatus === 'error'
+      ? unavailableCard('recovery', 'Recovery', Waves)
+      : !input.stressRecoverySummary.hasSufficientData ||
+          input.stressRecoverySummary.recoveryTrend === 'Limited data' ||
+          input.stressRecoverySummary.recentRecoveryLevel === null
+        ? {
+            key: 'recovery',
+            label: 'Recovery',
+            icon: Waves,
+            tracked: false,
+            confidence: 'Limited data',
+            observation: 'Not enough recorded days yet to describe a recovery pattern.',
+            wellnessInterpretation: 'Once you log a few more days in Stress & Recovery, a pattern will appear here.',
+            suggestedNextHabit: 'Log today’s recovery level in Stress & Recovery.',
+            lastUpdated: input.lastStressRecoveryEntryDate,
+          }
+        : {
+            key: 'recovery',
+            label: 'Recovery',
+            icon: Waves,
+            tracked: true,
+            confidence: confidenceFromCount(input.stressRecoverySummary.daysTracked),
+            observation: `Your most recent recorded recovery level was ${capitalize(input.stressRecoverySummary.recentRecoveryLevel)}, trending ${input.stressRecoverySummary.recoveryTrend.toLowerCase()}.`,
+            wellnessInterpretation:
+              input.stressRecoverySummary.recoveryTrend === 'Improving'
+                ? 'You may be experiencing steadier recovery recently.'
+                : input.stressRecoverySummary.recoveryTrend === 'Decreasing'
+                  ? 'Your recorded recovery has dipped recently — rest and gentle recovery actions can both play a part.'
+                  : 'Your recorded recovery appears fairly steady.',
+            suggestedNextHabit: 'Visit Recovery Planner to plan a gentle recovery action.',
+            lastUpdated: input.lastStressRecoveryEntryDate,
+          },
+  )
 
   return categories
 }

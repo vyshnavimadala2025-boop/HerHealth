@@ -11,6 +11,11 @@ import { generateNextSteps } from '@/features/insights/nextSteps'
 import { useInsightsData } from '@/features/insights/useInsightsData'
 import { useReportData } from '@/features/reports/useReportData'
 import { useDashboardData } from '@/features/checkins/useDashboardData'
+import { useSleepData } from '@/features/sleepIntelligence/useSleepData'
+import { calculateSleepSummary } from '@/features/sleepIntelligence/sleepCalculations'
+import { useStressRecoveryData } from '@/features/stressRecovery/useStressRecoveryData'
+import { calculateStressRecoverySummary } from '@/features/stressRecovery/stressRecoveryCalculations'
+import { getLocalDateString } from '@/features/periods/dateUtils'
 import type { TimelineEntryType } from '@/features/reports/types'
 
 function mostRecentDate(timeline: { date: string; type: TimelineEntryType }[], types: TimelineEntryType[]): string | null {
@@ -23,15 +28,23 @@ function mostRecentDate(timeline: { date: string; type: TimelineEntryType }[], t
  * signals already computed elsewhere in HerHealth: mood/energy trend and
  * cycle data from useInsightsData() (the same engine behind Dashboard's
  * Wellness Insights), and goal/journal/PCOS counts and dates from
- * useReportData()'s existing 7-day summary and timeline. No new Supabase
- * query shape, no duplicated calculation — this page only composes and
- * presents. Categories without a tracked field anywhere in HerHealth
- * (Sleep, Stress, Environment, Recovery) are shown honestly, not faked.
+ * useReportData()'s existing 7-day summary and timeline. Sleep and Stress
+ * & Recovery (Stage 5A) reuse useSleepData()/calculateSleepSummary() and
+ * useStressRecoveryData()/calculateStressRecoverySummary() — the same
+ * hooks/functions Lifestyle Intelligence already composes (Stage 4C2). No
+ * new Supabase query shape, no duplicated calculation — this page only
+ * composes and presents. Environment has no tracked field anywhere in
+ * HerHealth and is shown honestly, not faked.
  */
 function InsightsAiPage() {
   const insightsData = useInsightsData()
   const reportData = useReportData()
   const dashboardData = useDashboardData()
+  const sleepData = useSleepData()
+  const stressRecoveryData = useStressRecoveryData()
+  const today = getLocalDateString()
+  const sleepSummary = calculateSleepSummary(sleepData.entries, today)
+  const stressRecoverySummary = calculateStressRecoverySummary(stressRecoveryData.entries, today)
 
   /**
    * Status is driven by useInsightsData() alone (Mood, Energy, and Cycle —
@@ -66,6 +79,12 @@ function InsightsAiPage() {
           pcosEnabled: reportData.pcosWellnessEnabled,
           pcosEntryCount,
           lastPcosEntryDate: mostRecentDate(reportData.timeline, ['pcos_wellness']),
+          sleepStatus: sleepData.status,
+          sleepSummary,
+          lastSleepEntryDate: sleepData.entries[0]?.entryDate ?? null,
+          stressRecoveryStatus: stressRecoveryData.status,
+          stressRecoverySummary,
+          lastStressRecoveryEntryDate: stressRecoveryData.entries[0]?.entryDate ?? null,
           reportDataUnavailable,
         })
       : []

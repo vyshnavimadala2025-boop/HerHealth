@@ -16,6 +16,15 @@ import { useMoodEnergySeries } from '@/features/insights/useMoodEnergySeries'
 import { averageSeriesValue, highLowDays, calculateWeeklyStreak, buildWeeklyAchievements } from '@/features/insights/weeklyStats'
 import { buildWeeklyReflection } from '@/features/insights/weeklyReflection'
 import { formatFriendlyDate, addDays, getLocalDateString } from '@/features/periods/dateUtils'
+import { useSleepData } from '@/features/sleepIntelligence/useSleepData'
+import { calculateSleepSummary } from '@/features/sleepIntelligence/sleepCalculations'
+import { useStressRecoveryData } from '@/features/stressRecovery/useStressRecoveryData'
+import { calculateStressRecoverySummary } from '@/features/stressRecovery/stressRecoveryCalculations'
+import { describeTrackedFactor } from '@/features/lifestyleIntelligence/trackedFactorText'
+
+function capitalize(value: string): string {
+  return value.length > 0 ? value[0].toUpperCase() + value.slice(1).replace('_', ' ') : value
+}
 
 /**
  * Insights → Weekly Summary. Reuses useInsightsData() (mood/energy trend,
@@ -25,18 +34,46 @@ import { formatFriendlyDate, addDays, getLocalDateString } from '@/features/peri
  * used elsewhere), and useMoodEnergySeries('week') (built for this stage
  * in 6B.1, reusing buildLifestyleTimeline — no new bucketing logic). Goals
  * degrade honestly if useReportData() fails (see aiInsightCategories.ts's
- * same pattern from Stage 6B.1) rather than blanking the whole page.
+ * same pattern from Stage 6B.1) rather than blanking the whole page. Sleep
+ * and Recovery (Stage 5A) reuse useSleepData()/calculateSleepSummary() and
+ * useStressRecoveryData()/calculateStressRecoverySummary() — the exact
+ * same hooks/functions Lifestyle Intelligence already composes (Stage
+ * 4C2) — via the shared describeTrackedFactor() text helper, so a Sleep
+ * or Stress & Recovery outage only degrades those two cards, never the
+ * rest of this page.
  */
 function InsightsWeeklyPage() {
   const insightsData = useInsightsData()
   const reportData = useReportData()
   const series = useMoodEnergySeries('week')
+  const sleepData = useSleepData()
+  const stressRecoveryData = useStressRecoveryData()
 
   const status = insightsData.status === 'loading' || series.status === 'loading' ? 'loading' : 'ready'
   const reportDataUnavailable = reportData.status === 'error' || reportData.goalsDataUnavailable
 
   const today = getLocalDateString()
   const weekStart = addDays(today, -6)
+
+  const sleepSummary = calculateSleepSummary(sleepData.entries, today)
+  const stressRecoverySummary = calculateStressRecoverySummary(stressRecoveryData.entries, today)
+
+  const sleepDisplay = describeTrackedFactor(
+    sleepData.status,
+    sleepSummary.hasSufficientData,
+    sleepSummary.qualityTrend,
+    'From Sleep Intelligence',
+  )
+  const recoveryReady =
+    stressRecoveryData.status === 'ready' &&
+    stressRecoverySummary.hasSufficientData &&
+    stressRecoverySummary.recentRecoveryLevel !== null
+  const recoveryDisplay = describeTrackedFactor(
+    stressRecoveryData.status,
+    stressRecoverySummary.hasSufficientData && stressRecoverySummary.recentRecoveryLevel !== null,
+    `Recent recovery: ${capitalize(stressRecoverySummary.recentRecoveryLevel ?? '')}, trending ${stressRecoverySummary.recoveryTrend.toLowerCase()}.`,
+    '',
+  )
 
   const journalCountInRange = reportData.timeline.filter((entry) => entry.type === 'journal').length
   const cycleEventsInRange = insightsData.periodRecords.filter((record) => record.startDate >= weekStart).length
@@ -103,11 +140,11 @@ function InsightsWeeklyPage() {
       key: 'sleep',
       icon: Moon,
       label: 'Sleep tracking',
-      status: 'Not yet tracked',
-      trend: 'Coming soon',
-      caption: 'Sleep tracking isn’t available in HerHealth yet.',
-      accentClassName: 'bg-muted text-muted-foreground',
-      tracked: false,
+      status: sleepDisplay.statusText,
+      trend: sleepDisplay.trendText,
+      caption: 'From your Sleep Intelligence log.',
+      accentClassName: 'bg-lavender text-lavender-foreground',
+      tracked: true,
     },
     {
       key: 'cycle',
@@ -274,8 +311,10 @@ function InsightsWeeklyPage() {
                 <CardHeader>
                   <CardTitle>Recovery activities</CardTitle>
                 </CardHeader>
-                <CardContent>
-                  <p className="text-sm text-muted-foreground">Recovery tracking isn’t available in HerHealth yet.</p>
+                <CardContent className="text-sm">
+                  <p className={recoveryReady ? 'text-foreground' : 'text-muted-foreground'}>
+                    {recoveryDisplay.statusText}
+                  </p>
                 </CardContent>
               </Card>
               <Card>
