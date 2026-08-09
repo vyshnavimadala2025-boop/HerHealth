@@ -3,6 +3,7 @@ export const REMINDER_ACTIVITIES = [
   { value: 'journaling', label: 'Journaling' },
   { value: 'cycle_tracking', label: 'Cycle tracking' },
   { value: 'goals', label: 'Wellness goals' },
+  { value: 'screening', label: 'Preventive screening' },
 ] as const
 
 export type ReminderActivityType = (typeof REMINDER_ACTIVITIES)[number]['value']

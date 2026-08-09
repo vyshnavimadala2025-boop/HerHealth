@@ -36,15 +36,17 @@ interface FieldErrors {
 
 interface GoalFormProps {
   editingGoal: WellnessGoal | null
+  /** Pre-selected category for a brand-new goal (e.g. Recovery Planner passes 'recovery') — ignored while editing, where the goal's own category always wins. Defaults to 'custom', preserving the Goals page's existing behavior exactly. */
+  defaultCategory?: GoalCategory
   onCreate: (input: GoalInput) => Promise<WellnessGoal>
   onUpdate: (id: string, input: GoalInput) => Promise<WellnessGoal>
   onSaved: () => void
   onCancelEdit: () => void
 }
 
-function GoalForm({ editingGoal, onCreate, onUpdate, onSaved, onCancelEdit }: GoalFormProps) {
+function GoalForm({ editingGoal, defaultCategory = 'custom', onCreate, onUpdate, onSaved, onCancelEdit }: GoalFormProps) {
   const [title, setTitle] = useState('')
-  const [category, setCategory] = useState<GoalCategory>('custom')
+  const [category, setCategory] = useState<GoalCategory>(defaultCategory)
   const [note, setNote] = useState('')
   const [targetCount, setTargetCount] = useState('')
   const [targetPeriod, setTargetPeriod] = useState<TargetPeriod | ''>('')
@@ -67,7 +69,7 @@ function GoalForm({ editingGoal, onCreate, onUpdate, onSaved, onCancelEdit }: Go
       setTargetDate(editingGoal.targetDate ?? '')
     } else {
       setTitle('')
-      setCategory('custom')
+      setCategory(defaultCategory)
       setNote('')
       setTargetCount('')
       setTargetPeriod('')
@@ -77,7 +79,7 @@ function GoalForm({ editingGoal, onCreate, onUpdate, onSaved, onCancelEdit }: Go
     setErrors({})
     setSaveError(null)
     setSaveSuccess(false)
-  }, [editingGoal])
+  }, [editingGoal, defaultCategory])
 
   const handleSubmit = async (event: FormEvent) => {
     event.preventDefault()
@@ -140,7 +142,7 @@ function GoalForm({ editingGoal, onCreate, onUpdate, onSaved, onCancelEdit }: Go
 
       if (!editingGoal) {
         setTitle('')
-        setCategory('custom')
+        setCategory(defaultCategory)
         setNote('')
         setTargetCount('')
         setTargetPeriod('')

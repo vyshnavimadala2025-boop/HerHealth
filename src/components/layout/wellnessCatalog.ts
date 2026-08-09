@@ -56,8 +56,7 @@ export const WELLNESS_ITEMS: WellnessCatalogItem[] = [
     key: 'symptom-explorer',
     name: 'Symptom Explorer',
     description: 'Explore and reflect on symptoms you’ve noticed.',
-    href: '/coming-soon/symptom-explorer',
+    href: '/symptom-explorer',
     icon: ScanSearch,
-    comingSoon: true,
   },
 ]

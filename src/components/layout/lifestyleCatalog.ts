@@ -13,13 +13,13 @@ import {
 
 /**
  * Single source of truth for the "Lifestyle" nav dropdown — preventive
- * and lifestyle features. Lifestyle Intelligence and Environmental
- * Wellness are real, complete pages. The other seven are named,
- * discoverable destinations that don't have a built page yet — each
- * points at the shared /coming-soon/:slug placeholder (see
- * comingSoonCatalog.ts) rather than a route that doesn't exist, so no
- * nav path is ever a dead link. When each one is built for real in a
- * later stage, only its `href` here needs to change.
+ * and lifestyle features. Every entry is now a real, complete page except
+ * 'preventive-reminders' — reminders are a real, working feature (see
+ * features/reminders/), but only as a section embedded in the Goals and
+ * Preventive Screening Planner pages, not a standalone destination of
+ * their own, so this entry still points at the shared /coming-soon/:slug
+ * placeholder (see comingSoonCatalog.ts) rather than a route that doesn't
+ * exist. No nav path is ever a dead link either way.
  */
 export interface LifestyleCatalogItem {
   key: string
@@ -35,25 +35,22 @@ export const LIFESTYLE_ITEMS: LifestyleCatalogItem[] = [
     key: 'sleep-intelligence',
     name: 'Sleep Intelligence',
     description: 'Understand patterns in your rest and recovery over time.',
-    href: '/coming-soon/sleep-intelligence',
+    href: '/sleep-intelligence',
     icon: Moon,
-    comingSoon: true,
   },
   {
     key: 'nutrition-companion',
     name: 'Nutrition Companion',
     description: 'Gentle, educational awareness of everyday nutrition habits.',
-    href: '/coming-soon/nutrition-companion',
+    href: '/nutrition-companion',
     icon: Salad,
-    comingSoon: true,
   },
   {
     key: 'stress-recovery',
     name: 'Stress & Recovery',
     description: 'Track how stress and recovery relate over time.',
-    href: '/coming-soon/stress-recovery',
+    href: '/stress-recovery',
     icon: Brain,
-    comingSoon: true,
   },
   {
     key: 'lifestyle-intelligence',
@@ -66,9 +63,8 @@ export const LIFESTYLE_ITEMS: LifestyleCatalogItem[] = [
     key: 'recovery-planner',
     name: 'Recovery Planner',
     description: 'Plan gentle recovery time around your own wellness patterns.',
-    href: '/coming-soon/recovery-planner',
+    href: '/recovery-planner',
     icon: Feather,
-    comingSoon: true,
   },
   {
     key: 'preventive-reminders',
@@ -82,9 +78,8 @@ export const LIFESTYLE_ITEMS: LifestyleCatalogItem[] = [
     key: 'preventive-screening-planner',
     name: 'Preventive Screening Planner',
     description: 'Stay organized around routine preventive care.',
-    href: '/coming-soon/preventive-screening-planner',
+    href: '/preventive-screening-planner',
     icon: ClipboardList,
-    comingSoon: true,
   },
   {
     key: 'environmental-wellness',
@@ -97,8 +92,7 @@ export const LIFESTYLE_ITEMS: LifestyleCatalogItem[] = [
     key: 'wellness-score',
     name: 'Wellness Score',
     description: 'A holistic, evolving view of your recorded wellness over time.',
-    href: '/coming-soon/wellness-score',
+    href: '/wellness-score',
     icon: Target,
-    comingSoon: true,
   },
 ]

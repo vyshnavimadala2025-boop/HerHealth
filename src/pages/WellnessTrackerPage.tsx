@@ -124,6 +124,7 @@ function WellnessTrackerPage() {
     enabledStatus,
     isTogglingEnabled,
     toggleEnabled,
+    toggleError,
     entries,
     entriesStatus,
     create,
@@ -317,6 +318,7 @@ function WellnessTrackerPage() {
             enabled={enabled}
             isToggling={isTogglingEnabled}
             suggestedDefault={suggestedDefault}
+            error={toggleError}
             onChange={toggleEnabled}
           />
 

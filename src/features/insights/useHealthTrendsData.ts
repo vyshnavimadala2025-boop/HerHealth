@@ -38,6 +38,7 @@ export function useHealthTrendsData(rangeKey: HealthTrendRangeKey) {
   const [checkIns, setCheckIns] = useState<CheckIn[]>([])
   const [periodRecords, setPeriodRecords] = useState<PeriodRecord[]>([])
   const [buckets, setBuckets] = useState<HealthTrendBucket[]>([])
+  const [goalsDataUnavailable, setGoalsDataUnavailable] = useState(false)
 
   const rangeConfig = HEALTH_TREND_RANGES.find((entry) => entry.key === rangeKey) ?? HEALTH_TREND_RANGES[0]
 
@@ -48,13 +49,34 @@ export function useHealthTrendsData(rangeKey: HealthTrendRangeKey) {
       const today = getLocalDateString()
       const windowStart = addDays(today, -(rangeConfig.days - 1))
 
-      const [checkInResult, journalResult, goalsResult, progressResult, periodResult] = await Promise.all([
+      const [checkInResult, journalResult, periodResult] = await Promise.all([
         getCheckInsInRange(user.id, { startDate: windowStart, endDate: today }),
         getJournalEntriesInRange(user.id, { startDate: windowStart, endDate: today }),
-        getGoals(user.id),
-        getAllGoalProgressEntries(user.id, { startDate: windowStart, endDate: today }),
         getPeriodRecords(user.id),
       ])
+
+      /**
+       * Goals/goal-progress are fetched separately from the core signals
+       * above and never allowed to fail the whole page. In some
+       * environments the wellness_goals/goal_progress_entries migration
+       * (0007) hasn't been applied yet — see InsightsAiPage.tsx's
+       * `reportDataUnavailable` for the same, already-established pattern.
+       * Real check-ins/journal/cycle data (and the parts of the wellness
+       * score/trends built from them) still render; only the
+       * goals-dependent numbers degrade to 0 with an honest
+       * `goalsDataUnavailable` flag — never silently.
+       */
+      let goalsResult: Awaited<ReturnType<typeof getGoals>> = []
+      let progressResult: Awaited<ReturnType<typeof getAllGoalProgressEntries>> = []
+      let unavailable = false
+      try {
+        ;[goalsResult, progressResult] = await Promise.all([
+          getGoals(user.id),
+          getAllGoalProgressEntries(user.id, { startDate: windowStart, endDate: today }),
+        ])
+      } catch {
+        unavailable = true
+      }
 
       const bucketRanges = buildTrendBucketRanges(today, rangeKey)
       const computedBuckets = computeHealthTrendBuckets({
@@ -68,6 +90,7 @@ export function useHealthTrendsData(rangeKey: HealthTrendRangeKey) {
       setCheckIns(checkInResult)
       setPeriodRecords(periodResult)
       setBuckets(computedBuckets)
+      setGoalsDataUnavailable(unavailable)
       setStatus('ready')
     } catch {
       setStatus('error')
@@ -100,6 +123,7 @@ export function useHealthTrendsData(rangeKey: HealthTrendRangeKey) {
     estimatedNextPeriod,
     patternIndicators,
     highlights,
+    goalsDataUnavailable,
     retry: load,
   }
 }

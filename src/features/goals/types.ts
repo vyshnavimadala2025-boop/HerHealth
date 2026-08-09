@@ -3,6 +3,7 @@ export const GOAL_CATEGORIES = [
   { value: 'journaling', label: 'Personal reflection or journaling' },
   { value: 'cycle_tracking', label: 'Cycle tracking consistency' },
   { value: 'custom', label: 'Custom personal wellness goal' },
+  { value: 'recovery', label: 'Recovery action' },
 ] as const
 
 export type GoalCategory = (typeof GOAL_CATEGORIES)[number]['value']

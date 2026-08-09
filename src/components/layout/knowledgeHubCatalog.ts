@@ -15,10 +15,13 @@ import {
 } from 'lucide-react'
 
 /**
- * Single source of truth for the Knowledge Hub's topic cards. None of
- * these have a dedicated educational content page yet, so every entry
- * points at the shared coming-soon placeholder until real content is
- * written for each topic.
+ * Single source of truth for the Knowledge Hub's topic cards. Several
+ * topics (Lifestyle, Nutrition, Sleep, Mental Wellness, Preventive Care)
+ * now point at their real, built product pages rather than educational
+ * articles of their own — no dedicated Knowledge Hub content exists yet
+ * for any topic, so each of those five links to the closest real,
+ * working feature instead. The remaining topics still point at the
+ * shared coming-soon placeholder until real content is written.
  */
 export interface KnowledgeHubTopic {
   key: string
@@ -75,21 +78,21 @@ export const KNOWLEDGE_HUB_TOPICS: KnowledgeHubTopic[] = [
     key: 'nutrition',
     title: 'Nutrition',
     description: 'Everyday nutrition education and awareness.',
-    href: '/coming-soon/nutrition-companion',
+    href: '/nutrition-companion',
     icon: Apple,
   },
   {
     key: 'sleep',
     title: 'Sleep',
     description: 'How rest and sleep relate to overall wellness.',
-    href: '/coming-soon/sleep-intelligence',
+    href: '/sleep-intelligence',
     icon: Moon,
   },
   {
     key: 'mental-wellness',
     title: 'Mental Wellness',
     description: 'Gentle, educational mental wellness content.',
-    href: '/coming-soon/stress-recovery',
+    href: '/stress-recovery',
     icon: Brain,
   },
   {
@@ -103,7 +106,7 @@ export const KNOWLEDGE_HUB_TOPICS: KnowledgeHubTopic[] = [
     key: 'preventive-care',
     title: 'Preventive Care',
     description: 'General education about preventive health habits.',
-    href: '/coming-soon/preventive-screening-planner',
+    href: '/preventive-screening-planner',
     icon: ShieldCheck,
   },
   {

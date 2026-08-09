@@ -241,7 +241,13 @@ function InsightsTrendsPage() {
                   </CardDescription>
                 </CardHeader>
                 <CardContent>
-                  {totalProgressEntries === 0 && totalGoalsCompleted === 0 ? (
+                  {trends.goalsDataUnavailable ? (
+                    <EmptyState
+                      icon={Target}
+                      title="We couldn't load your goal data right now"
+                      description="This is a temporary loading issue, not something about your recorded goals. Please try again shortly."
+                    />
+                  ) : totalProgressEntries === 0 && totalGoalsCompleted === 0 ? (
                     <EmptyState
                       icon={Target}
                       title="No goal activity in this range yet"
@@ -307,11 +313,11 @@ function InsightsTrendsPage() {
               <CardContent>
                 <EmptyState
                   icon={Moon}
-                  title="Not available yet"
-                  description="Sleep Intelligence is on its way — once it's built, your sleep trend will appear here."
+                  title="Not shown here yet"
+                  description="Sleep Intelligence is now available as its own page. Sleep trends aren't integrated into Health Trends yet, but you can track and review them there."
                   action={
-                    <Link to="/coming-soon/sleep-intelligence" className="text-sm font-medium text-primary underline-offset-4 hover:underline">
-                      Learn more
+                    <Link to="/sleep-intelligence" className="text-sm font-medium text-primary underline-offset-4 hover:underline">
+                      Open Sleep Intelligence
                     </Link>
                   }
                 />

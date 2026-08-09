@@ -7,10 +7,11 @@ interface PcosWellnessOptInProps {
   enabled: boolean
   isToggling: boolean
   suggestedDefault: boolean
+  error?: string | null
   onChange: (next: boolean) => void
 }
 
-function PcosWellnessOptIn({ enabled, isToggling, suggestedDefault, onChange }: PcosWellnessOptInProps) {
+function PcosWellnessOptIn({ enabled, isToggling, suggestedDefault, error, onChange }: PcosWellnessOptInProps) {
   return (
     <Card>
       <CardHeader>
@@ -58,6 +59,12 @@ function PcosWellnessOptIn({ enabled, isToggling, suggestedDefault, onChange }: 
             <Loader2 className="size-3.5 animate-spin" aria-hidden="true" />
             Saving your preference…
           </div>
+        )}
+
+        {error && !isToggling && (
+          <p role="alert" className="text-caption text-destructive">
+            {error}
+          </p>
         )}
 
         {!enabled && !isToggling && suggestedDefault && (

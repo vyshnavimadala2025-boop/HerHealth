@@ -23,14 +23,20 @@ function AuthProvider({ children }: { children: ReactNode }) {
   useEffect(() => {
     let active = true
 
-    supabase.auth.getSession().then(({ data: { session } }) => {
-      if (!active) return
-      setState({
-        status: session ? 'authenticated' : 'unauthenticated',
-        user: session?.user ?? null,
-        session,
+    supabase.auth
+      .getSession()
+      .then(({ data: { session } }) => {
+        if (!active) return
+        setState({
+          status: session ? 'authenticated' : 'unauthenticated',
+          user: session?.user ?? null,
+          session,
+        })
       })
-    })
+      .catch(() => {
+        if (!active) return
+        setState({ status: 'unauthenticated', user: null, session: null })
+      })
 
     const {
       data: { subscription },

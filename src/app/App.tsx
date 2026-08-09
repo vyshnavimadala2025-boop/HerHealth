@@ -17,6 +17,13 @@ import BabyGrowthPage from '@/pages/BabyGrowthPage'
 import HormoneBalancePage from '@/pages/HormoneBalancePage'
 import LifestyleIntelligencePage from '@/pages/LifestyleIntelligencePage'
 import EnvironmentalWellnessPage from '@/pages/EnvironmentalWellnessPage'
+import WellnessScorePage from '@/pages/WellnessScorePage'
+import SymptomExplorerPage from '@/pages/SymptomExplorerPage'
+import SleepIntelligencePage from '@/pages/SleepIntelligencePage'
+import NutritionCompanionPage from '@/pages/NutritionCompanionPage'
+import StressRecoveryPage from '@/pages/StressRecoveryPage'
+import RecoveryPlannerPage from '@/pages/RecoveryPlannerPage'
+import PreventiveScreeningPlannerPage from '@/pages/PreventiveScreeningPlannerPage'
 import InsightsPage from '@/pages/InsightsPage'
 import InsightsAiPage from '@/pages/InsightsAiPage'
 import InsightsWeeklyPage from '@/pages/InsightsWeeklyPage'
@@ -37,6 +44,7 @@ import TermsPage from '@/pages/TermsPage'
 import MedicalDisclaimerPage from '@/pages/MedicalDisclaimerPage'
 import AboutPage from '@/pages/AboutPage'
 import HowItWorksPage from '@/pages/HowItWorksPage'
+import NotFoundPage from '@/pages/NotFoundPage'
 import ProtectedRoute from '@/features/auth/ProtectedRoute'
 import PublicOnlyRoute from '@/features/auth/PublicOnlyRoute'
 import OnboardingGuard from '@/features/onboarding/OnboardingGuard'
@@ -94,8 +102,15 @@ function App() {
               <Route path="/fertility-journey" element={<FertilityJourneyPage />} />
               <Route path="/baby-growth" element={<BabyGrowthPage />} />
               <Route path="/hormone-balance" element={<HormoneBalancePage />} />
+              <Route path="/symptom-explorer" element={<SymptomExplorerPage />} />
               <Route path="/lifestyle-intelligence" element={<LifestyleIntelligencePage />} />
+              <Route path="/sleep-intelligence" element={<SleepIntelligencePage />} />
+              <Route path="/nutrition-companion" element={<NutritionCompanionPage />} />
+              <Route path="/stress-recovery" element={<StressRecoveryPage />} />
+              <Route path="/recovery-planner" element={<RecoveryPlannerPage />} />
+              <Route path="/preventive-screening-planner" element={<PreventiveScreeningPlannerPage />} />
               <Route path="/environmental-wellness" element={<EnvironmentalWellnessPage />} />
+              <Route path="/wellness-score" element={<WellnessScorePage />} />
               <Route path="/goals" element={<GoalsPage />} />
               <Route path="/reports" element={<ReportsPage />} />
               <Route path="/insights" element={<InsightsPage />} />
@@ -113,6 +128,8 @@ function App() {
             </Route>
           </Route>
         </Route>
+
+        <Route path="*" element={<NotFoundPage />} />
       </Routes>
       <Toaster richColors position="top-center" />
     </>

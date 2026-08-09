@@ -24,6 +24,7 @@ export function usePcosWellnessData() {
   const [enabled, setEnabledState] = useState(false)
   const [enabledStatus, setEnabledStatus] = useState<LoadStatus>('loading')
   const [isTogglingEnabled, setIsTogglingEnabled] = useState(false)
+  const [toggleError, setToggleError] = useState<string | null>(null)
   const [entries, setEntries] = useState<PcosWellnessEntry[]>([])
   const [entriesStatus, setEntriesStatus] = useState<LoadStatus>('loading')
 
@@ -65,6 +66,7 @@ export function usePcosWellnessData() {
     async (next: boolean) => {
       if (!user) return
       setIsTogglingEnabled(true)
+      setToggleError(null)
       try {
         const saved = await setPcosTrackingEnabled(user.id, next)
         setEnabledState(saved)
@@ -73,6 +75,10 @@ export function usePcosWellnessData() {
         } else {
           setEntries([])
         }
+      } catch (error) {
+        setToggleError(
+          error instanceof Error ? error.message : 'We could not update your wellness tracking preference. Please try again.',
+        )
       } finally {
         setIsTogglingEnabled(false)
       }
@@ -119,6 +125,7 @@ export function usePcosWellnessData() {
     enabledStatus,
     isTogglingEnabled,
     toggleEnabled,
+    toggleError,
     entries,
     entriesStatus,
     create,

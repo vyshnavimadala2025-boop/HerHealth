@@ -148,7 +148,7 @@ function GoalCard({ goal, onEdit, onComplete, onReopen, onArchive, onDeleted }: 
         {goal.targetDate ? ` · Target date ${formatFriendlyDate(goal.targetDate)}` : ''}
       </p>
 
-      {goal.category === 'custom' && goal.status === 'active' && (
+      {(goal.category === 'custom' || goal.category === 'recovery') && goal.status === 'active' && (
         <div className="flex flex-col gap-1">
           <Button
             type="button"

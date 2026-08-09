@@ -9,6 +9,7 @@ import { classifyTrend } from '@/features/insights/trendMath'
 import { MOOD_SCORES } from '@/features/insights/moodTrend'
 import { ENERGY_SCORES } from '@/features/insights/energyTrend'
 import { weightedAverageScore, calculateWellnessScore } from '@/features/insights/monthlyStats'
+import type { WellnessScoreFactor } from '@/features/insights/monthlyStats'
 import type { CheckIn } from '@/features/checkins/types'
 import type { JournalEntry } from '@/features/journal/types'
 import type { WellnessGoal, GoalProgressEntry } from '@/features/goals/types'
@@ -107,6 +108,7 @@ export interface HealthTrendBucket {
   goalsCompletedInRange: number
   progressEntriesInRange: number
   wellnessScore: number | null
+  wellnessFactors: WellnessScoreFactor[]
 }
 
 export interface ComputeHealthTrendBucketsInput {
@@ -122,9 +124,11 @@ export interface ComputeHealthTrendBucketsInput {
  * report calculations (calculateCheckInConsistency,
  * calculateMoodEnergyWellbeingBreakdown, calculateGoalProgressSummary)
  * against each bucket's own date range, plus the Monthly Summary's
- * calculateWellnessScore() for the Wellness Score trend — the same
- * function, just evaluated once per bucket instead of once for a single
- * 30-day window.
+ * calculateWellnessScore() for the Wellness Score trend and the standalone
+ * Wellness Score page (Stage 2) — the same function, just evaluated once
+ * per bucket instead of once for a single 30-day window. Both the score
+ * and its factor breakdown are kept per bucket so a caller can show
+ * "what contributed" for any period, not just the most recent one.
  */
 export function computeHealthTrendBuckets(input: ComputeHealthTrendBucketsInput): HealthTrendBucket[] {
   return input.buckets.map((bucket) => {
@@ -136,7 +140,7 @@ export function computeHealthTrendBuckets(input: ComputeHealthTrendBucketsInput)
     const avgMood = weightedAverageScore(breakdown.mood, MOOD_SCORES)
     const avgEnergy = weightedAverageScore(breakdown.energyLevel, ENERGY_SCORES)
 
-    const { score } = calculateWellnessScore({
+    const { score, factors } = calculateWellnessScore({
       consistencyPercent: consistency.consistencyPercent,
       checkInCount: consistency.count,
       avgMood,
@@ -158,6 +162,7 @@ export function computeHealthTrendBuckets(input: ComputeHealthTrendBucketsInput)
       goalsCompletedInRange: goalSummary.goalsCompletedInRange,
       progressEntriesInRange: goalSummary.progressEntriesInRange,
       wellnessScore: score,
+      wellnessFactors: factors,
     }
   })
 }
