@@ -12,7 +12,7 @@ import PersonalTimeline from '@/features/reports/PersonalTimeline'
  * timeline, not two separate calculations.
  */
 function InsightsHistoryPage() {
-  const { range, status, timeline, setPresetRange, setCustomRangeValue, retry } = useReportData()
+  const { range, status, timeline, setPresetRange, setCustomRangeValue, retry, goalsDataUnavailable } = useReportData()
 
   return (
     <main className="mx-auto flex w-full max-w-3xl flex-1 flex-col gap-6 p-4 py-8 animate-in fade-in duration-500 motion-reduce:animate-none sm:p-6">
@@ -31,7 +31,7 @@ function InsightsHistoryPage() {
       </div>
 
       <div id="timeline" className="scroll-mt-24">
-        <PersonalTimeline status={status} entries={timeline} onRetry={retry} />
+        <PersonalTimeline status={status} entries={timeline} onRetry={retry} goalsDataUnavailable={goalsDataUnavailable} />
       </div>
     </main>
   )

@@ -145,10 +145,11 @@ function ScreeningItemForm({ editingItem, onCreate, onUpdate, onSaved, onCancelE
           </div>
 
           <div className="flex flex-col gap-2">
-            <span className="text-sm font-medium">
+            <span id="screening-category-label" className="text-sm font-medium">
               Category <span className="font-normal text-muted-foreground">(optional, for organization only)</span>
             </span>
             <RadioGroup
+              aria-labelledby="screening-category-label"
               value={category ?? ''}
               onValueChange={(value) => setCategory(value ? (value as ScreeningCategory) : null)}
               className="flex flex-col gap-2"

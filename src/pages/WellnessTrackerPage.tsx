@@ -17,6 +17,7 @@ import {
 import { Button } from '@/components/ui/button'
 import { usePcosWellnessData } from '@/features/pcosWellness/usePcosWellnessData'
 import EmptyState from '@/components/shared/EmptyState'
+import Skeleton from '@/components/shared/Skeleton'
 import PcosWellnessOptIn from '@/features/pcosWellness/PcosWellnessOptIn'
 import PcosWellnessForm from '@/features/pcosWellness/PcosWellnessForm'
 import PcosWellnessHistory from '@/features/pcosWellness/PcosWellnessHistory'
@@ -314,13 +315,33 @@ function WellnessTrackerPage() {
             ]}
           />
 
-          <PcosWellnessOptIn
-            enabled={enabled}
-            isToggling={isTogglingEnabled}
-            suggestedDefault={suggestedDefault}
-            error={toggleError}
-            onChange={toggleEnabled}
-          />
+          {enabledStatus === 'loading' && (
+            <div role="status" className="flex flex-col gap-3">
+              <Skeleton className="h-40 w-full rounded-2xl" />
+              <span className="sr-only">Loading your wellness tracking preference…</span>
+            </div>
+          )}
+
+          {enabledStatus === 'error' && (
+            <div role="alert" className="flex flex-col items-start gap-2 rounded-2xl border border-border bg-card p-6 shadow-sm">
+              <p className="text-sm text-muted-foreground">
+                We couldn&apos;t load your wellness tracking preference. Please try again.
+              </p>
+              <Button type="button" variant="outline" size="sm" onClick={retry}>
+                Try again
+              </Button>
+            </div>
+          )}
+
+          {enabledStatus === 'ready' && (
+            <PcosWellnessOptIn
+              enabled={enabled}
+              isToggling={isTogglingEnabled}
+              suggestedDefault={suggestedDefault}
+              error={toggleError}
+              onChange={toggleEnabled}
+            />
+          )}
 
           {enabledStatus === 'ready' && !enabled && (
             <EmptyState

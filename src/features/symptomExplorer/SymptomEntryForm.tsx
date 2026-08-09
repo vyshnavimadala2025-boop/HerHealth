@@ -183,14 +183,19 @@ function SymptomEntryForm({
                 ))}
               </div>
             )}
-            {errors.symptoms && <p className="text-caption text-destructive">{errors.symptoms}</p>}
+            {errors.symptoms && (
+              <p role="alert" className="text-caption text-destructive">
+                {errors.symptoms}
+              </p>
+            )}
           </div>
 
           <div className="flex flex-col gap-2">
-            <span className="text-sm font-medium">
+            <span id="symptom-severity-label" className="text-sm font-medium">
               Severity <span className="font-normal text-muted-foreground">(optional)</span>
             </span>
             <RadioGroup
+              aria-labelledby="symptom-severity-label"
               value={severity ?? ''}
               onValueChange={(value) => setSeverity(value ? (value as SeverityValue) : null)}
               className="flex flex-wrap gap-1.5"
@@ -215,10 +220,11 @@ function SymptomEntryForm({
           </div>
 
           <div className="flex flex-col gap-2">
-            <span className="text-sm font-medium">
+            <span id="symptom-timing-label" className="text-sm font-medium">
               Timing <span className="font-normal text-muted-foreground">(optional)</span>
             </span>
             <RadioGroup
+              aria-labelledby="symptom-timing-label"
               value={timing ?? ''}
               onValueChange={(value) => setTiming(value ? (value as TimingValue) : null)}
               className="flex flex-wrap gap-1.5"
