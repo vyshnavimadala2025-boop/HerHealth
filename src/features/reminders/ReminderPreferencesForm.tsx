@@ -192,9 +192,10 @@ interface ReminderPreferencesFormProps {
   status: 'loading' | 'ready' | 'error'
   preferences: ReminderPreference[]
   onSave: (input: ReminderPreferenceInput) => Promise<ReminderPreference>
+  onRetry?: () => void
 }
 
-function ReminderPreferencesForm({ status, preferences, onSave }: ReminderPreferencesFormProps) {
+function ReminderPreferencesForm({ status, preferences, onSave, onRetry }: ReminderPreferencesFormProps) {
   return (
     <Card>
       <CardHeader>
@@ -218,9 +219,16 @@ function ReminderPreferencesForm({ status, preferences, onSave }: ReminderPrefer
         )}
 
         {status === 'error' && (
-          <p className="text-sm text-muted-foreground">
-            We couldn&apos;t load your reminder preferences. Please try again.
-          </p>
+          <div role="alert" className="flex flex-col items-start gap-2">
+            <p className="text-sm text-muted-foreground">
+              We couldn&apos;t load your reminder preferences. Please try again.
+            </p>
+            {onRetry && (
+              <Button type="button" variant="outline" size="sm" onClick={onRetry}>
+                Try again
+              </Button>
+            )}
+          </div>
         )}
 
         {status === 'ready' &&

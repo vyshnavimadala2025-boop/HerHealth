@@ -24,6 +24,7 @@ import NutritionCompanionPage from '@/pages/NutritionCompanionPage'
 import StressRecoveryPage from '@/pages/StressRecoveryPage'
 import RecoveryPlannerPage from '@/pages/RecoveryPlannerPage'
 import PreventiveScreeningPlannerPage from '@/pages/PreventiveScreeningPlannerPage'
+import PreventiveRemindersPage from '@/pages/PreventiveRemindersPage'
 import InsightsPage from '@/pages/InsightsPage'
 import InsightsAiPage from '@/pages/InsightsAiPage'
 import InsightsWeeklyPage from '@/pages/InsightsWeeklyPage'
@@ -109,6 +110,7 @@ function App() {
               <Route path="/stress-recovery" element={<StressRecoveryPage />} />
               <Route path="/recovery-planner" element={<RecoveryPlannerPage />} />
               <Route path="/preventive-screening-planner" element={<PreventiveScreeningPlannerPage />} />
+              <Route path="/preventive-reminders" element={<PreventiveRemindersPage />} />
               <Route path="/environmental-wellness" element={<EnvironmentalWellnessPage />} />
               <Route path="/wellness-score" element={<WellnessScorePage />} />
               <Route path="/goals" element={<GoalsPage />} />

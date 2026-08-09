@@ -13,13 +13,12 @@ import {
 
 /**
  * Single source of truth for the "Lifestyle" nav dropdown — preventive
- * and lifestyle features. Every entry is now a real, complete page except
- * 'preventive-reminders' — reminders are a real, working feature (see
- * features/reminders/), but only as a section embedded in the Goals and
- * Preventive Screening Planner pages, not a standalone destination of
- * their own, so this entry still points at the shared /coming-soon/:slug
- * placeholder (see comingSoonCatalog.ts) rather than a route that doesn't
- * exist. No nav path is ever a dead link either way.
+ * and lifestyle features. Every entry is a real, complete page.
+ * 'preventive-reminders' is the same real reminders feature (see
+ * features/reminders/) already embedded in the Goals and Preventive
+ * Screening Planner pages, now also available as its own standalone
+ * destination (Stage 4B) — the embedded sections on those two pages are
+ * unchanged and still work exactly as before.
  */
 export interface LifestyleCatalogItem {
   key: string
@@ -70,9 +69,8 @@ export const LIFESTYLE_ITEMS: LifestyleCatalogItem[] = [
     key: 'preventive-reminders',
     name: 'Preventive Reminders',
     description: 'Gentle nudges for your preventive wellness habits.',
-    href: '/coming-soon/preventive-reminders',
+    href: '/preventive-reminders',
     icon: BellRing,
-    comingSoon: true,
   },
   {
     key: 'preventive-screening-planner',
