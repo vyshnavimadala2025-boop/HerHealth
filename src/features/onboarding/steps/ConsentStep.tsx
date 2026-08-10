@@ -97,6 +97,7 @@ function ConsentStep({
           className="h-14 flex-1 rounded-xl text-base transition-transform duration-200 hover:-translate-y-0.5"
           onClick={onContinue}
           disabled={!consent || isSaving}
+          aria-live="polite"
         >
           {isSaving && <Loader2 className="animate-spin" aria-hidden="true" />}
           {isSaving ? 'Setting up your space…' : 'Create My Wellness Space'}

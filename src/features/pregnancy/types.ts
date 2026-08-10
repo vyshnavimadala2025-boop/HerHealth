@@ -151,6 +151,16 @@ export interface PregnancyChecklistItem {
   updatedAt: string
 }
 
+export interface PregnancyKickSession {
+  id: string
+  startedAt: string
+  endedAt: string
+  movementCount: number
+  note: string | null
+  createdAt: string
+  updatedAt: string
+}
+
 export const STARTER_CHECKLIST_ITEMS: { itemName: string; category: ChecklistCategory }[] = [
   { itemName: 'Crib', category: 'nursery' },
   { itemName: 'Baby blanket', category: 'nursery' },

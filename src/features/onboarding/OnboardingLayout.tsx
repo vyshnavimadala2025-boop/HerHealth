@@ -31,7 +31,7 @@ function OnboardingLayout({ children }: OnboardingLayoutProps) {
         style={{ backgroundImage: `url(${onboardingImage})` }}
       />
 
-      <div className="flex flex-1 flex-col bg-auth-panel px-5 py-6 sm:px-10 sm:py-8 lg:w-[52%] lg:px-12 lg:py-10">
+      <main className="flex flex-1 flex-col bg-auth-panel px-5 py-6 sm:px-10 sm:py-8 lg:w-[52%] lg:px-12 lg:py-10">
         <Link
           to="/"
           className="flex shrink-0 items-center gap-2 font-display text-lg font-medium text-foreground"
@@ -45,7 +45,7 @@ function OnboardingLayout({ children }: OnboardingLayoutProps) {
             {children}
           </div>
         </div>
-      </div>
+      </main>
     </div>
   )
 }

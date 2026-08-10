@@ -8,6 +8,7 @@ import { generatePregnancyInsights } from '@/features/pregnancy/pregnancyInsight
 import { getPregnancyAppointments } from '@/features/pregnancy/pregnancyAppointmentService'
 import { getPregnancyMilestones } from '@/features/pregnancy/pregnancyMilestoneService'
 import { getChecklistItems } from '@/features/pregnancy/pregnancyChecklistService'
+import { getKickSessions } from '@/features/pregnancy/pregnancyKickSessionService'
 import PregnancySetup from '@/features/pregnancy/PregnancySetup'
 import PregnancyDashboardSummary from '@/features/pregnancy/PregnancyDashboardSummary'
 import BabyDevelopmentTimeline from '@/features/pregnancy/BabyDevelopmentTimeline'
@@ -18,11 +19,18 @@ import AppointmentPlanner from '@/features/pregnancy/AppointmentPlanner'
 import MilestoneGallery from '@/features/pregnancy/MilestoneGallery'
 import ShoppingChecklist from '@/features/pregnancy/ShoppingChecklist'
 import BirthPlanOrganizer from '@/features/pregnancy/BirthPlanOrganizer'
-import KickCounterPlaceholder from '@/features/pregnancy/KickCounterPlaceholder'
+import KickCounter from '@/features/pregnancy/KickCounter'
+import KickSessionHistory from '@/features/pregnancy/KickSessionHistory'
 import WeeklyReport from '@/features/pregnancy/WeeklyReport'
 import PageHeader from '@/components/shared/PageHeader'
 import PrivacyBadge from '@/components/shared/PrivacyBadge'
-import type { PregnancyAppointment, PregnancyChecklistItem, PregnancyEntry, PregnancyMilestone } from '@/features/pregnancy/types'
+import type {
+  PregnancyAppointment,
+  PregnancyChecklistItem,
+  PregnancyEntry,
+  PregnancyKickSession,
+  PregnancyMilestone,
+} from '@/features/pregnancy/types'
 
 type SubStatus = 'loading' | 'ready' | 'error'
 
@@ -46,6 +54,8 @@ function BabyGrowthPage() {
   const [milestonesStatus, setMilestonesStatus] = useState<SubStatus>('loading')
   const [checklistItems, setChecklistItems] = useState<PregnancyChecklistItem[]>([])
   const [checklistStatus, setChecklistStatus] = useState<SubStatus>('loading')
+  const [kickSessions, setKickSessions] = useState<PregnancyKickSession[]>([])
+  const [kickSessionsStatus, setKickSessionsStatus] = useState<SubStatus>('loading')
 
   const loadAppointments = useCallback(() => {
     if (!user) return
@@ -80,12 +90,24 @@ function BabyGrowthPage() {
       .catch(() => setChecklistStatus('error'))
   }, [user])
 
+  const loadKickSessions = useCallback(() => {
+    if (!user) return
+    setKickSessionsStatus('loading')
+    getKickSessions(user.id)
+      .then((result) => {
+        setKickSessions(result)
+        setKickSessionsStatus('ready')
+      })
+      .catch(() => setKickSessionsStatus('error'))
+  }, [user])
+
   useEffect(() => {
     if (!profile) return
     loadAppointments()
     loadMilestones()
     loadChecklist()
-  }, [profile, loadAppointments, loadMilestones, loadChecklist])
+    loadKickSessions()
+  }, [profile, loadAppointments, loadMilestones, loadChecklist, loadKickSessions])
 
   if (status !== 'loading' && !profile) {
     return (
@@ -152,7 +174,9 @@ function BabyGrowthPage() {
             <MilestoneGallery userId={user.id} status={milestonesStatus} milestones={milestones} onChanged={loadMilestones} />
           )}
 
-          <KickCounterPlaceholder />
+          {user && <KickCounter userId={user.id} onSaved={loadKickSessions} />}
+
+          <KickSessionHistory status={kickSessionsStatus} sessions={kickSessions} onDeleted={loadKickSessions} />
 
           {user && (
             <ShoppingChecklist userId={user.id} status={checklistStatus} items={checklistItems} onChanged={loadChecklist} />

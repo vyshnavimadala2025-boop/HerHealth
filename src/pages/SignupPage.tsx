@@ -158,6 +158,7 @@ function SignupPage() {
               size="lg"
               className="mt-2 h-14 w-full rounded-xl text-base transition-transform duration-200 hover:-translate-y-0.5"
               disabled={isSubmitting}
+              aria-live="polite"
             >
               {isSubmitting && <Loader2 className="animate-spin" aria-hidden="true" />}
               {isSubmitting ? 'Creating account…' : 'Create My Account'}
