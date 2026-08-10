@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { Brain } from 'lucide-react'
 import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/card'
 import PageHeader from '@/components/shared/PageHeader'
+import PrivacyBadge from '@/components/shared/PrivacyBadge'
 import TrendsCard from '@/features/insights/TrendsCard'
 import { useInsightsData } from '@/features/insights/useInsightsData'
 import { useStressRecoveryData } from '@/features/stressRecovery/useStressRecoveryData'
@@ -67,6 +68,8 @@ function StressRecoveryPage() {
           ]}
         />
       </div>
+
+      <PrivacyBadge label="Your wellness information is private to your account" />
 
       <TrendsCard status={insightsData.status} moodTrend={insightsData.moodTrend} energyTrend={insightsData.energyTrend} />
 

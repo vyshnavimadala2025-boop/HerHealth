@@ -44,7 +44,7 @@ function DeleteNutritionEntryDialog({ entry, onDeleted }: DeleteNutritionEntryDi
   return (
     <AlertDialog open={open} onOpenChange={(next) => !isDeleting && setOpen(next)}>
       <AlertDialogTrigger asChild>
-        <Button type="button" variant="ghost" size="icon-sm" aria-label="Delete this nutrition entry">
+        <Button type="button" variant="ghost" size="icon-sm" className="size-11" aria-label="Delete this nutrition entry">
           <Trash2 />
         </Button>
       </AlertDialogTrigger>

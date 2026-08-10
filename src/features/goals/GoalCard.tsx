@@ -119,6 +119,7 @@ function GoalCard({ goal, onEdit, onComplete, onReopen, onArchive, onDeleted }: 
             type="button"
             variant="ghost"
             size="icon-sm"
+            className="size-11"
             aria-label="Edit this goal"
             onClick={() => onEdit(goal)}
           >

@@ -44,7 +44,7 @@ function DeleteSleepEntryDialog({ entry, onDeleted }: DeleteSleepEntryDialogProp
   return (
     <AlertDialog open={open} onOpenChange={(next) => !isDeleting && setOpen(next)}>
       <AlertDialogTrigger asChild>
-        <Button type="button" variant="ghost" size="icon-sm" aria-label="Delete this sleep entry">
+        <Button type="button" variant="ghost" size="icon-sm" className="size-11" aria-label="Delete this sleep entry">
           <Trash2 />
         </Button>
       </AlertDialogTrigger>

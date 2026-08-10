@@ -1,4 +1,4 @@
-import { Apple, Dumbbell, Droplet, Moon, Waves } from 'lucide-react'
+import { Apple, ChevronDown, Dumbbell, Droplet, Moon, Waves } from 'lucide-react'
 import type { LifestyleFactor } from '@/features/hormoneBalance/types'
 
 const LIFESTYLE_FACTORS: LifestyleFactor[] = [
@@ -72,9 +72,10 @@ function LifestyleFactors() {
                 <p className="text-sm font-medium text-foreground">{factor.title}</p>
                 <p className="text-caption text-muted-foreground">{factor.summary}</p>
               </div>
-              <span className="mt-1 shrink-0 text-caption text-muted-foreground transition-transform duration-200 group-open:rotate-180">
-                ▾
-              </span>
+              <ChevronDown
+                className="mt-1 size-4 shrink-0 text-muted-foreground transition-transform duration-200 group-open:rotate-180"
+                aria-hidden="true"
+              />
             </summary>
             <p className="mt-3 border-t border-border pt-3 text-caption text-muted-foreground">{factor.detail}</p>
           </details>

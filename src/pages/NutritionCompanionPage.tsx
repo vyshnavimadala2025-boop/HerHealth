@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { Salad } from 'lucide-react'
 import PageHeader from '@/components/shared/PageHeader'
+import PrivacyBadge from '@/components/shared/PrivacyBadge'
 import { useNutritionData } from '@/features/nutritionCompanion/useNutritionData'
 import { calculateNutritionSummary } from '@/features/nutritionCompanion/nutritionCalculations'
 import NutritionEntryForm from '@/features/nutritionCompanion/NutritionEntryForm'
@@ -51,6 +52,8 @@ function NutritionCompanionPage() {
           ]}
         />
       </div>
+
+      <PrivacyBadge label="Your wellness information is private to your account" />
 
       <NutritionSummaryCard status={nutritionData.status} summary={summary} chartEntries={nutritionData.entries} />
 

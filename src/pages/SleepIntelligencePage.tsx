@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { Moon } from 'lucide-react'
 import PageHeader from '@/components/shared/PageHeader'
+import PrivacyBadge from '@/components/shared/PrivacyBadge'
 import { useSleepData } from '@/features/sleepIntelligence/useSleepData'
 import { calculateSleepSummary } from '@/features/sleepIntelligence/sleepCalculations'
 import SleepEntryForm from '@/features/sleepIntelligence/SleepEntryForm'
@@ -51,6 +52,8 @@ function SleepIntelligencePage() {
           ]}
         />
       </div>
+
+      <PrivacyBadge label="Your wellness information is private to your account" />
 
       <SleepSummaryCard status={sleepData.status} summary={summary} chartEntries={sleepData.entries} />
 

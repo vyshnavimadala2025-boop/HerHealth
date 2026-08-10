@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { ScanSearch } from 'lucide-react'
 import PageHeader from '@/components/shared/PageHeader'
+import PrivacyBadge from '@/components/shared/PrivacyBadge'
 import { useSymptomData } from '@/features/symptomExplorer/useSymptomData'
 import SymptomLibrary from '@/features/symptomExplorer/SymptomLibrary'
 import SymptomEntryForm from '@/features/symptomExplorer/SymptomEntryForm'
@@ -75,6 +76,8 @@ function SymptomExplorerPage() {
           ]}
         />
       </div>
+
+      <PrivacyBadge label="Your wellness information is private to your account" />
 
       <SymptomLibrary
         searchValue={searchValue}

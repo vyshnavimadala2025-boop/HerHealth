@@ -1,4 +1,4 @@
-import { Printer } from 'lucide-react'
+import { ClipboardList, Printer } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { useReportData } from '@/features/reports/useReportData'
 import DateRangeSelector from '@/features/reports/DateRangeSelector'
@@ -25,14 +25,19 @@ function ReportsPage() {
 
   return (
     <main className="mx-auto flex w-full max-w-2xl flex-1 flex-col gap-6 p-4 py-8 animate-in fade-in duration-500 motion-reduce:animate-none sm:p-6">
-      <PageHeader
-        title="Wellness Trends & Personal Reports"
-        description="Review your own recorded wellness information over time and export it privately."
-        captions={[
-          'These summaries are based only on the information you record in HerHealth and are not medical advice or a medical diagnosis.',
-          'Your reports, timeline, and exported data are private and visible only to you.',
-        ]}
-      />
+      <div className="flex flex-col items-start gap-4">
+        <div className="flex size-14 items-center justify-center rounded-full bg-lavender text-lavender-foreground">
+          <ClipboardList className="size-6" aria-hidden="true" />
+        </div>
+        <PageHeader
+          title="Wellness Trends & Personal Reports"
+          description="Review your own recorded wellness information over time and export it privately."
+          captions={[
+            'These summaries are based only on the information you record in HerHealth and are not medical advice or a medical diagnosis.',
+            'Your reports, timeline, and exported data are private and visible only to you.',
+          ]}
+        />
+      </div>
       <PrivacyBadge label="Reports and exports are private to your account" />
 
       <div className="flex flex-col gap-2 print:hidden">
