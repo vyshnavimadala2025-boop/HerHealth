@@ -58,7 +58,7 @@ function NutritionSummaryCard({ status, summary, chartEntries }: NutritionSummar
       key: 'avg-hydration',
       icon: Droplet,
       label: 'Average hydration',
-      status: summary.avgHydrationGlasses !== null ? `${summary.avgHydrationGlasses} glasses` : 'Not enough data',
+      status: summary.avgHydrationGlasses !== null ? `${summary.avgHydrationGlasses} glasses` : 'Not enough data yet',
       trend: 'Last 30 days',
       caption: 'Average recorded glasses of water per day.',
       accentClassName: 'bg-support text-support-foreground',

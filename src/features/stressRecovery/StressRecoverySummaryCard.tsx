@@ -11,7 +11,7 @@ import {
 import { RECOVERY_LEVEL_OPTIONS, STRESS_LEVEL_OPTIONS, type StressRecoveryEntry } from '@/features/stressRecovery/types'
 
 function optionLabel(options: readonly { value: string; label: string }[], value: string | null) {
-  if (!value) return 'Not enough data'
+  if (!value) return 'Not enough data yet'
   return options.find((option) => option.value === value)?.label ?? value
 }
 

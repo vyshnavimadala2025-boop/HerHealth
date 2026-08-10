@@ -104,7 +104,7 @@ function InsightsWeeklyPage() {
       key: 'avg-energy',
       icon: Zap,
       label: 'Average energy',
-      status: avgEnergy !== null ? `${avgEnergy}/5` : 'Not enough data',
+      status: avgEnergy !== null ? `${avgEnergy}/5` : 'Not enough data yet',
       trend: `Trend: ${insightsData.energyTrend}`,
       caption: 'Average of your daily energy check-ins this week.',
       accentClassName: 'bg-lavender text-lavender-foreground',
@@ -254,7 +254,7 @@ function InsightsWeeklyPage() {
                     <div>
                       <p className="text-caption font-medium tracking-wide text-muted-foreground uppercase">Mood this week</p>
                       <p className="text-foreground">
-                        Average: {avgMood !== null ? `${avgMood}/5` : 'Not enough data'}
+                        Average: {avgMood !== null ? `${avgMood}/5` : 'Not enough data yet'}
                       </p>
                       {moodHighLow.highest && moodHighLow.lowest && (
                         <p className="text-caption text-muted-foreground">
@@ -265,7 +265,7 @@ function InsightsWeeklyPage() {
                     <div>
                       <p className="text-caption font-medium tracking-wide text-muted-foreground uppercase">Energy this week</p>
                       <p className="text-foreground">
-                        Average: {avgEnergy !== null ? `${avgEnergy}/5` : 'Not enough data'}
+                        Average: {avgEnergy !== null ? `${avgEnergy}/5` : 'Not enough data yet'}
                       </p>
                       {energyHighLow.highest && energyHighLow.lowest && (
                         <p className="text-caption text-muted-foreground">

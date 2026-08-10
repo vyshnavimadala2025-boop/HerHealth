@@ -1,4 +1,4 @@
-import { Apple, Dumbbell, Droplet, Heart, Moon, Scale, Sparkles, Waves } from 'lucide-react'
+import { Apple, ChevronDown, Dumbbell, Droplet, Heart, Moon, Scale, Sparkles, Waves } from 'lucide-react'
 import type { LifestyleFactorCard } from '@/features/lifestyleIntelligence/types'
 import type { SourceStatus } from '@/components/shared/dataStateText'
 import { describeTrackedFactor } from '@/components/shared/dataStateText'
@@ -171,9 +171,10 @@ function LifestyleFactorsSection({
                 <p className="text-sm font-medium text-foreground">{factor.title}</p>
                 <p className="text-caption text-muted-foreground">{factor.description}</p>
               </div>
-              <span className="mt-1 shrink-0 text-caption text-muted-foreground transition-transform duration-200 group-open:rotate-180">
-                ▾
-              </span>
+              <ChevronDown
+                className="mt-1 size-4 shrink-0 text-muted-foreground transition-transform duration-200 group-open:rotate-180"
+                aria-hidden="true"
+              />
             </summary>
             <div className="mt-3 flex flex-col gap-2 border-t border-border pt-3">
               <div className="flex items-center justify-between text-caption">

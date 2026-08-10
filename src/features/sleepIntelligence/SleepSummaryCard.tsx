@@ -8,7 +8,7 @@ import { MIN_USABLE_NIGHTS } from '@/features/sleepIntelligence/sleepCalculation
 import type { SleepEntry } from '@/features/sleepIntelligence/types'
 
 function formatDuration(minutes: number | null): string {
-  if (minutes === null) return 'Not enough data'
+  if (minutes === null) return 'Not enough data yet'
   const hours = Math.floor(minutes / 60)
   const remainder = minutes % 60
   return `${hours}h ${remainder}m`

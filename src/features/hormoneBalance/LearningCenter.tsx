@@ -1,4 +1,4 @@
-import { BookOpen } from 'lucide-react'
+import { BookOpen, ChevronDown } from 'lucide-react'
 import type { LearningTopic } from '@/features/hormoneBalance/types'
 
 const LEARNING_TOPICS: LearningTopic[] = [
@@ -85,9 +85,10 @@ function LearningCenter() {
                   {topic.summary}
                 </span>
               </span>
-              <span className="shrink-0 text-caption text-muted-foreground transition-transform duration-200 group-open:rotate-180">
-                ▾
-              </span>
+              <ChevronDown
+                className="size-4 shrink-0 text-muted-foreground transition-transform duration-200 group-open:rotate-180"
+                aria-hidden="true"
+              />
             </summary>
             <div className="flex flex-col gap-2 border-t border-border p-4 pt-3">
               {topic.body.map((paragraph) => (

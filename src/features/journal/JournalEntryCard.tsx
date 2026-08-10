@@ -34,6 +34,7 @@ function JournalEntryCard({ entry, onEdit, onDeleted }: JournalEntryCardProps) {
               type="button"
               variant="ghost"
               size="icon-sm"
+              className="size-11"
               aria-label="Edit this journal entry"
               onClick={() => onEdit(entry)}
             >

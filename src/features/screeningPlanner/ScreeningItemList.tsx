@@ -40,7 +40,7 @@ function ScreeningItemCard({ item, onEdit, onComplete, onReopen, onDeleted }: Sc
           )}
         </div>
         <div className="flex shrink-0 items-center gap-1">
-          <Button type="button" variant="ghost" size="icon-sm" aria-label="Edit this screening plan" onClick={() => onEdit(item)}>
+          <Button type="button" variant="ghost" size="icon-sm" className="size-11" aria-label="Edit this screening plan" onClick={() => onEdit(item)}>
             <Pencil />
           </Button>
           <DeleteScreeningItemDialog item={item} onDeleted={() => onDeleted(item.id)} />
@@ -94,7 +94,7 @@ function ScreeningItemList({ status, items, onRetry, ...actions }: ScreeningItem
 
         {status === 'error' && (
           <div className="flex flex-col items-start gap-2 py-4">
-            <p className="text-sm text-muted-foreground">Unable to load your screening planner. Please try again.</p>
+            <p className="text-sm text-muted-foreground">We couldn&apos;t load your screening planner. Please try again.</p>
             <Button type="button" variant="outline" size="sm" onClick={onRetry}>
               Retry
             </Button>

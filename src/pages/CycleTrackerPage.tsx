@@ -8,6 +8,7 @@ import PeriodForm from '@/features/periods/PeriodForm'
 import PeriodHistory from '@/features/periods/PeriodHistory'
 import CycleOverview from '@/features/periods/CycleOverview'
 import PageHeader from '@/components/shared/PageHeader'
+import PrivacyBadge from '@/components/shared/PrivacyBadge'
 import type { PeriodRecord } from '@/features/periods/types'
 import cycleTrackerImage from '@/assets/images/herhealth-cycle-tracker-hero.png'
 
@@ -122,6 +123,8 @@ function CycleTrackerPage() {
               'Cycle estimates are based on your recorded dates and are not medical predictions.',
             ]}
           />
+
+          <PrivacyBadge label="Your cycle information is private to your account" />
 
           <CycleOverview status={status} records={records} />
 

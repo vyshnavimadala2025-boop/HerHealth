@@ -1,4 +1,4 @@
-import { HelpCircle, Mail } from 'lucide-react'
+import { ChevronDown, HelpCircle, Mail } from 'lucide-react'
 import PageHeader from '@/components/shared/PageHeader'
 
 interface HelpTopic {
@@ -73,9 +73,10 @@ function HelpCenterPage() {
           <details key={topic.key} className="group rounded-xl border border-border bg-card">
             <summary className="flex cursor-pointer list-none items-center justify-between rounded-xl px-4 py-3 text-sm font-medium text-foreground marker:content-none focus-visible:ring-3 focus-visible:ring-ring/50">
               {topic.question}
-              <span className="shrink-0 text-caption text-muted-foreground transition-transform duration-200 group-open:rotate-180">
-                ▾
-              </span>
+              <ChevronDown
+                className="size-4 shrink-0 text-muted-foreground transition-transform duration-200 group-open:rotate-180"
+                aria-hidden="true"
+              />
             </summary>
             <p className="border-t border-border p-4 pt-3 text-caption text-muted-foreground">{topic.answer}</p>
           </details>

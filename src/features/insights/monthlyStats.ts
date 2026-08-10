@@ -121,8 +121,8 @@ export function calculateWellnessScore(input: WellnessScoreInput): WellnessScore
       score: null,
       factors: [
         { key: 'consistency', label: 'Check-in consistency', valueLabel: 'No check-ins yet', weightPercent: 40, tracked: false },
-        { key: 'mood', label: 'Mood', valueLabel: 'Not enough data', weightPercent: 20, tracked: false },
-        { key: 'energy', label: 'Energy', valueLabel: 'Not enough data', weightPercent: 20, tracked: false },
+        { key: 'mood', label: 'Mood', valueLabel: 'Not enough data yet', weightPercent: 20, tracked: false },
+        { key: 'energy', label: 'Energy', valueLabel: 'Not enough data yet', weightPercent: 20, tracked: false },
         { key: 'engagement', label: 'Journal & goal engagement', valueLabel: 'No activity yet', weightPercent: 20, tracked: false },
       ],
     }
@@ -140,7 +140,7 @@ export function calculateWellnessScore(input: WellnessScoreInput): WellnessScore
       score: input.avgMood !== null ? ((input.avgMood - 1) / 4) * 100 : null,
       baseWeight: 20,
       tracked: input.avgMood !== null,
-      valueLabel: input.avgMood !== null ? `${input.avgMood}/5 average` : 'Not enough data',
+      valueLabel: input.avgMood !== null ? `${input.avgMood}/5 average` : 'Not enough data yet',
     },
     {
       key: 'energy',
@@ -148,7 +148,7 @@ export function calculateWellnessScore(input: WellnessScoreInput): WellnessScore
       score: input.avgEnergy !== null ? ((input.avgEnergy - 1) / 4) * 100 : null,
       baseWeight: 20,
       tracked: input.avgEnergy !== null,
-      valueLabel: input.avgEnergy !== null ? `${input.avgEnergy}/5 average` : 'Not enough data',
+      valueLabel: input.avgEnergy !== null ? `${input.avgEnergy}/5 average` : 'Not enough data yet',
     },
     {
       key: 'engagement',

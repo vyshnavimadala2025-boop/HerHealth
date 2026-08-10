@@ -14,7 +14,7 @@ interface MonthlyWellnessScoreCardProps {
 }
 
 function formatMetricValue(value: number | null, unit: PeriodComparisonMetric['unit']): string {
-  if (value === null) return 'No data'
+  if (value === null) return 'Not enough data yet'
   if (unit === 'percent') return `${value}%`
   if (unit === 'score') return `${value}/5`
   return `${value}`

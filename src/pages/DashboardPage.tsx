@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { ClipboardList, Compass, HeartPulse } from 'lucide-react'
+import { ChevronDown, ClipboardList, Compass, HeartPulse } from 'lucide-react'
 import { useAuth } from '@/features/auth/useAuth'
 import { useDashboardData } from '@/features/checkins/useDashboardData'
 import CheckInForm from '@/features/checkins/CheckInForm'
@@ -91,9 +91,10 @@ function DashboardPage() {
       <details className="group rounded-xl border border-border">
         <summary className="flex cursor-pointer list-none items-center justify-between rounded-xl px-4 py-3 text-sm font-medium text-foreground marker:content-none focus-visible:ring-3 focus-visible:ring-ring/50">
           View recent check-ins
-          <span className="text-caption text-muted-foreground transition-transform duration-200 group-open:rotate-180">
-            ▾
-          </span>
+          <ChevronDown
+            className="size-4 shrink-0 text-muted-foreground transition-transform duration-200 group-open:rotate-180"
+            aria-hidden="true"
+          />
         </summary>
         <div className="border-t border-border p-4 pt-3">
           <RecentCheckIns status={recentStatus} checkIns={recentCheckIns} />

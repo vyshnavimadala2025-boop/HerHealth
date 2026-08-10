@@ -177,7 +177,7 @@ export interface PatternIndicator {
 }
 
 function directionIndicator(key: string, label: string, direction: TrendDirection, hasData: boolean): PatternIndicator {
-  if (!hasData) return { key, label, value: 'Not enough data', tone: 'insufficient' }
+  if (!hasData) return { key, label, value: 'Not enough data yet', tone: 'insufficient' }
   if (direction === 'increasing') return { key, label, value: 'Trending up', tone: 'positive' }
   if (direction === 'decreasing') return { key, label, value: 'Trending down', tone: 'attention' }
   if (direction === 'mixed') return { key, label, value: 'Mixed', tone: 'attention' }

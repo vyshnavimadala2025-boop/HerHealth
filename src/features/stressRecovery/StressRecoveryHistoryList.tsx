@@ -51,7 +51,7 @@ function StressRecoveryHistoryList({ status, entries, onEdit, onDeleted, onRetry
         {status === 'error' && (
           <div role="alert" className="flex flex-col items-start gap-2 py-4">
             <p className="text-sm text-muted-foreground">
-              Unable to load your stress and recovery data. Please try again.
+              We couldn&apos;t load your stress and recovery data. Please try again.
             </p>
             <Button type="button" variant="outline" size="sm" onClick={onRetry}>
               Retry
