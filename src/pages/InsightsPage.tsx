@@ -7,6 +7,7 @@ import DateRangeSelector from '@/features/reports/DateRangeSelector'
 import { useReportData } from '@/features/reports/useReportData'
 import { useInsightsData } from '@/features/insights/useInsightsData'
 import InsightCard from '@/features/insights/InsightCard'
+import InsightsSubNav from '@/features/insights/InsightsSubNav'
 import { INSIGHT_GROUPS, INSIGHT_CARDS, insightCardHref } from '@/components/layout/insightsCatalog'
 import { formatFriendlyDate } from '@/features/periods/dateUtils'
 
@@ -44,6 +45,8 @@ function InsightsPage() {
           captions={['Educational only. HerHealth never diagnoses, predicts, or replaces professional medical advice.']}
         />
       </div>
+
+      <InsightsSubNav />
 
       <div className="flex flex-col gap-2">
         <p className="text-sm font-medium text-foreground">Date range</p>

@@ -139,7 +139,7 @@ function ReminderActivityRow({ activityType, label, preference, onSave }: Remind
                     onClick={() => toggleDay(day.value)}
                     aria-pressed={checked}
                     className={cn(
-                      'rounded-full border px-3 py-1 text-caption transition-colors',
+                      'rounded-full border px-3 py-1 text-caption transition-colors focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/50 outline-none',
                       checked
                         ? 'border-primary bg-accent/40 text-foreground'
                         : 'border-border text-muted-foreground',

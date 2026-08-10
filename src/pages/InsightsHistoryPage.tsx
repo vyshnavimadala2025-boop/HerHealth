@@ -15,7 +15,7 @@ function InsightsHistoryPage() {
   const { range, status, timeline, setPresetRange, setCustomRangeValue, retry, goalsDataUnavailable } = useReportData()
 
   return (
-    <main className="mx-auto flex w-full max-w-3xl flex-1 flex-col gap-6 p-4 py-8 animate-in fade-in duration-500 motion-reduce:animate-none sm:p-6">
+    <main className="mx-auto flex w-full max-w-5xl flex-1 flex-col gap-8 p-4 py-8 animate-in fade-in duration-500 motion-reduce:animate-none sm:p-6">
       <div className="flex flex-col items-start gap-4">
         <div className="flex size-14 items-center justify-center rounded-full bg-accent text-accent-foreground">
           <History className="size-6" aria-hidden="true" />

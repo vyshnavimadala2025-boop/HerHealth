@@ -19,7 +19,7 @@ interface MiniTrendChartProps {
  */
 function MiniTrendChart({ points, maxValue, colorClassName = 'bg-primary', ariaLabel }: MiniTrendChartProps) {
   return (
-    <div className="flex items-end gap-1.5" role="img" aria-label={ariaLabel}>
+    <div className="flex items-end gap-1.5 overflow-x-auto pb-2" role="img" aria-label={ariaLabel}>
       {points.map((point, index) => (
         <div key={`${point.label}-${index}`} className="flex min-w-[1.25rem] flex-1 flex-col items-center gap-1">
           <div className="flex h-14 w-full items-end">

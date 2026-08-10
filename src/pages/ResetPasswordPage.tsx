@@ -56,7 +56,7 @@ function ResetPasswordPage() {
       <Card className="w-full max-w-sm">
         <CardHeader>
           <CardTitle className="flex items-center gap-2">
-            <HeartPulse className="size-5 text-primary" />
+            <HeartPulse className="size-5 text-primary" aria-hidden="true" />
             Set a new password
           </CardTitle>
           <CardDescription>Choose a new password for your account.</CardDescription>
