@@ -21,11 +21,13 @@ export interface AdminNavItem {
   name: string
   icon: LucideIcon
   href: string | null
+  /** NavLink `end` — true only for routes that must NOT stay highlighted on their own sub-routes (e.g. Dashboard at exactly /admin). Defaults to false. */
+  end?: boolean
 }
 
 export const ADMIN_NAV_ITEMS: AdminNavItem[] = [
-  { key: 'dashboard', name: 'Dashboard', icon: LayoutDashboard, href: '/admin' },
-  { key: 'users', name: 'Users', icon: Users, href: null },
+  { key: 'dashboard', name: 'Dashboard', icon: LayoutDashboard, href: '/admin', end: true },
+  { key: 'users', name: 'Users', icon: Users, href: '/admin/users' },
   { key: 'activity', name: 'Activity', icon: Activity, href: null },
   { key: 'feedback', name: 'Feedback', icon: MessageSquareHeart, href: null },
   { key: 'analytics', name: 'Analytics', icon: BarChart3, href: null },

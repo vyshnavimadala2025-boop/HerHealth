@@ -37,7 +37,7 @@ function AdminSidebar({ onNavigate }: AdminSidebarProps) {
             <NavLink
               key={item.key}
               to={item.href}
-              end
+              end={item.end ?? false}
               onClick={onNavigate}
               className={({ isActive }) =>
                 cn(

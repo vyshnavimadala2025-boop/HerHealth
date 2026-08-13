@@ -55,6 +55,8 @@ import AdminAuthProvider from '@/features/admin/adminAuth/AdminAuthProvider'
 import RequireAdmin from '@/features/admin/adminAuth/RequireAdmin'
 import AdminShell from '@/components/layout/AdminShell'
 import AdminOverviewPage from '@/pages/admin/AdminOverviewPage'
+import AdminUsersPage from '@/pages/admin/AdminUsersPage'
+import AdminUserDetailPage from '@/pages/admin/AdminUserDetailPage'
 
 function App() {
   return (
@@ -151,6 +153,8 @@ function App() {
             <Route element={<RequireAdmin />}>
               <Route element={<AdminShell />}>
                 <Route path="/admin" element={<AdminOverviewPage />} />
+                <Route path="/admin/users" element={<AdminUsersPage />} />
+                <Route path="/admin/users/:userId" element={<AdminUserDetailPage />} />
               </Route>
             </Route>
           </Route>
