@@ -28,9 +28,9 @@ export interface AdminNavItem {
 export const ADMIN_NAV_ITEMS: AdminNavItem[] = [
   { key: 'dashboard', name: 'Dashboard', icon: LayoutDashboard, href: '/admin', end: true },
   { key: 'users', name: 'Users', icon: Users, href: '/admin/users' },
-  { key: 'activity', name: 'Activity', icon: Activity, href: null },
-  { key: 'feedback', name: 'Feedback', icon: MessageSquareHeart, href: null },
-  { key: 'analytics', name: 'Analytics', icon: BarChart3, href: null },
+  { key: 'activity', name: 'Activity', icon: Activity, href: '/admin/activity' },
+  { key: 'feedback', name: 'Feedback', icon: MessageSquareHeart, href: '/admin/feedback' },
+  { key: 'feature-usage', name: 'Feature Usage', icon: BarChart3, href: '/admin/feature-usage' },
   { key: 'platform-health', name: 'Platform Health', icon: ServerCog, href: null },
   { key: 'settings', name: 'Settings', icon: Settings, href: null },
 ]

@@ -40,6 +40,7 @@ import HelpCenterPage from '@/pages/HelpCenterPage'
 import ReleaseNotesPage from '@/pages/ReleaseNotesPage'
 import GoalsPage from '@/pages/GoalsPage'
 import ReportsPage from '@/pages/ReportsPage'
+import FeedbackPage from '@/pages/FeedbackPage'
 import DesignSystemPage from '@/pages/DesignSystemPage'
 import PrivacyPage from '@/pages/PrivacyPage'
 import TermsPage from '@/pages/TermsPage'
@@ -57,6 +58,9 @@ import AdminShell from '@/components/layout/AdminShell'
 import AdminOverviewPage from '@/pages/admin/AdminOverviewPage'
 import AdminUsersPage from '@/pages/admin/AdminUsersPage'
 import AdminUserDetailPage from '@/pages/admin/AdminUserDetailPage'
+import AdminFeatureUsagePage from '@/pages/admin/AdminFeatureUsagePage'
+import AdminActivityPage from '@/pages/admin/AdminActivityPage'
+import AdminFeedbackPage from '@/pages/admin/AdminFeedbackPage'
 
 function App() {
   return (
@@ -134,6 +138,7 @@ function App() {
               <Route path="/womens-health" element={<WomensHealthArticlePage />} />
               <Route path="/help-center" element={<HelpCenterPage />} />
               <Route path="/release-notes" element={<ReleaseNotesPage />} />
+              <Route path="/feedback" element={<FeedbackPage />} />
               <Route path="/coming-soon/:slug" element={<ComingSoonPage />} />
             </Route>
           </Route>
@@ -155,6 +160,9 @@ function App() {
                 <Route path="/admin" element={<AdminOverviewPage />} />
                 <Route path="/admin/users" element={<AdminUsersPage />} />
                 <Route path="/admin/users/:userId" element={<AdminUserDetailPage />} />
+                <Route path="/admin/feature-usage" element={<AdminFeatureUsagePage />} />
+                <Route path="/admin/activity" element={<AdminActivityPage />} />
+                <Route path="/admin/feedback" element={<AdminFeedbackPage />} />
               </Route>
             </Route>
           </Route>
