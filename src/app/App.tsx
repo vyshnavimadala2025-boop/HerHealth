@@ -51,6 +51,10 @@ import ProtectedRoute from '@/features/auth/ProtectedRoute'
 import PublicOnlyRoute from '@/features/auth/PublicOnlyRoute'
 import OnboardingGuard from '@/features/onboarding/OnboardingGuard'
 import RequireOnboarding from '@/features/onboarding/RequireOnboarding'
+import AdminAuthProvider from '@/features/admin/adminAuth/AdminAuthProvider'
+import RequireAdmin from '@/features/admin/adminAuth/RequireAdmin'
+import AdminShell from '@/components/layout/AdminShell'
+import AdminOverviewPage from '@/pages/admin/AdminOverviewPage'
 
 function App() {
   return (
@@ -129,6 +133,25 @@ function App() {
               <Route path="/help-center" element={<HelpCenterPage />} />
               <Route path="/release-notes" element={<ReleaseNotesPage />} />
               <Route path="/coming-soon/:slug" element={<ComingSoonPage />} />
+            </Route>
+          </Route>
+        </Route>
+
+        {/*
+          Admin console — a deliberately separate route subtree (own
+          AdminShell, not AppShell; no RequireOnboarding, since internal
+          admin operators don't go through the patient onboarding flow).
+          ProtectedRoute guarantees a session first; AdminAuthProvider then
+          checks the database's is_admin() function and RequireAdmin acts
+          on the result. Nested here so future /admin/users, /admin/activity,
+          etc. can be added as siblings under the same AdminShell.
+        */}
+        <Route element={<ProtectedRoute />}>
+          <Route element={<AdminAuthProvider />}>
+            <Route element={<RequireAdmin />}>
+              <Route element={<AdminShell />}>
+                <Route path="/admin" element={<AdminOverviewPage />} />
+              </Route>
             </Route>
           </Route>
         </Route>
