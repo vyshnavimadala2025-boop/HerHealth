@@ -112,7 +112,7 @@ function PeriodForm({ userId, editingRecord, onSaved, onCancelEdit }: PeriodForm
       <CardHeader>
         <CardTitle>{isEditing ? 'Edit Period' : 'Add a Period'}</CardTitle>
         <CardDescription>
-          HerHealth supports personal cycle tracking and does not provide medical diagnosis.
+          SIRILA supports personal cycle tracking and does not provide medical diagnosis.
         </CardDescription>
       </CardHeader>
       <form onSubmit={handleSubmit} noValidate>

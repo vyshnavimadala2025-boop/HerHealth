@@ -128,7 +128,7 @@ function AdminActivityPage() {
     <div className="flex flex-col gap-6">
       <PageHeader
         title="Activity"
-        description="What's happening on the HerHealth platform, in aggregate."
+        description="What's happening on the SIRILA platform, in aggregate."
         captions={[
           'An operational observability view, not a health-record viewer — every event here proves a save, a registration, or an onboarding completion, never what a user viewed or how long they stayed.',
         ]}

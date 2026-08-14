@@ -22,7 +22,7 @@ function PcosWellnessOptIn({ enabled, isToggling, suggestedDefault, error, onCha
           <CardTitle>PCOS/PCOD Wellness Tracking</CardTitle>
         </div>
         <CardDescription>
-          This is optional. HerHealth does not assume you have PCOS or PCOD — you choose whether
+          This is optional. SIRILA does not assume you have PCOS or PCOD — you choose whether
           to track this.
         </CardDescription>
       </CardHeader>

@@ -91,7 +91,7 @@ export function generateInsights(input: GenerateInsightsInput): Insight[] {
       id: 'general-encouragement',
       title: 'Getting started',
       message:
-        'Recording daily check-ins and period dates helps HerHealth build a personal picture over time. This is based only on the information you choose to record.',
+        'Recording daily check-ins and period dates helps SIRILA build a personal picture over time. This is based only on the information you choose to record.',
       category: 'general',
       priority: 'encouragement',
     })

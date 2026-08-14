@@ -67,7 +67,7 @@ const LEARNING_TOPICS: LearningTopic[] = [
   },
 ]
 
-/** Static educational content — same accessible <details>/<summary> pattern used across HerHealth. */
+/** Static educational content — same accessible <details>/<summary> pattern used across SIRILA. */
 function LifestyleLearningCenter() {
   return (
     <section className="flex flex-col gap-4">

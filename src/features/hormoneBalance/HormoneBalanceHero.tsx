@@ -2,7 +2,7 @@ import { Waves } from 'lucide-react'
 
 /**
  * No source photo was supplied for this feature, so the hero illustration
- * is a self-contained SVG built entirely from HerHealth's existing design
+ * is a self-contained SVG built entirely from SIRILA's existing design
  * tokens — soft, overlapping rings suggesting balance and rhythm — rather
  * than a stock image or an invented photo credit.
  */
@@ -17,7 +17,7 @@ function HormoneBalanceHero() {
           educational insights, and AI-powered observations.
         </p>
         <p className="text-caption text-muted-foreground">
-          Educational and wellness-focused only. HerHealth never diagnoses conditions, predicts
+          Educational and wellness-focused only. SIRILA never diagnoses conditions, predicts
           health outcomes, or replaces professional medical care.
         </p>
       </div>

@@ -87,7 +87,7 @@ function WellnessInsightsCard({ status, insights }: WellnessInsightsCardProps) {
               })}
             </ul>
             <p className="text-caption text-muted-foreground">
-              These insights are based only on the information you record in HerHealth and are
+              These insights are based only on the information you record in SIRILA and are
               not medical advice or a medical diagnosis.
             </p>
           </>

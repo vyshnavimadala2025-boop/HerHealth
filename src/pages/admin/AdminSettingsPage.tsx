@@ -60,7 +60,7 @@ function AdminSettingsPage() {
           <CardTitle>Platform</CardTitle>
         </CardHeader>
         <CardContent className="grid grid-cols-1 gap-4 sm:grid-cols-2">
-          <SettingRow label="Platform" value="HerHealth" />
+          <SettingRow label="Platform" value="SIRILA" />
           <SettingRow label="Environment" value={import.meta.env.MODE === 'production' ? 'Production' : import.meta.env.MODE} />
           <SettingRow label="Version / build" value="Not available — no build identifier is currently embedded in the client bundle." />
         </CardContent>

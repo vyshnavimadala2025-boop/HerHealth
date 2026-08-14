@@ -63,7 +63,7 @@ function DeleteAllDataDialog({ onConfirmDeleteAll }: DeleteAllDataDialogProps) {
       const outcomes = await onConfirmDeleteAll()
       const failed = outcomes.filter((outcome) => !outcome.success)
       if (failed.length === 0) {
-        toast.success('All your HerHealth data has been deleted.')
+        toast.success('All your SIRILA data has been deleted.')
         setOpen(false)
         resetState()
       } else {
@@ -88,12 +88,12 @@ function DeleteAllDataDialog({ onConfirmDeleteAll }: DeleteAllDataDialogProps) {
       <AlertDialogTrigger asChild>
         <Button type="button" variant="destructive">
           <Trash2 />
-          Delete All My HerHealth Data
+          Delete All My SIRILA Data
         </Button>
       </AlertDialogTrigger>
       <AlertDialogContent>
         <AlertDialogHeader>
-          <AlertDialogTitle>Delete all your HerHealth data?</AlertDialogTitle>
+          <AlertDialogTitle>Delete all your SIRILA data?</AlertDialogTitle>
           <AlertDialogDescription>
             This permanently deletes every check-in, period record, journal entry, PCOS/PCOD
             wellness entry, wellness goal, and reminder preference in your account. This action

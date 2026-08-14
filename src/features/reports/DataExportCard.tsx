@@ -20,7 +20,7 @@ function DataExportCard({ status, onExport }: DataExportCardProps) {
           <CardTitle>Export Your Data</CardTitle>
         </div>
         <CardDescription>
-          Download your complete HerHealth history, not just the selected range above. Files are generated
+          Download your complete SIRILA history, not just the selected range above. Files are generated
           in your browser and are never uploaded anywhere.
         </CardDescription>
       </CardHeader>

@@ -37,7 +37,7 @@ function OnboardingLayout({ children }: OnboardingLayoutProps) {
           className="flex shrink-0 items-center gap-2 font-display text-lg font-medium text-foreground"
         >
           <HeartPulse className="size-5 text-primary" aria-hidden="true" />
-          HerHealth
+          SIRILA
         </Link>
 
         <div className="flex flex-1 items-center justify-center py-6">

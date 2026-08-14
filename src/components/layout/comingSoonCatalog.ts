@@ -25,9 +25,9 @@ export function getComingSoonEntry(slug: string | undefined): ComingSoonEntry {
   const fallback: ComingSoonEntry = {
     slug: slug ?? 'coming-soon',
     title: 'Coming Soon',
-    description: 'This part of HerHealth is on its way.',
+    description: 'This part of SIRILA is on its way.',
     icon: Sparkles,
-    category: 'HerHealth',
+    category: 'SIRILA',
   }
   if (!slug) return fallback
   return COMING_SOON_ENTRIES[slug] ?? fallback

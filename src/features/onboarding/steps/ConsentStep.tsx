@@ -34,7 +34,7 @@ function ConsentStep({
       <div className="flex flex-col gap-2">
         <h1 className="text-heading font-display text-foreground">Privacy and consent</h1>
         <p className="text-body text-muted-foreground">
-          HerHealth is a wellness and tracking platform, not a medical provider. Your data stays
+          SIRILA is a wellness and tracking platform, not a medical provider. Your data stays
           private to your account.
         </p>
       </div>
@@ -69,7 +69,7 @@ function ConsentStep({
             className="mt-0.5"
           />
           <span className="text-foreground">
-            I understand that HerHealth is a wellness and tracking platform and does not provide
+            I understand that SIRILA is a wellness and tracking platform and does not provide
             medical diagnosis or emergency medical care.
           </span>
         </label>

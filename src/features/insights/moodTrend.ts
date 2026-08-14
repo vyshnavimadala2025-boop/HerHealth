@@ -16,7 +16,7 @@ const TREND_WINDOW = 14
 
 /**
  * Mood trend deliberately never reports a "declining"/"decreasing" result —
- * a negative movement is reported as Mixed instead, per HerHealth's
+ * a negative movement is reported as Mixed instead, per SIRILA's
  * medical-safety guidelines (mood must not be framed as worsening).
  */
 export function calculateMoodTrend(checkInsNewestFirst: CheckIn[]): MoodTrendResult {

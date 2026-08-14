@@ -55,7 +55,7 @@ export interface TrendBucketRange {
  * Bucket boundaries for the selected range — daily for 7 days, weekly for
  * 30/90 days (matching the same day-window math used elsewhere, e.g.
  * monthlyStats.ts's buildWeeklyActivityBuckets), calendar-monthly for 6
- * months/1 year (new — no existing range in HerHealth goes beyond ~90
+ * months/1 year (new — no existing range in SIRILA goes beyond ~90
  * days). This is the only genuinely new logic in this file; every stat
  * *inside* each bucket below is computed by the existing reportCalculations
  * functions, just run against a shorter window.

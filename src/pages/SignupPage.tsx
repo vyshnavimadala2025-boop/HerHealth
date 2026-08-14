@@ -37,7 +37,7 @@ function SignupPage() {
         // Email confirmation is disabled on this Supabase project, so
         // signUp() already returned an active session — no verification
         // email was sent, so go straight to the dashboard.
-        toast.success('Account created successfully. Welcome to HerHealth.')
+        toast.success('Account created successfully. Welcome to SIRILA.')
         navigate('/dashboard', { replace: true })
       } else {
         // Email confirmation is enabled — Supabase sent a verification
@@ -71,7 +71,7 @@ function SignupPage() {
           <div className="flex flex-col gap-2">
             <h1 className="text-heading font-display text-foreground">Begin your wellness journey</h1>
             <p className="text-body text-muted-foreground">
-              Create your private HerHealth space and start understanding your wellness, one day at
+              Create your private SIRILA space and start understanding your wellness, one day at
               a time.
             </p>
           </div>

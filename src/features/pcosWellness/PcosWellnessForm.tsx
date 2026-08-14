@@ -129,7 +129,7 @@ function PcosWellnessForm({
       <CardHeader>
         <CardTitle>{isEditing ? 'Edit Wellness Entry' : 'Add a Wellness Entry'}</CardTitle>
         <CardDescription>
-          HerHealth records the information you choose to enter. It does not diagnose PCOS, PCOD,
+          SIRILA records the information you choose to enter. It does not diagnose PCOS, PCOD,
           or any other medical condition.
         </CardDescription>
       </CardHeader>

@@ -169,7 +169,7 @@ function GoalsPage() {
         <section className="flex flex-col gap-3">
           <h2 className="font-display text-heading text-foreground">Progress looks different for everyone</h2>
           <p className="text-body text-muted-foreground">
-            Wellness progress is personal, and it doesn&apos;t need to be perfect. HerHealth is here
+            Wellness progress is personal, and it doesn&apos;t need to be perfect. SIRILA is here
             to help you notice small improvements, build routines that actually fit your life, and
             move forward at whatever pace feels comfortable to you.
           </p>
@@ -255,7 +255,7 @@ function GoalsPage() {
             <h2 className="font-display text-base text-foreground">Personal insights</h2>
           </div>
           <p className="text-body text-muted-foreground">
-            Your progress is more than a number. HerHealth brings your check-ins, goals, and
+            Your progress is more than a number. SIRILA brings your check-ins, goals, and
             personal reflections together so you can better understand what supports your
             wellbeing.
           </p>
@@ -292,7 +292,7 @@ function GoalsPage() {
               <a href="#new-goal">Create My Goal</a>
             </Button>
             <Button asChild variant="outline" size="lg" className="w-full sm:w-auto">
-              <Link to="/">Explore HerHealth</Link>
+              <Link to="/">Explore SIRILA</Link>
             </Button>
           </div>
         </section>
@@ -338,7 +338,7 @@ function GoalsPage() {
       </div>
 
       <p className="mx-auto w-full max-w-2xl px-4 pb-12 text-center text-caption text-muted-foreground sm:px-6">
-        HerHealth supports personal wellness awareness and reflection. It is not a substitute for
+        SIRILA supports personal wellness awareness and reflection. It is not a substitute for
         professional medical advice.
       </p>
     </main>

@@ -11,7 +11,7 @@ function CompletionStep({ onGoToDashboard }: CompletionStepProps) {
       <div className="flex size-12 items-center justify-center rounded-full bg-support text-support-foreground">
         <CheckCircle2 className="size-6" aria-hidden="true" />
       </div>
-      <h1 className="text-heading font-display text-foreground">Your HerHealth space is ready.</h1>
+      <h1 className="text-heading font-display text-foreground">Your SIRILA space is ready.</h1>
       <p className="text-body text-muted-foreground">
         You can now begin tracking your wellness journey — on your own terms, at your own pace.
       </p>

@@ -8,7 +8,7 @@ export interface TrackedFactorDisplay {
 /**
  * Pure text-selection helper — not a calculation engine, it never computes
  * a wellness value itself. It only decides which honest string to show for
- * a factor HerHealth genuinely tracks: the real value once real data
+ * a factor SIRILA genuinely tracks: the real value once real data
  * exists, or an honest "loading" / "unavailable" / "not enough data yet"
  * message otherwise. Never falls back to a fabricated 0/Poor/Low. Shared
  * across Lifestyle Intelligence (Stage 4C2) and Insights (Stage 5A) —

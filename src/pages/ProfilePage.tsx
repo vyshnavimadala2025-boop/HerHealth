@@ -11,7 +11,7 @@ function ProfilePage() {
       <PageHeader
         title="Profile & Account"
         captions={[
-          'Your profile information is private to your account. HerHealth does not expose your profile information publicly, and sensitive account details are only shown here.',
+          'Your profile information is private to your account. SIRILA does not expose your profile information publicly, and sensitive account details are only shown here.',
         ]}
       />
       <PrivacyBadge label="Visible only to you — never shared or made public" />

@@ -2,7 +2,7 @@ import { Compass } from 'lucide-react'
 
 /**
  * No source photo was supplied for this feature, so the hero illustration
- * is a self-contained SVG built entirely from HerHealth's existing design
+ * is a self-contained SVG built entirely from SIRILA's existing design
  * tokens — soft radiating arcs suggesting awareness of one's surroundings
  * — rather than a stock image or an invented photo credit.
  */
@@ -17,7 +17,7 @@ function LifestyleIntelligenceHero() {
           wellness through thoughtful tracking and AI-powered observations.
         </p>
         <p className="text-caption text-muted-foreground">
-          Educational only. HerHealth never diagnoses illness, offers medical advice, or predicts
+          Educational only. SIRILA never diagnoses illness, offers medical advice, or predicts
           disease.
         </p>
       </div>

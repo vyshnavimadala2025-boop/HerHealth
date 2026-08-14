@@ -10,15 +10,15 @@ interface HelpTopic {
 const HELP_TOPICS: HelpTopic[] = [
   {
     key: 'what-is-herhealth',
-    question: 'What is HerHealth?',
+    question: 'What is SIRILA?',
     answer:
-      'HerHealth is a personal wellness companion for tracking cycles, daily check-ins, and lifestyle patterns. It is educational and supportive only — it never diagnoses conditions, predicts health outcomes, or replaces professional medical care.',
+      'SIRILA is a personal wellness companion for tracking cycles, daily check-ins, and lifestyle patterns. It is educational and supportive only — it never diagnoses conditions, predicts health outcomes, or replaces professional medical care.',
   },
   {
     key: 'who-sees-my-data',
     question: 'Who can see my information?',
     answer:
-      'Only you. Every page in HerHealth that shows your recorded information is scoped to your own account, enforced by Supabase row-level security — nothing you record is ever visible to other users or made public.',
+      'Only you. Every page in SIRILA that shows your recorded information is scoped to your own account, enforced by Supabase row-level security — nothing you record is ever visible to other users or made public.',
   },
   {
     key: 'export-data',
@@ -36,19 +36,19 @@ const HELP_TOPICS: HelpTopic[] = [
     key: 'ai-insights',
     question: 'Are the "AI Insights" powered by real AI?',
     answer:
-      'The insights across HerHealth are deterministic, rule-based observations about the information you have personally recorded — not output from a machine-learning model. They are labeled honestly as pattern-based observations for exactly this reason.',
+      'The insights across SIRILA are deterministic, rule-based observations about the information you have personally recorded — not output from a machine-learning model. They are labeled honestly as pattern-based observations for exactly this reason.',
   },
   {
     key: 'local-only-tools',
     question: 'Some tools say "saved on this device only" — what does that mean?',
     answer:
-      'A few newer tools (like Sleep Intelligence and Nutrition Companion) store what you log in your browser’s local storage rather than in your HerHealth account. That means the data stays private to this device and browser, and won’t sync to your account or other devices — it’s clearly labeled wherever this applies.',
+      'A few newer tools (like Sleep Intelligence and Nutrition Companion) store what you log in your browser’s local storage rather than in your SIRILA account. That means the data stays private to this device and browser, and won’t sync to your account or other devices — it’s clearly labeled wherever this applies.',
   },
   {
     key: 'missing-feature',
     question: 'A feature says "Coming soon" — when will it be available?',
     answer:
-      'HerHealth is under active development. Features marked "Coming soon" are on the roadmap but not built yet — we’d rather be upfront about that than show something that doesn’t work.',
+      'SIRILA is under active development. Features marked "Coming soon" are on the roadmap but not built yet — we’d rather be upfront about that than show something that doesn’t work.',
   },
   {
     key: 'contact',
@@ -65,7 +65,7 @@ function HelpCenterPage() {
         <div className="flex size-14 items-center justify-center rounded-full bg-lavender text-lavender-foreground">
           <HelpCircle className="size-6" aria-hidden="true" />
         </div>
-        <PageHeader title="Help Center" description="Answers to common questions about using HerHealth." />
+        <PageHeader title="Help Center" description="Answers to common questions about using SIRILA." />
       </div>
 
       <div className="flex flex-col gap-3">

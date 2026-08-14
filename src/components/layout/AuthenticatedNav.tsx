@@ -41,7 +41,7 @@ function AuthenticatedNav() {
           className="flex shrink-0 items-center gap-2 font-display text-lg font-medium"
         >
           <HeartPulse className="size-5 text-primary" aria-hidden="true" />
-          HerHealth
+          SIRILA
         </Link>
 
         <nav aria-label="Primary" className="hidden items-center gap-1 md:flex">

@@ -18,7 +18,7 @@ export const TIMELINE_RANGE_LABELS: Record<TimelineRange, string> = {
 export const SCORE_WINDOW_DAYS = 30
 
 /**
- * The one genuinely real, whole-of-lifestyle signal HerHealth can honestly
+ * The one genuinely real, whole-of-lifestyle signal SIRILA can honestly
  * report today: what share of the last 30 local calendar days had a
  * recorded check-in. Everything else in the Lifestyle Score (sleep
  * consistency, recovery, movement, hydration, stress balance,

@@ -83,7 +83,7 @@ export interface AiInsightCategoriesInput {
  * gated on hasSufficientData exactly like Mood/Energy/Cycle above; a
  * failure in either source degrades only its own category via
  * unavailableCard(), never the rest of the page. Environment has no
- * tracked field anywhere in HerHealth yet and is shown honestly as not
+ * tracked field anywhere in SIRILA yet and is shown honestly as not
  * tracked — never a fabricated observation. Language throughout is
  * deliberately observational ("we noticed", "you may be experiencing"),
  * never diagnostic.
@@ -247,7 +247,7 @@ export function buildAiInsightCategories(input: AiInsightCategoriesInput): AiIns
               ? `You’ve written ${input.journalCountInRange} journal entr${input.journalCountInRange === 1 ? 'y' : 'ies'} in the last 7 days.`
               : 'No journal entries recorded in the last 7 days.',
           wellnessInterpretation:
-            'Journaling is a private space for reflection — HerHealth never reads or analyzes its content.',
+            'Journaling is a private space for reflection — SIRILA never reads or analyzes its content.',
           suggestedNextHabit: 'Write a brief journal reflection today.',
           lastUpdated: input.lastJournalDate,
         },

@@ -148,7 +148,7 @@ function MonthlyWellnessScoreCard({
             <EmptyState
               icon={Sparkles}
               title="Not enough history yet"
-              description="Once you have a recorded month behind this one, HerHealth will compare the two here."
+              description="Once you have a recorded month behind this one, SIRILA will compare the two here."
             />
           )}
 

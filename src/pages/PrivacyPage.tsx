@@ -34,22 +34,22 @@ const PRINCIPLES: { icon: LucideIcon; accent: string; title: string; description
     accent: 'bg-support text-support-foreground',
     title: 'Designed for thoughtful wellness',
     description:
-      'HerHealth supports recording and reflection, not diagnosis. Your journal entries and wellness notes are never analyzed, summarized, or included in your insights, reports, or timeline.',
+      'SIRILA supports recording and reflection, not diagnosis. Your journal entries and wellness notes are never analyzed, summarized, or included in your insights, reports, or timeline.',
   },
   {
     icon: MessageCircle,
     accent: 'bg-accent text-accent-foreground',
     title: 'Clear and respectful',
     description:
-      "We describe our privacy practices plainly and avoid claims we can't support. What you read on this page reflects what HerHealth actually does, not marketing language.",
+      "We describe our privacy practices plainly and avoid claims we can't support. What you read on this page reflects what SIRILA actually does, not marketing language.",
   },
 ]
 
 const DOES_NOT = [
-  'HerHealth does not sell your personal information.',
-  'HerHealth does not diagnose PCOS, PCOD, or any other medical condition.',
-  'HerHealth does not use your journal content for analytics or advertising.',
-  'HerHealth does not share your data with other users.',
+  'SIRILA does not sell your personal information.',
+  'SIRILA does not diagnose PCOS, PCOD, or any other medical condition.',
+  'SIRILA does not use your journal content for analytics or advertising.',
+  'SIRILA does not share your data with other users.',
 ]
 
 /**
@@ -74,7 +74,7 @@ function PrivacyPage() {
               Your wellness journey is personal.
             </h1>
             <p className="max-w-lg text-body-lg text-muted-foreground">
-              HerHealth is designed to give you a private space to record, reflect on, and understand
+              SIRILA is designed to give you a private space to record, reflect on, and understand
               your personal wellness information — with clear control over your data.
             </p>
           </div>
@@ -117,7 +117,7 @@ function PrivacyPage() {
           <div className="flex flex-col gap-2 rounded-2xl border border-border bg-muted/30 p-5">
             <div className="flex items-center gap-2">
               <Ban className="size-4 text-muted-foreground" aria-hidden="true" />
-              <p className="text-sm font-medium text-foreground">What HerHealth does not do</p>
+              <p className="text-sm font-medium text-foreground">What SIRILA does not do</p>
             </div>
             <ul className="grid grid-cols-1 gap-2 sm:grid-cols-2">
               {DOES_NOT.map((item) => (
@@ -139,7 +139,7 @@ function PrivacyPage() {
               </div>
               <h3 className="font-display text-base text-foreground">Export your data</h3>
               <p className="text-caption text-muted-foreground">
-                Download your complete HerHealth history as JSON or CSV, generated in your browser.
+                Download your complete SIRILA history as JSON or CSV, generated in your browser.
               </p>
               <Button asChild variant="outline" size="sm" className="mt-1 w-fit">
                 <Link to="/reports">Go to Wellness Reports</Link>
@@ -167,7 +167,7 @@ function PrivacyPage() {
             <h2 className="font-display text-base text-foreground">A note on wellness and medical care</h2>
           </div>
           <p className="text-caption text-muted-foreground">
-            HerHealth helps you record, reflect, and understand your personal wellness information. It
+            SIRILA helps you record, reflect, and understand your personal wellness information. It
             is not a substitute for professional medical advice, diagnosis, or treatment. See our{' '}
             <Link to="/medical-disclaimer" className="text-primary underline underline-offset-2">
               Medical Disclaimer

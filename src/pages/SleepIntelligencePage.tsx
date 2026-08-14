@@ -48,7 +48,7 @@ function SleepIntelligencePage() {
           title="Sleep Intelligence"
           description="Understand your own tracked sleep patterns over time."
           captions={[
-            'Educational only. HerHealth never diagnoses a sleep disorder or predicts a health outcome — consider discussing persistent sleep concerns with a healthcare professional.',
+            'Educational only. SIRILA never diagnoses a sleep disorder or predicts a health outcome — consider discussing persistent sleep concerns with a healthcare professional.',
           ]}
         />
       </div>

@@ -40,7 +40,7 @@ function toneBadgeClassName(tone: PatternTone) {
  * fabricated data. Mood/Energy reuse MoodEnergyBarChart; every other
  * series reuses the generic MiniTrendChart primitive already built for
  * this exact purpose. Cycle reuses DashboardCycleCard unchanged. Sleep and
- * Environment have no tracked field anywhere in HerHealth yet, so they're
+ * Environment have no tracked field anywhere in SIRILA yet, so they're
  * shown honestly as not yet available, matching the rest of the app.
  */
 function InsightsTrendsPage() {
@@ -84,7 +84,7 @@ function InsightsTrendsPage() {
           title="Health Trends"
           description={`${formatFriendlyDate(rangeStart)} – ${formatFriendlyDate(today)}`}
           captions={[
-            'These trends reflect only what you’ve recorded in HerHealth over time — never a medical diagnosis, prediction, or claim.',
+            'These trends reflect only what you’ve recorded in SIRILA over time — never a medical diagnosis, prediction, or claim.',
           ]}
         />
       </div>
@@ -337,7 +337,7 @@ function InsightsTrendsPage() {
               </CardHeader>
               <CardContent className="flex flex-col gap-2">
                 <p className="text-sm text-muted-foreground">
-                  The real, tracked lifestyle signal HerHealth has today is check-in consistency, already shown above.
+                  The real, tracked lifestyle signal SIRILA has today is check-in consistency, already shown above.
                   Lifestyle Intelligence has its own dedicated Lifestyle Score and weekly progress view.
                 </p>
                 <Link to="/lifestyle-intelligence" className="text-sm font-medium text-primary underline-offset-4 hover:underline">
@@ -370,7 +370,7 @@ function InsightsTrendsPage() {
 
           <p className="flex items-center gap-2 text-center text-caption text-muted-foreground">
             <CalendarHeart className="size-3.5 shrink-0" aria-hidden="true" />
-            Every trend above reflects only the information you&apos;ve chosen to record in HerHealth. It is educational
+            Every trend above reflects only the information you&apos;ve chosen to record in SIRILA. It is educational
             only and never a medical diagnosis, prediction, or substitute for professional care.
           </p>
         </>

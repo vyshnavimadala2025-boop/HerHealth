@@ -11,7 +11,7 @@ import PrivacyBadge from '@/components/shared/PrivacyBadge'
  * Suggestions" don't depend on any tracked data, so they're fully built
  * here. Daily Exposure Check-in, Environment Timeline, Pattern Discovery,
  * Weekly Environmental Summary, and AI Wellness Reflection all need a new
- * table HerHealth doesn't have yet (see UpcomingTrackingPanel) — per
+ * table SIRILA doesn't have yet (see UpcomingTrackingPanel) — per
  * instruction, that requires a stop-and-report rather than new SQL.
  */
 function EnvironmentalWellnessPage() {

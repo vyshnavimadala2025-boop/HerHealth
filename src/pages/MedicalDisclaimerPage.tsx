@@ -11,16 +11,16 @@ function MedicalDisclaimerPage() {
           <p className="text-caption font-medium tracking-wide text-primary uppercase">Medical Disclaimer</p>
           <h1 className="text-title font-display text-foreground">Not a Substitute for Medical Care</h1>
           <p className="text-body text-muted-foreground">
-            Please read this page carefully before relying on HerHealth for any health-related
+            Please read this page carefully before relying on SIRILA for any health-related
             decision.
           </p>
         </div>
       </div>
 
       <section className="flex flex-col gap-2">
-        <h2 className="font-display text-lg text-foreground">HerHealth is a tracking tool, not a medical provider</h2>
+        <h2 className="font-display text-lg text-foreground">SIRILA is a tracking tool, not a medical provider</h2>
         <p className="text-body text-muted-foreground">
-          HerHealth records the information you choose to enter — check-ins, cycle dates, journal
+          SIRILA records the information you choose to enter — check-ins, cycle dates, journal
           entries, optional PCOS/PCOD observations, goals, and progress — and presents it back to
           you as summaries, trends, and reports. These summaries describe patterns in what you
           recorded. They are not medical advice or a medical diagnosis.
@@ -28,7 +28,7 @@ function MedicalDisclaimerPage() {
       </section>
 
       <section className="flex flex-col gap-2 rounded-2xl border border-border bg-card p-5 shadow-sm">
-        <h2 className="font-display text-lg text-foreground">HerHealth does not</h2>
+        <h2 className="font-display text-lg text-foreground">SIRILA does not</h2>
         <ul className="flex flex-col gap-1.5 text-body text-muted-foreground">
           <li>Diagnose PCOS, PCOD, or any other medical condition</li>
           <li>Predict illness, fertility, or pregnancy</li>
@@ -50,7 +50,7 @@ function MedicalDisclaimerPage() {
         <h2 className="font-display text-lg text-foreground">If you have a medical concern</h2>
         <p className="text-body text-muted-foreground">
           Please consult a qualified healthcare professional for any medical concern, symptom, or
-          question. HerHealth is not equipped to respond to medical emergencies — if you are
+          question. SIRILA is not equipped to respond to medical emergencies — if you are
           experiencing a medical emergency, contact emergency services in your area immediately.
         </p>
       </section>

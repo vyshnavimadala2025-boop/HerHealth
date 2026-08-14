@@ -342,7 +342,7 @@ function AdminFeedbackPage() {
     <div className="flex flex-col gap-6">
       <PageHeader
         title="Feedback"
-        description="Review, categorize, prioritize, and resolve feedback submitted by HerHealth users."
+        description="Review, categorize, prioritize, and resolve feedback submitted by SIRILA users."
       />
 
       <div role="status" aria-live="polite" aria-busy={status === 'loading'} className="grid grid-cols-2 gap-4 sm:grid-cols-3 xl:grid-cols-6">

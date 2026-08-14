@@ -206,7 +206,7 @@ function ReminderPreferencesForm({ status, preferences, onSave, onRetry }: Remin
           <CardTitle>Reminders</CardTitle>
         </div>
         <CardDescription>
-          In-app reminder preferences only — HerHealth does not send notifications outside the
+          In-app reminder preferences only — SIRILA does not send notifications outside the
           app yet. This shows your saved settings; it does not alert you automatically.
         </CardDescription>
       </CardHeader>

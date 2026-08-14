@@ -31,7 +31,7 @@ interface CategoryDropdownMenuProps {
  * old single "Products" mega-menu (3 grouped columns, up to 640–880px
  * wide) was replaced by two of these focused dropdowns, one per category,
  * so neither ever needs more than a two-column layout regardless of how
- * many products HerHealth grows to. Add a third category later by adding
+ * many products SIRILA grows to. Add a third category later by adding
  * a third instance of this same component with its own catalog file —
  * no new dropdown component required.
  */

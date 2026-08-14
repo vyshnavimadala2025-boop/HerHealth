@@ -13,7 +13,7 @@ const ARTICLE_SECTIONS: ArticleSection[] = [
     title: "Understanding your body's signals",
     paragraphs: [
       'Everyone’s body communicates in its own way — through energy levels, mood, sleep, appetite, and other everyday patterns. Paying gentle attention to what feels typical for you, and what doesn’t, is often the first step toward better understanding your own wellness.',
-      'Recorded patterns over time can be more informative than any single day. A tool like HerHealth can help you notice your own trends, but noticing a pattern is not the same as identifying its cause.',
+      'Recorded patterns over time can be more informative than any single day. A tool like SIRILA can help you notice your own trends, but noticing a pattern is not the same as identifying its cause.',
     ],
   },
   {
@@ -68,7 +68,7 @@ const ARTICLE_SECTIONS: ArticleSection[] = [
 
 /**
  * Women's Health — the one Knowledge Hub topic broad enough that no
- * single HerHealth product is a natural 1:1 retarget (Stage 4C1). Static,
+ * single SIRILA product is a natural 1:1 retarget (Stage 4C1). Static,
  * read-only educational content only: no service, no calculation, no
  * persistence, no bookmarks or reading progress, matching the same
  * section/card presentation already established by HelpCenterPage.tsx and

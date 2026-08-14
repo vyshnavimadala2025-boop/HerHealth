@@ -31,7 +31,7 @@ function ProfileStep({
       <OnboardingProgress step={1} totalSteps={4} />
 
       <div className="flex flex-col gap-2">
-        <h1 className="text-heading font-display text-foreground">Let&apos;s make HerHealth feel more personal.</h1>
+        <h1 className="text-heading font-display text-foreground">Let&apos;s make SIRILA feel more personal.</h1>
         <p className="text-body text-muted-foreground">Tell us a little about you.</p>
       </div>
 

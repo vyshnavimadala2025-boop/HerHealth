@@ -14,7 +14,7 @@ function KnowledgeHubPage() {
         <PageHeader
           title="Knowledge Hub"
           description="Educational, women's-health-focused topics to explore at your own pace."
-          captions={['Educational only. HerHealth never diagnoses, predicts, or replaces professional medical advice.']}
+          captions={['Educational only. SIRILA never diagnoses, predicts, or replaces professional medical advice.']}
         />
       </div>
 

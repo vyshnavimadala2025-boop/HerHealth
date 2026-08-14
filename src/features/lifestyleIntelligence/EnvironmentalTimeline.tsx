@@ -16,7 +16,7 @@ interface EnvironmentalTimelineProps {
 /**
  * Mood and Energy have real averages, derived entirely from the user's
  * own recorded check-ins. Weather, Movement, and Outdoor Time still have
- * no tracked field anywhere in HerHealth. Stress and Hydration are now
+ * no tracked field anywhere in SIRILA. Stress and Hydration are now
  * genuinely tracked (Stress & Recovery, Nutrition Companion — Stage 3),
  * just not plotted on this particular chart, so the caption below points
  * to where they can actually be reviewed instead of calling them

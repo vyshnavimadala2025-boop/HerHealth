@@ -9,7 +9,7 @@ function labelFor(options: readonly { value: string; label: string }[], value: s
 }
 
 /**
- * Only Energy, Mood, and Cycle Phase are backed by real HerHealth data
+ * Only Energy, Mood, and Cycle Phase are backed by real SIRILA data
  * (daily check-ins and period records). Sleep, Stress, Hydration, and
  * Movement have no existing tracked field anywhere in the schema, so per
  * this feature's presentation-layer-only scope they're shown honestly as

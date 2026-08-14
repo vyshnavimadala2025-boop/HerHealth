@@ -72,7 +72,7 @@ function SymptomExplorerPage() {
           title="Symptom Explorer"
           description="A guided space to explore and record symptoms you've noticed, in your own words."
           captions={[
-            'Educational only. HerHealth never diagnoses a condition or confirms a symptom means you have a specific illness — consider discussing persistent or concerning symptoms with a healthcare professional.',
+            'Educational only. SIRILA never diagnoses a condition or confirms a symptom means you have a specific illness — consider discussing persistent or concerning symptoms with a healthcare professional.',
           ]}
         />
       </div>

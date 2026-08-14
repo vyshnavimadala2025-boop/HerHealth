@@ -108,7 +108,7 @@ export interface WellnessScoreInput {
 
 /**
  * "Monthly Wellness Score" — an honest, rule-based composite of only the
- * signals HerHealth genuinely tracks this month (check-in consistency,
+ * signals SIRILA genuinely tracks this month (check-in consistency,
  * mood, energy, and journal/goal engagement). Untracked factors (mood/
  * energy with no data yet) are excluded and their weight is redistributed
  * across the remaining tracked factors, rather than silently counted as

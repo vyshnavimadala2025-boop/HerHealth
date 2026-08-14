@@ -44,7 +44,7 @@ function DesignSystemPage() {
         <p className="text-caption text-muted-foreground uppercase tracking-wide">
           Design system
         </p>
-        <h1 className="text-display font-display">HerHealth</h1>
+        <h1 className="text-display font-display">SIRILA</h1>
         <p className="text-body-lg text-muted-foreground max-w-xl">
           Foundation tokens for color, typography, and elevation used across the
           product.

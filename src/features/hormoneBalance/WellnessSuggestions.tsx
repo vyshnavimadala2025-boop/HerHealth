@@ -12,7 +12,7 @@ interface WellnessSuggestionsProps {
  * "AI Wellness Suggestions" per the spec — gentle, generic lifestyle
  * nudges only. Never diagnoses, never names a condition, never claims to
  * treat anything. Framed the same honest, rule-based way as every other
- * "AI"-labeled surface in HerHealth.
+ * "AI"-labeled surface in SIRILA.
  */
 function WellnessSuggestions({ status, suggestions }: WellnessSuggestionsProps) {
   return (

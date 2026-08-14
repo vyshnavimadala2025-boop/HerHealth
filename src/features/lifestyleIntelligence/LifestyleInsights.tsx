@@ -10,7 +10,7 @@ interface LifestyleInsightsProps {
 
 /**
  * "AI Lifestyle Insights" per the feature spec — in practice the same
- * deterministic, rule-based pattern used everywhere else in HerHealth,
+ * deterministic, rule-based pattern used everywhere else in SIRILA,
  * never a real model call. Every message already ends with "Educational
  * observation only." from the insight engine itself.
  */
@@ -55,7 +55,7 @@ function LifestyleInsights({ status, insights }: LifestyleInsightsProps) {
             </ul>
             <p className="text-caption text-muted-foreground">
               These are gentle, pattern-based observations from the information you&apos;ve
-              recorded in HerHealth — not output from a diagnostic or predictive medical tool.
+              recorded in SIRILA — not output from a diagnostic or predictive medical tool.
             </p>
           </>
         )}

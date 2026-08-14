@@ -37,7 +37,7 @@ export const INSIGHT_GROUPS: InsightGroup[] = [
   {
     key: 'ai',
     label: 'AI Insights',
-    description: 'Rule-based, educational observations across every part of HerHealth you use.',
+    description: 'Rule-based, educational observations across every part of SIRILA you use.',
     icon: Sparkles,
     href: '/insights/ai',
   },
@@ -206,7 +206,7 @@ export const INSIGHT_CARDS: InsightCardConfig[] = [
   {
     key: 'wellness-opportunities',
     name: 'Wellness Opportunities',
-    description: 'Areas you haven’t explored yet in HerHealth.',
+    description: 'Areas you haven’t explored yet in SIRILA.',
     icon: TrendingUp,
     group: 'recommendations',
     anchor: 'opportunities',

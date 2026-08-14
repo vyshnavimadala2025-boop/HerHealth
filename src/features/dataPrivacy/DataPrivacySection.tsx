@@ -19,7 +19,7 @@ function DataPrivacySection() {
           <CardTitle>Data &amp; Privacy</CardTitle>
         </div>
         <CardDescription>
-          Permanently delete your recorded HerHealth data. This does not close your account or
+          Permanently delete your recorded SIRILA data. This does not close your account or
           remove your login — see the Account section below.
         </CardDescription>
       </CardHeader>

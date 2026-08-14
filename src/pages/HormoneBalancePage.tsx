@@ -12,12 +12,12 @@ import PrivacyBadge from '@/components/shared/PrivacyBadge'
 /**
  * Hormone Balance — a presentation-layer feature per its spec: no new
  * tables, services, or backend logic. "Today's Hormone Wellness" and
- * "Progress Timeline" reuse real, already-tracked HerHealth data (daily
+ * "Progress Timeline" reuse real, already-tracked SIRILA data (daily
  * check-ins for mood/energy, period records for an estimated cycle phase);
  * everything else the schema doesn't yet capture (sleep, stress,
  * hydration, movement) is labeled honestly as not yet tracked rather than
  * filled with invented numbers. "AI" sections use the same deterministic,
- * rule-based pattern as the rest of HerHealth (Wellness Insights,
+ * rule-based pattern as the rest of SIRILA (Wellness Insights,
  * Fertility Journey, Baby Growth) — never a real model call.
  */
 function HormoneBalancePage() {

@@ -12,7 +12,7 @@ function TermsPage() {
           <p className="text-caption font-medium tracking-wide text-primary uppercase">Terms</p>
           <h1 className="text-title font-display text-foreground">Terms of Use</h1>
           <p className="text-body text-muted-foreground">
-            These terms describe your use of HerHealth as a personal wellness tracking tool.
+            These terms describe your use of SIRILA as a personal wellness tracking tool.
           </p>
         </div>
       </div>
@@ -20,15 +20,15 @@ function TermsPage() {
       <section className="flex flex-col gap-2">
         <h2 className="font-display text-lg text-foreground">1. Acceptance of these terms</h2>
         <p className="text-body text-muted-foreground">
-          By creating an account and using HerHealth, you agree to these terms. If you do not agree,
+          By creating an account and using SIRILA, you agree to these terms. If you do not agree,
           please do not use the platform.
         </p>
       </section>
 
       <section className="flex flex-col gap-2">
-        <h2 className="font-display text-lg text-foreground">2. What HerHealth is</h2>
+        <h2 className="font-display text-lg text-foreground">2. What SIRILA is</h2>
         <p className="text-body text-muted-foreground">
-          HerHealth is a personal wellness tracking and organization tool. It is not a medical
+          SIRILA is a personal wellness tracking and organization tool. It is not a medical
           device, a medical provider, or a substitute for professional healthcare. It records the
           information you choose to enter and presents it back to you as summaries and reports.
         </p>
@@ -46,7 +46,7 @@ function TermsPage() {
       <section className="flex flex-col gap-2">
         <h2 className="font-display text-lg text-foreground">4. Acceptable use</h2>
         <p className="text-body text-muted-foreground">
-          You agree to use HerHealth only for its intended purpose — recording and reviewing your
+          You agree to use SIRILA only for its intended purpose — recording and reviewing your
           own personal wellness information — and not to attempt to access another user&apos;s
           account or data.
         </p>
@@ -55,7 +55,7 @@ function TermsPage() {
       <section className="flex flex-col gap-2">
         <h2 className="font-display text-lg text-foreground">5. No medical advice</h2>
         <p className="text-body text-muted-foreground">
-          Nothing in HerHealth constitutes medical advice, diagnosis, or treatment. See our{' '}
+          Nothing in SIRILA constitutes medical advice, diagnosis, or treatment. See our{' '}
           <Link to="/medical-disclaimer" className="text-primary underline underline-offset-2">
             Medical Disclaimer
           </Link>{' '}
@@ -66,7 +66,7 @@ function TermsPage() {
       <section className="flex flex-col gap-2">
         <h2 className="font-display text-lg text-foreground">6. Changes to these terms</h2>
         <p className="text-body text-muted-foreground">
-          We may update these terms from time to time. Continued use of HerHealth after an update
+          We may update these terms from time to time. Continued use of SIRILA after an update
           means you accept the revised terms.
         </p>
       </section>

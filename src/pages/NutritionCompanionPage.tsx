@@ -48,7 +48,7 @@ function NutritionCompanionPage() {
           title="Nutrition Companion"
           description="Gentle, educational awareness of your own everyday nutrition habits."
           captions={[
-            'Educational only. HerHealth never calculates calories or nutrients, diagnoses a deficiency, or prescribes a diet — consider discussing individual dietary needs with a qualified healthcare professional or dietitian.',
+            'Educational only. SIRILA never calculates calories or nutrients, diagnoses a deficiency, or prescribes a diet — consider discussing individual dietary needs with a qualified healthcare professional or dietitian.',
           ]}
         />
       </div>

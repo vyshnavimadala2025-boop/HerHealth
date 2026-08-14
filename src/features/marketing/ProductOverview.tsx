@@ -61,7 +61,7 @@ function ProductOverview() {
         <p className="text-caption font-medium tracking-wide text-primary uppercase">What&apos;s inside</p>
         <h2 className="text-title font-display text-foreground">Everything in one private space</h2>
         <p className="text-body text-muted-foreground">
-          Each area of HerHealth focuses on one part of your wellness journey, all kept private to
+          Each area of SIRILA focuses on one part of your wellness journey, all kept private to
           your account.
         </p>
       </div>

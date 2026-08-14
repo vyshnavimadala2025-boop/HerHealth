@@ -136,7 +136,7 @@ function BabyGrowthPage() {
           description="A calm, supportive pregnancy wellness companion — week by week, at your own pace."
           captions={[
             'This is a wellness companion, not a medical device, diagnosis tool, or replacement for professional medical advice.',
-            'HerHealth never diagnoses and never predicts health outcomes.',
+            'SIRILA never diagnoses and never predicts health outcomes.',
           ]}
         />
         <PrivacyBadge label="Your pregnancy information is private to your account" />
@@ -203,7 +203,7 @@ function BabyGrowthPage() {
             </div>
             <p className="text-caption text-muted-foreground">
               Record your feelings, memories, milestones, and reflections in your private journal —
-              the same journal you already use elsewhere in HerHealth.
+              the same journal you already use elsewhere in SIRILA.
             </p>
             <Button asChild variant="outline" size="sm" className="w-fit">
               <Link to="/journal">Open Your Journal</Link>
@@ -213,7 +213,7 @@ function BabyGrowthPage() {
       )}
 
       <p className="text-center text-caption text-muted-foreground">
-        HerHealth supports personal wellness awareness and reflection. It is not a substitute for
+        SIRILA supports personal wellness awareness and reflection. It is not a substitute for
         professional medical advice.
       </p>
     </main>

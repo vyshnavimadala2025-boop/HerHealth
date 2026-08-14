@@ -10,7 +10,7 @@ interface WeeklyReflectionProps {
 /**
  * "AI-generated reflection" per the spec — composed by
  * generateWeeklyReflection() from the user's own real weekly summary and
- * trend data only. No sentence references anything HerHealth doesn't
+ * trend data only. No sentence references anything SIRILA doesn't
  * actually track.
  */
 function WeeklyReflection({ status, reflection }: WeeklyReflectionProps) {

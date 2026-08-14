@@ -72,7 +72,7 @@ function ReleaseNotesPage() {
         <div className="flex size-14 items-center justify-center rounded-full bg-support text-support-foreground">
           <ScrollText className="size-6" aria-hidden="true" />
         </div>
-        <PageHeader title="Release Notes" description="What's changed in HerHealth, most recent first." />
+        <PageHeader title="Release Notes" description="What's changed in SIRILA, most recent first." />
       </div>
 
       <ol className="flex flex-col gap-6 border-l border-border pl-5">

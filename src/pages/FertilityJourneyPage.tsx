@@ -83,7 +83,7 @@ function FertilityJourneyPage() {
           description="A supportive space to understand your body, build healthy habits, and notice fertility-related wellness patterns — at your own pace."
           captions={[
             'This is a wellness tool, not a medical device, diagnosis tool, or replacement for professional medical advice.',
-            'HerHealth never diagnoses and never predicts pregnancy.',
+            'SIRILA never diagnoses and never predicts pregnancy.',
           ]}
         />
         <PrivacyBadge label="Your fertility information is private to your account" />
@@ -143,7 +143,7 @@ function FertilityJourneyPage() {
       />
 
       <p className="text-center text-caption text-muted-foreground">
-        HerHealth supports personal wellness awareness and reflection. It is not a substitute for
+        SIRILA supports personal wellness awareness and reflection. It is not a substitute for
         professional medical advice.
       </p>
     </main>

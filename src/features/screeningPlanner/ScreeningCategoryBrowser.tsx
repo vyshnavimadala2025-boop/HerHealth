@@ -8,7 +8,7 @@ import { SCREENING_CATEGORY_EDUCATION, INSUFFICIENT_INFORMATION_NOTICE } from '@
  * general-category descriptions (screeningEducation.ts), never a specific
  * test, age, or interval. Includes the mandatory "insufficient
  * information" notice (requirement #22) as a permanent, always-visible
- * disclaimer rather than a conditional state, since HerHealth can never
+ * disclaimer rather than a conditional state, since SIRILA can never
  * determine individualized screening needs regardless of what's tracked.
  */
 function ScreeningCategoryBrowser() {

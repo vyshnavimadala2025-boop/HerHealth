@@ -11,7 +11,7 @@ function PrivacySection() {
         </div>
         <h2 className="text-title font-display text-foreground">Your Wellness Journey Is Personal</h2>
         <p className="max-w-xl text-body text-muted-foreground">
-          HerHealth is designed to help you organize and review information you choose to record.
+          SIRILA is designed to help you organize and review information you choose to record.
           Your wellness information is private to your account and is not presented as a medical
           diagnosis.
         </p>

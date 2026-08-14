@@ -18,7 +18,7 @@ function WelcomeStep({ onContinue, onSkip }: WelcomeStepProps) {
       <div className="flex size-12 items-center justify-center rounded-full bg-accent text-accent-foreground">
         <HeartPulse className="size-6" aria-hidden="true" />
       </div>
-      <h1 className="text-heading font-display text-foreground">Welcome to HerHealth</h1>
+      <h1 className="text-heading font-display text-foreground">Welcome to SIRILA</h1>
       <p className="text-body text-muted-foreground">
         Let&apos;s create a wellness experience that feels personal, supportive, and right for
         you.

@@ -64,7 +64,7 @@ function CycleTrackerPage() {
             <div className="overflow-hidden rounded-2xl shadow-md">
               <img
                 src={cycleTrackerImage}
-                alt="HerHealth cycle tracking calendar displayed on a phone in a calm personal wellness setting"
+                alt="SIRILA cycle tracking calendar displayed on a phone in a calm personal wellness setting"
                 width={1536}
                 height={1024}
                 loading="eager"

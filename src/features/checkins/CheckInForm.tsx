@@ -164,7 +164,7 @@ function CheckInForm({ userId, initialCheckIn, todayStatus, onSaved }: CheckInFo
           <CardTitle>How are you feeling today?</CardTitle>
         </div>
         <CardDescription>
-          HerHealth supports personal wellness tracking and does not provide medical diagnosis.
+          SIRILA supports personal wellness tracking and does not provide medical diagnosis.
         </CardDescription>
       </CardHeader>
       <form onSubmit={handleSubmit} noValidate>

@@ -17,7 +17,7 @@ export interface GenerateLifestyleInsightsInput {
 
 /**
  * "AI Lifestyle Insights" per the feature spec — the same deterministic,
- * rule-based pattern used everywhere else in HerHealth. Every message
+ * rule-based pattern used everywhere else in SIRILA. Every message
  * describes only the user's own recorded check-ins; nothing here comes
  * from a model, and each insight says so plainly rather than implying a
  * real AI system.
@@ -74,7 +74,7 @@ export function generateLifestyleInsights(input: GenerateLifestyleInsightsInput)
     insights.push({
       id: 'getting-started',
       title: 'Getting started',
-      message: `Keep recording daily check-ins, and HerHealth will surface gentle observations about your own patterns here. ${EDUCATIONAL_ONLY}`,
+      message: `Keep recording daily check-ins, and SIRILA will surface gentle observations about your own patterns here. ${EDUCATIONAL_ONLY}`,
     })
   }
 
@@ -118,7 +118,7 @@ export function generateHabitRecommendations(input: {
 /**
  * The "Weekly Reflection" — one paragraph, composed only from the user's
  * own real weekly summary and trend data. No line references anything
- * HerHealth doesn't actually track (sleep, hydration, outdoor time), to
+ * SIRILA doesn't actually track (sleep, hydration, outdoor time), to
  * avoid claiming data the app doesn't have.
  */
 export function generateWeeklyReflection(input: {
@@ -158,5 +158,5 @@ export function generateWeeklyReflection(input: {
   if (moodClause) clauses.push(moodClause)
   if (energyClause) clauses.push(energyClause)
 
-  return `This week, ${clauses.join(', with ')}. Continuing to check in regularly can help HerHealth reflect your own patterns back to you more clearly over time.`
+  return `This week, ${clauses.join(', with ')}. Continuing to check in regularly can help SIRILA reflect your own patterns back to you more clearly over time.`
 }

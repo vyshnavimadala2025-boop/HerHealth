@@ -1,6 +1,10 @@
-# HerHealth
+# SIRILA
 
-Frontend foundation for the HerHealth platform.
+**Smart Intelligent Responsive Insights Life Assistant**
+
+Understand yourself. Live better.
+
+Frontend foundation for the SIRILA platform.
 
 ## Stack
 

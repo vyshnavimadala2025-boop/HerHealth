@@ -104,7 +104,7 @@ function MobileNav({ variant }: MobileNavProps) {
           <SheetTitle asChild>
             <Link to="/" className="flex items-center gap-2">
               <HeartPulse className="size-5 text-primary" aria-hidden="true" />
-              HerHealth
+              SIRILA
             </Link>
           </SheetTitle>
           <SheetDescription className="sr-only">Site navigation menu</SheetDescription>

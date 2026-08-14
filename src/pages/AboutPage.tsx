@@ -101,13 +101,13 @@ function AboutPage() {
         <div className="relative z-10 mx-auto w-full max-w-6xl px-4 pt-10 pb-6 sm:px-6 lg:py-16">
           <div className="flex max-w-lg animate-in fade-in slide-in-from-bottom-4 flex-col items-start gap-5 text-left duration-700 lg:ml-auto">
             <p className="text-caption font-medium tracking-[0.14em] text-light-panel-foreground/70 uppercase">
-              About HerHealth
+              About SIRILA
             </p>
             <h1 className="text-title font-display text-light-panel-foreground sm:text-display">
               Wellness begins with understanding yourself.
             </h1>
             <p className="text-body-lg text-light-panel-muted">
-              HerHealth brings your daily wellness, cycle awareness, personal reflections, goals, and
+              SIRILA brings your daily wellness, cycle awareness, personal reflections, goals, and
               meaningful insights together in one private and supportive space.
             </p>
             <div className="flex w-full flex-col gap-3 sm:w-auto sm:flex-row">
@@ -145,13 +145,13 @@ function AboutPage() {
               Designed around your journey — not a one-size-fits-all routine.
             </h2>
             <p className="text-body text-muted-foreground">
-              Every wellness journey is personal. HerHealth was created to help you notice patterns,
+              Every wellness journey is personal. SIRILA was created to help you notice patterns,
               reflect on how you feel, build supportive habits, and understand your wellbeing over
               time — without pressure or judgment.
             </p>
             <p className="border-l-2 border-primary/30 pl-4 font-display text-lg text-foreground text-balance">
               &ldquo;Personal wellness information is often scattered across notes apps, calendars, and
-              memory. HerHealth brings it together in one private, organized space — without turning
+              memory. SIRILA brings it together in one private, organized space — without turning
               it into something clinical.&rdquo;
             </p>
           </div>
@@ -177,7 +177,7 @@ function AboutPage() {
               Your wellbeing is more than one number.
             </h2>
             <p className="text-body text-muted-foreground">
-              HerHealth helps you view your wellness as a connected journey — including your daily
+              SIRILA helps you view your wellness as a connected journey — including your daily
               feelings, cycle awareness, personal reflections, goals, and progress.
             </p>
           </div>
@@ -211,7 +211,7 @@ function AboutPage() {
               Thoughtful insights, shaped around your journey.
             </h2>
             <p className="text-body text-muted-foreground">
-              HerHealth looks at the patterns in what you record — check-ins, mood, energy, and cycle
+              SIRILA looks at the patterns in what you record — check-ins, mood, energy, and cycle
               history — and reflects them back to you in plain, supportive language, so you can notice
               what&apos;s working and consider what might help next.
             </p>
@@ -247,7 +247,7 @@ function AboutPage() {
           <div className="flex flex-col gap-2">
             <h2 className="font-display text-heading text-foreground">Your story remains yours.</h2>
             <p className="text-body text-muted-foreground">
-              Personal wellness information deserves care. HerHealth is designed with privacy, user
+              Personal wellness information deserves care. SIRILA is designed with privacy, user
               control, and respectful data handling at the center of the experience.
             </p>
           </div>

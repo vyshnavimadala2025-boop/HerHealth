@@ -2,7 +2,7 @@ import { Wind } from 'lucide-react'
 
 /**
  * No source photo was supplied for this feature, so the hero illustration
- * is a self-contained SVG built entirely from HerHealth's existing design
+ * is a self-contained SVG built entirely from SIRILA's existing design
  * tokens — soft drifting layers suggesting air and surroundings — rather
  * than a stock image or an invented photo credit.
  */
@@ -17,7 +17,7 @@ function EnvironmentalWellnessHero() {
           wellness — calm, educational, and always supportive.
         </p>
         <p className="text-caption text-muted-foreground">
-          Educational only. HerHealth never diagnoses, predicts disease, or replaces professional
+          Educational only. SIRILA never diagnoses, predicts disease, or replaces professional
           medical care.
         </p>
       </div>

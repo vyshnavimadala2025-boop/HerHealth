@@ -23,7 +23,7 @@ function InsightsReportsPage() {
     const shareUrl = `${window.location.origin}/insights`
     try {
       if (navigator.share) {
-        await navigator.share({ title: 'HerHealth', text: 'My wellness insights on HerHealth', url: shareUrl })
+        await navigator.share({ title: 'SIRILA', text: 'My wellness insights on SIRILA', url: shareUrl })
         setShareState('shared')
       } else {
         await navigator.clipboard.writeText(shareUrl)
@@ -61,13 +61,13 @@ function InsightsReportsPage() {
               <CardTitle>Share</CardTitle>
             </div>
             <CardDescription>
-              Shares a link to HerHealth itself — never your personal data, which stays private to your account.
+              Shares a link to SIRILA itself — never your personal data, which stays private to your account.
             </CardDescription>
           </CardHeader>
           <CardContent className="flex flex-col gap-2">
             <Button type="button" variant="outline" size="sm" onClick={handleShare} className="w-fit">
               <Share2 aria-hidden="true" />
-              Share HerHealth
+              Share SIRILA
             </Button>
             {shareState === 'copied' && (
               <p role="status" className="text-caption text-muted-foreground">

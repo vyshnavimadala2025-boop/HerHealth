@@ -14,7 +14,7 @@ import ReminderPreferencesForm from '@/features/reminders/ReminderPreferencesFor
  * two existing embedded callers) so this page can offer a retry control on
  * load failure — no new service, no new table, no new calculation, no new
  * copy about delivery: the form's own CardDescription already states these
- * are in-app saved preferences only, and HerHealth does not send push/
+ * are in-app saved preferences only, and SIRILA does not send push/
  * email/SMS notifications — that disclaimer is reused verbatim.
  */
 function PreventiveRemindersPage() {
@@ -30,7 +30,7 @@ function PreventiveRemindersPage() {
           title="Preventive Reminders"
           description="Choose which wellness activities you'd like a gentle in-app reminder for, and when."
           captions={[
-            'These are saved reminder preferences, not medical reminders — HerHealth does not send push, email, or SMS notifications yet.',
+            'These are saved reminder preferences, not medical reminders — SIRILA does not send push, email, or SMS notifications yet.',
           ]}
         />
       </div>

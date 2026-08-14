@@ -36,10 +36,10 @@ export function buildMonthlyReflection(input: MonthlyReflectionInput): MonthlyRe
   if (checkInCount === 0) {
     return {
       whatWentWell: 'You haven’t recorded any check-ins this month yet — that’s alright. Starting is the only step that matters.',
-      patternsWorthNoticing: 'Once you begin checking in, HerHealth will start reflecting your own patterns back to you here.',
+      patternsWorthNoticing: 'Once you begin checking in, SIRILA will start reflecting your own patterns back to you here.',
       areasToObserve: 'There isn’t enough recorded data yet to describe an area to observe.',
       suggestedNextFocus: 'Complete your first check-in this month to begin building your monthly picture.',
-      supportiveGuidance: 'Whenever you’re ready to begin, HerHealth will be here.',
+      supportiveGuidance: 'Whenever you’re ready to begin, SIRILA will be here.',
     }
   }
 
@@ -91,7 +91,7 @@ export function buildMonthlyReflection(input: MonthlyReflectionInput): MonthlyRe
         ? 'Showing up for yourself this consistently across a whole month is genuinely worth acknowledging.'
         : checkInCount > 0
           ? 'Every recorded check-in — however often — adds to a clearer picture of your own patterns. There’s no rush.'
-          : 'Whenever you’re ready to begin, HerHealth will be here.'
+          : 'Whenever you’re ready to begin, SIRILA will be here.'
 
   return { whatWentWell, patternsWorthNoticing, areasToObserve, suggestedNextFocus, supportiveGuidance }
 }

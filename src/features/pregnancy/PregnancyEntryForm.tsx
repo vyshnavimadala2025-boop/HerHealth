@@ -187,7 +187,7 @@ function PregnancyEntryForm({ userId, editingEntry, onSaved, onCancelEdit }: Pre
           <CardTitle>{isEditing ? 'Edit Wellness Entry' : "Today's Wellness Entry"}</CardTitle>
         </div>
         <CardDescription>
-          HerHealth supports personal pregnancy wellness tracking and does not provide medical
+          SIRILA supports personal pregnancy wellness tracking and does not provide medical
           advice. Every field is optional — record only what feels useful to you.
         </CardDescription>
       </CardHeader>

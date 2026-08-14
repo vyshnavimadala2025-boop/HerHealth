@@ -13,7 +13,7 @@ import type { ScreeningItem } from '@/features/screeningPlanner/types'
  * Preventive Screening Planner (Stage 3F, final Stage 3 sub-stage) —
  * a planning/tracking/educational tool built entirely on new,
  * purpose-built infrastructure for the one thing nothing else in
- * HerHealth captures (a dated, personal screening record), while fully
+ * SIRILA captures (a dated, personal screening record), while fully
  * reusing Preventive Reminders as-is: ReminderPreferencesForm and
  * useReminderPreferences are the exact same hook/component GoalsPage.tsx
  * already uses, now also covering the 'screening' activity type (see

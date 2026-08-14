@@ -11,7 +11,7 @@ interface HormoneInsightsProps {
 /**
  * "AI Hormone Insights" per the feature spec — in practice, the same
  * honest, deterministic rule-based pattern used everywhere else in
- * HerHealth (Wellness Insights, Fertility Journey, Baby Growth), never a
+ * SIRILA (Wellness Insights, Fertility Journey, Baby Growth), never a
  * real model call. Every message already ends with "This is not medical
  * advice." from the insight engine itself.
  */
@@ -56,7 +56,7 @@ function HormoneInsights({ status, insights }: HormoneInsightsProps) {
             </ul>
             <p className="text-caption text-muted-foreground">
               These are gentle, pattern-based observations from the information you&apos;ve
-              recorded in HerHealth — not output from a diagnostic or predictive medical tool.
+              recorded in SIRILA — not output from a diagnostic or predictive medical tool.
             </p>
           </>
         )}

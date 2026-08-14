@@ -79,7 +79,7 @@ function WellnessJourneySnapshot() {
       <div>
         <h2 className="font-display text-lg text-foreground">Your Wellness Journey</h2>
         <p className="text-caption text-muted-foreground">
-          A snapshot of what you&apos;ve recorded across HerHealth this month.
+          A snapshot of what you&apos;ve recorded across SIRILA this month.
         </p>
       </div>
       <div className="flex flex-wrap gap-3">

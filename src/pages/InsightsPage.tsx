@@ -42,7 +42,7 @@ function InsightsPage() {
         <PageHeader
           title="Insights"
           description="A single place to explore the patterns in what you've recorded — today, this week, and over time."
-          captions={['Educational only. HerHealth never diagnoses, predicts, or replaces professional medical advice.']}
+          captions={['Educational only. SIRILA never diagnoses, predicts, or replaces professional medical advice.']}
         />
       </div>
 

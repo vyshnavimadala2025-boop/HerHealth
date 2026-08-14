@@ -9,9 +9,14 @@ interface AppShellProps {
 
 /**
  * Thin layout shell shared by both the public and authenticated route
- * trees — only the navbar (and, for public routes, the footer) differs
- * (see App.tsx). Toaster lives once at the App.tsx level, not here, so
- * it's never mounted twice across the two shells.
+ * trees — only the navbar differs (see App.tsx). The footer renders for
+ * both variants (previously public-only, which left every authenticated
+ * page without one — a footer-consistency fix, not a design change: the
+ * same footer, same content, same component). `main` keeps `flex-1` so
+ * the existing sticky-footer flex layout (footer pinned to the bottom of
+ * short pages, pushed below content on long pages) applies identically to
+ * both variants with no extra CSS. Toaster lives once at the App.tsx
+ * level, not here, so it's never mounted twice across the two shells.
  */
 function AppShell({ variant }: AppShellProps) {
   return (
@@ -26,7 +31,7 @@ function AppShell({ variant }: AppShellProps) {
       <main id="main-content" tabIndex={-1} className="flex flex-1 flex-col outline-none">
         <Outlet />
       </main>
-      {variant === "public" && <PublicFooter />}
+      <PublicFooter />
     </div>
   )
 }

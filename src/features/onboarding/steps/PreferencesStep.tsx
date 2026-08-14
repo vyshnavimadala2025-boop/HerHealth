@@ -37,7 +37,7 @@ function PreferencesStep({ selected, onToggle, onBack, onContinue }: Preferences
       <div className="flex flex-col gap-2">
         <h1 className="text-heading font-display text-foreground">What would you like to focus on?</h1>
         <p className="text-body text-muted-foreground">
-          Choose the areas you&apos;d like HerHealth to support. There is no right or wrong
+          Choose the areas you&apos;d like SIRILA to support. There is no right or wrong
           answer, and you can change these anytime.
         </p>
       </div>
@@ -68,7 +68,7 @@ function PreferencesStep({ selected, onToggle, onBack, onContinue }: Preferences
           })}
         </div>
         <p className="text-caption text-muted-foreground">
-          Your selections help personalize your experience. HerHealth does not provide medical
+          Your selections help personalize your experience. SIRILA does not provide medical
           diagnosis.
         </p>
       </div>

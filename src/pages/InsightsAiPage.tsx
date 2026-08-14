@@ -25,7 +25,7 @@ function mostRecentDate(timeline: { date: string; type: TimelineEntryType }[], t
 
 /**
  * Insights → AI Health Insights. Every category card is built from real
- * signals already computed elsewhere in HerHealth: mood/energy trend and
+ * signals already computed elsewhere in SIRILA: mood/energy trend and
  * cycle data from useInsightsData() (the same engine behind Dashboard's
  * Wellness Insights), and goal/journal/PCOS counts and dates from
  * useReportData()'s existing 7-day summary and timeline. Sleep and Stress
@@ -34,7 +34,7 @@ function mostRecentDate(timeline: { date: string; type: TimelineEntryType }[], t
  * hooks/functions Lifestyle Intelligence already composes (Stage 4C2). No
  * new Supabase query shape, no duplicated calculation — this page only
  * composes and presents. Environment has no tracked field anywhere in
- * HerHealth and is shown honestly, not faked.
+ * SIRILA and is shown honestly, not faked.
  */
 function InsightsAiPage() {
   const insightsData = useInsightsData()
@@ -112,7 +112,7 @@ function InsightsAiPage() {
         </div>
         <PageHeader
           title="Your Wellness Patterns"
-          description="Rule-based, educational observations drawn from what you've recorded across HerHealth."
+          description="Rule-based, educational observations drawn from what you've recorded across SIRILA."
           captions={[
             'This never diagnoses conditions, predicts health outcomes, or replaces professional medical advice.',
           ]}
@@ -141,7 +141,7 @@ function InsightsAiPage() {
         <EmptyState
           icon={Sparkles}
           title="Your wellness patterns will appear here"
-          description="Once you've completed a few check-ins, recorded a period, or logged a goal, HerHealth will start reflecting gentle, educational observations back to you."
+          description="Once you've completed a few check-ins, recorded a period, or logged a goal, SIRILA will start reflecting gentle, educational observations back to you."
           action={
             <Link to="/dashboard#checkin" className="text-sm font-medium text-primary underline-offset-4 hover:underline">
               Complete today's check-in
@@ -181,7 +181,7 @@ function InsightsAiPage() {
       )}
 
       <p className="text-center text-caption text-muted-foreground">
-        These are gentle, pattern-based observations from the information you&apos;ve recorded in HerHealth —
+        These are gentle, pattern-based observations from the information you&apos;ve recorded in SIRILA —
         educational only, never a diagnosis, prediction, or medical advice.
       </p>
     </main>

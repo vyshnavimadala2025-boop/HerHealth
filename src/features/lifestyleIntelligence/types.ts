@@ -2,7 +2,7 @@ import type { LucideIcon } from 'lucide-react'
 
 /**
  * Lifestyle Intelligence is a presentation-layer feature: it reuses the
- * real, already-tracked HerHealth check-in data (mood, energy, wellbeing,
+ * real, already-tracked SIRILA check-in data (mood, energy, wellbeing,
  * consistency) wherever that data genuinely applies, and clearly marks
  * every metric the schema doesn't capture (sleep quality, hydration,
  * movement, weather, air quality, screen time, and so on) as not yet

@@ -134,7 +134,7 @@ function AdminUsersPage() {
 
   return (
     <div className="flex flex-col gap-6">
-      <PageHeader title="Users" description="Manage and monitor HerHealth platform users." />
+      <PageHeader title="Users" description="Manage and monitor SIRILA platform users." />
 
       <div className="flex flex-col gap-4 rounded-2xl border border-border bg-card p-4 shadow-sm sm:p-5">
         <div className="flex flex-col gap-1.5 sm:max-w-sm">

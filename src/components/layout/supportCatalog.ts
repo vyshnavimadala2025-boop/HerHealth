@@ -34,7 +34,7 @@ export const SUPPORT_ITEMS: SupportCatalogItem[] = [
   { key: 'terms', name: 'Terms', href: '/terms', icon: FileText },
   { key: 'medical-disclaimer', name: 'Medical Disclaimer', href: '/medical-disclaimer', icon: Stethoscope },
   { key: 'contact', name: 'Contact', href: 'mailto:support@herhealth.app', icon: Mail, external: true },
-  { key: 'about', name: 'About HerHealth', href: '/about', icon: Info },
+  { key: 'about', name: 'About SIRILA', href: '/about', icon: Info },
   { key: 'feedback', name: 'Feedback', href: '/feedback', icon: MessageSquareHeart },
   {
     key: 'report-issue',

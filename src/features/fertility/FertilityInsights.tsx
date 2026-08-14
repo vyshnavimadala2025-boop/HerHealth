@@ -49,7 +49,7 @@ function FertilityInsights({ status, insights }: FertilityInsightsProps) {
               ))}
             </ul>
             <p className="text-caption text-muted-foreground">
-              These insights are based only on the information you record in HerHealth. They are
+              These insights are based only on the information you record in SIRILA. They are
               informational only, never diagnose, and never predict pregnancy.
             </p>
           </>

@@ -20,7 +20,7 @@ interface MetricCardGridProps {
 
 /**
  * Shared "status + weekly trend + educational caption" card grid, used
- * anywhere HerHealth shows a snapshot of tracked-or-not-yet-tracked
+ * anywhere SIRILA shows a snapshot of tracked-or-not-yet-tracked
  * lifestyle/environmental metrics (Lifestyle Intelligence, Environmental
  * Wellness). Untracked cards use a calm, premium "Not tracked" treatment
  * rather than looking broken or empty.

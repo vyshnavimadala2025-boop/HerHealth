@@ -134,7 +134,7 @@ function AdminPlatformHealthPage() {
       <div className="flex flex-wrap items-start justify-between gap-3">
         <PageHeader
           title="Platform Health"
-          description="Live operational status of the systems HerHealth Admin depends on."
+          description="Live operational status of the systems SIRILA Admin depends on."
         />
         <Button type="button" variant="outline" size="sm" onClick={refresh} disabled={pageStatus === 'loading'}>
           <RefreshCw className={pageStatus === 'loading' ? 'animate-spin' : ''} aria-hidden="true" />

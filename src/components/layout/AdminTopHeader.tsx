@@ -34,7 +34,7 @@ function AdminTopHeader() {
             <SheetTitle asChild>
               <Link to="/admin" className="flex items-center gap-2">
                 <ShieldCheck className="size-5 text-primary" aria-hidden="true" />
-                HerHealth Admin
+                SIRILA Admin
               </Link>
             </SheetTitle>
             <SheetDescription className="sr-only">Admin navigation</SheetDescription>
@@ -47,7 +47,7 @@ function AdminTopHeader() {
 
       <Link to="/admin" className="flex items-center gap-2 font-display text-base font-medium text-foreground">
         <ShieldCheck className="size-4" aria-hidden="true" />
-        HerHealth Admin
+        SIRILA Admin
       </Link>
     </header>
   )

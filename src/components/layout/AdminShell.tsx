@@ -6,7 +6,7 @@ import AdminTopHeader from '@/components/layout/AdminTopHeader'
 /**
  * Layout shell for the /admin route subtree — parallel to AppShell, but a
  * deliberately separate component (left sidebar, not top nav) since no
- * sidebar layout exists elsewhere in HerHealth and the admin console is a
+ * sidebar layout exists elsewhere in SIRILA and the admin console is a
  * distinct operational surface. Reuses the same design tokens as AppShell
  * (bg-background, bg-card, border-border, etc.) — no second design system.
  */
@@ -26,7 +26,7 @@ function AdminShell() {
           className="flex items-center gap-2 px-1 font-display text-lg font-medium text-foreground"
         >
           <ShieldCheck className="size-5 text-primary" aria-hidden="true" />
-          HerHealth Admin
+          SIRILA Admin
         </Link>
         <AdminSidebar />
       </aside>

@@ -31,7 +31,7 @@ function AccountSection() {
         <div className="flex flex-col gap-1.5 rounded-lg border border-border p-3">
           <p className="text-sm font-medium">Delete account</p>
           <p className="text-caption text-muted-foreground">
-            You can now permanently delete your recorded HerHealth data — check-ins, period
+            You can now permanently delete your recorded SIRILA data — check-ins, period
             records, journal entries, PCOS/PCOD wellness entries, goals, and reminder
             preferences — from the Data &amp; Privacy section above.
           </p>

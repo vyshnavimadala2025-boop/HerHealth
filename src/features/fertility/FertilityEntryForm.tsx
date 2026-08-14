@@ -192,7 +192,7 @@ function FertilityEntryForm({ userId, editingEntry, initialDate, onSaved, onCanc
           <CardTitle>{isEditing ? 'Edit Fertility Entry' : 'Today’s Fertility Entry'}</CardTitle>
         </div>
         <CardDescription>
-          HerHealth supports personal fertility wellness tracking and does not diagnose or predict
+          SIRILA supports personal fertility wellness tracking and does not diagnose or predict
           pregnancy. Every field below is optional — record only what feels useful to you.
         </CardDescription>
       </CardHeader>

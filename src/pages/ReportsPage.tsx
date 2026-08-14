@@ -33,7 +33,7 @@ function ReportsPage() {
           title="Wellness Trends & Personal Reports"
           description="Review your own recorded wellness information over time and export it privately."
           captions={[
-            'These summaries are based only on the information you record in HerHealth and are not medical advice or a medical diagnosis.',
+            'These summaries are based only on the information you record in SIRILA and are not medical advice or a medical diagnosis.',
             'Your reports, timeline, and exported data are private and visible only to you.',
           ]}
         />

@@ -85,7 +85,7 @@ function TrendBadge({ trend }: { trend: TrendDirection }) {
  * Admin Phase 3B. Built on public.admin_feature_usage_summary(),
  * admin_feature_usage_breakdown(), and admin_feature_usage_trend()
  * (0024_admin_feature_usage.sql) — aggregate counts only, for the 9
- * HerHealth features that have a genuine backing table. The other 11
+ * SIRILA features that have a genuine backing table. The other 11
  * named features in the product surface are shown honestly as "Not
  * available" (see UNTRACKED_FEATURES) rather than fabricated.
  */
@@ -146,7 +146,7 @@ function AdminFeatureUsagePage() {
     <div className="flex flex-col gap-6">
       <PageHeader
         title="Feature Usage"
-        description="See which HerHealth features users are actually engaging with."
+        description="See which SIRILA features users are actually engaging with."
         captions={[
           'Aggregate statistics only — no individual health records, cycle dates, symptoms, or journal content are ever shown here.',
         ]}

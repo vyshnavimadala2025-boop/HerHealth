@@ -39,7 +39,7 @@ export interface FeatureUsageTrendPoint {
 export const TRACKED_FEATURE_COUNT = 9
 
 /**
- * Features named in HerHealth's product surface that have NO dedicated
+ * Features named in SIRILA's product surface that have NO dedicated
  * backing table today — confirmed by reading each feature's own data hook
  * before writing any SQL (see the header comment in
  * 0024_admin_feature_usage.sql for the exact evidence per feature). Shown

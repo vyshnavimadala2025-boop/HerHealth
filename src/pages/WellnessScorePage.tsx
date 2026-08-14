@@ -39,7 +39,7 @@ function WellnessScorePage() {
         </div>
         <PageHeader
           title="Wellness Score"
-          description="A HerHealth wellness metric, not a medical score."
+          description="A SIRILA wellness metric, not a medical score."
           captions={[
             'A rule-based composite of your own recorded consistency, mood, energy, and engagement — educational only. It never diagnoses a condition or predicts a health outcome.',
           ]}
@@ -150,7 +150,7 @@ function WellnessScorePage() {
           </Card>
 
           <p className="text-center text-caption text-muted-foreground">
-            This score reflects only what you've recorded in HerHealth. It is a wellness/product metric, not a
+            This score reflects only what you've recorded in SIRILA. It is a wellness/product metric, not a
             medical score, diagnosis, or prediction — consider discussing any health concerns with a healthcare
             professional.
           </p>

@@ -64,7 +64,7 @@ function StressRecoveryPage() {
           title="Stress & Recovery"
           description="Track how stress and recovery relate to each other over time."
           captions={[
-            'Educational only. HerHealth never diagnoses anxiety, depression, burnout, or any other condition — consider talking with a healthcare professional if concerns persist or interfere with daily life.',
+            'Educational only. SIRILA never diagnoses anxiety, depression, burnout, or any other condition — consider talking with a healthcare professional if concerns persist or interfere with daily life.',
           ]}
         />
       </div>

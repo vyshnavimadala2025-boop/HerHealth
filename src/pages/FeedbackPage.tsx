@@ -12,7 +12,7 @@ function FeedbackPage() {
         </div>
         <PageHeader
           title="Feedback"
-          description="Report a problem, request a feature, or share how HerHealth is working for you."
+          description="Report a problem, request a feature, or share how SIRILA is working for you."
         />
       </div>
 

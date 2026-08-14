@@ -26,7 +26,7 @@ const EXPLORE_MORE = [
  * rule-based habit-recommendation engine already built for Lifestyle
  * Intelligence (cross-feature reuse, not a new copy). "Habit Improvements"
  * is general, honest educational guidance. "Wellness Opportunities" is a
- * real, static list of HerHealth features — not a claim of personalized
+ * real, static list of SIRILA features — not a claim of personalized
  * detection of what you haven't tried, which this stage doesn't compute.
  */
 function InsightsRecommendationsPage() {
@@ -104,7 +104,7 @@ function InsightsRecommendationsPage() {
             </div>
           </CardHeader>
           <CardContent className="flex flex-col gap-3">
-            <p className="text-sm text-muted-foreground">A few other parts of HerHealth you might not have explored yet.</p>
+            <p className="text-sm text-muted-foreground">A few other parts of SIRILA you might not have explored yet.</p>
             <div className="grid grid-cols-1 gap-2 sm:grid-cols-2">
               {EXPLORE_MORE.map((item) => (
                 <Link

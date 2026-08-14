@@ -13,7 +13,7 @@ import type { ScreeningItem } from '@/features/screeningPlanner/types'
 import type { ExportBundle } from '@/features/reports/types'
 
 export const EXPORT_DISCLAIMER =
-  'These summaries are based only on the information you record in HerHealth and are not medical advice or a medical diagnosis.'
+  'These summaries are based only on the information you record in SIRILA and are not medical advice or a medical diagnosis.'
 
 export interface ExportSourceData {
   checkIns: CheckIn[]
@@ -148,7 +148,7 @@ function csvSection(title: string, rows: Record<string, unknown>[]): string {
  */
 export function buildExportCsv(bundle: ExportBundle): string {
   const sections = [
-    'HerHealth personal data export',
+    'SIRILA personal data export',
     `Exported at: ${bundle.exportedAt}`,
     bundle.disclaimer,
     '',
@@ -191,8 +191,8 @@ export function downloadExport(format: 'json' | 'csv', source: ExportSourceData)
   const bundle = buildExportBundle(source)
   const dateStamp = getLocalDateString()
   if (format === 'json') {
-    triggerDownload(buildExportJson(bundle), 'application/json', `herhealth-export-${dateStamp}.json`)
+    triggerDownload(buildExportJson(bundle), 'application/json', `sirila-export-${dateStamp}.json`)
   } else {
-    triggerDownload(buildExportCsv(bundle), 'text/csv', `herhealth-export-${dateStamp}.csv`)
+    triggerDownload(buildExportCsv(bundle), 'text/csv', `sirila-export-${dateStamp}.csv`)
   }
 }

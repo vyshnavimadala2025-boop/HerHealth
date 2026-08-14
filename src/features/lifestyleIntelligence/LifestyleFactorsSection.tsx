@@ -10,7 +10,7 @@ const NOT_TRACKED = 'Not yet tracked'
 
 /**
  * Exercise, Mindfulness, Social Connection, and Work-Life Balance have no
- * dedicated tracked field anywhere in HerHealth today, so they stay
+ * dedicated tracked field anywhere in SIRILA today, so they stay
  * honestly "not yet tracked". Sleep, Nutrition, Hydration, and Stress are
  * built from LifestyleIntelligencePage's real Stage 3 data below.
  */

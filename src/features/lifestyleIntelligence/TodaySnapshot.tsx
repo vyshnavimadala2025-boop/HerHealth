@@ -12,7 +12,7 @@ const TRACKED_ACCENT = 'bg-lavender text-lavender-foreground'
 
 /**
  * Movement, Outdoor Time, Screen Time, Work Environment, and
- * Environmental Comfort have no tracked field anywhere in HerHealth
+ * Environmental Comfort have no tracked field anywhere in SIRILA
  * today, so these five stay honestly "not yet tracked". Sleep Quality,
  * Hydration, and Stress are built from real Stage 3 data below.
  */

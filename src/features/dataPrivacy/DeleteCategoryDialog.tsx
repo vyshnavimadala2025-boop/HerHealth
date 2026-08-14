@@ -59,7 +59,7 @@ function DeleteCategoryDialog({ label, onConfirmDelete }: DeleteCategoryDialogPr
         <AlertDialogHeader>
           <AlertDialogTitle>Delete all your {label.toLowerCase()}?</AlertDialogTitle>
           <AlertDialogDescription>
-            This permanently deletes every {label.toLowerCase()} record in your HerHealth account.
+            This permanently deletes every {label.toLowerCase()} record in your SIRILA account.
             This action cannot be undone.
           </AlertDialogDescription>
         </AlertDialogHeader>

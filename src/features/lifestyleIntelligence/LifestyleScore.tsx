@@ -26,7 +26,7 @@ interface LifestyleScoreProps {
 
 /**
  * "Lifestyle Balance" is still the one genuinely real, whole-of-lifestyle
- * number HerHealth reports — the share of the last 30 days with a
+ * number SIRILA reports — the share of the last 30 days with a
  * recorded check-in, via the unmodified calculateConsistencyScore(). The
  * dimensions legend below it now reflects real Sleep/Nutrition/Stress &
  * Recovery data where it exists (Stage 4C2) instead of a blanket "not yet

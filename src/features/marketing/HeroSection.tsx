@@ -29,7 +29,7 @@ function HeroSection() {
             <span className="block text-hero-panel-accent">On Your Terms.</span>
           </h1>
           <p className="text-body-lg text-hero-panel-foreground/80">
-            HerHealth brings your daily wellness, cycle information, personal reflections, goals, and
+            SIRILA brings your daily wellness, cycle information, personal reflections, goals, and
             progress together in one private and supportive space.
           </p>
           <div className="flex w-full flex-col gap-3 sm:w-auto sm:flex-row">
@@ -46,7 +46,7 @@ function HeroSection() {
               size="lg"
               className="w-full border-hero-panel-foreground/40 bg-transparent text-hero-panel-foreground transition-transform duration-200 hover:-translate-y-0.5 hover:bg-hero-panel-foreground/10 sm:w-auto"
             >
-              <a href="#products">Explore HerHealth</a>
+              <a href="#products">Explore SIRILA</a>
             </Button>
           </div>
         </div>

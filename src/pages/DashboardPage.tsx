@@ -143,7 +143,7 @@ function DashboardPage() {
       </section>
 
       <p className="text-center text-caption text-muted-foreground">
-        HerHealth supports personal wellness awareness and reflection. It is not a substitute for
+        SIRILA supports personal wellness awareness and reflection. It is not a substitute for
         professional medical advice.
       </p>
     </main>

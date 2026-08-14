@@ -2,7 +2,7 @@ import type { LucideIcon } from 'lucide-react'
 
 /**
  * Hormone Balance is a presentation-layer feature: it reuses existing,
- * already-tracked HerHealth data (daily check-ins, period records) for the
+ * already-tracked SIRILA data (daily check-ins, period records) for the
  * fields that data genuinely supports, and clearly marks the remaining
  * fields as not yet tracked rather than inventing values or new schema.
  */

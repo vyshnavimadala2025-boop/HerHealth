@@ -58,7 +58,7 @@ function ProgressSummaryCard({
 
         {status === 'ready' && counts && !hasAnyActivity && (
           <p className="text-muted-foreground">
-            Your progress will appear here as you use HerHealth.
+            Your progress will appear here as you use SIRILA.
           </p>
         )}
 

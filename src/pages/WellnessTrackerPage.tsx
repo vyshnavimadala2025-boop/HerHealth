@@ -161,7 +161,7 @@ function WellnessTrackerPage() {
               <span className="block text-hero-panel-accent">Support Your Wellbeing.</span>
             </h1>
             <p className="text-body-lg text-hero-panel-foreground/80">
-              HerHealth helps you notice patterns, track your daily wellness, and build supportive
+              SIRILA helps you notice patterns, track your daily wellness, and build supportive
               routines at your own pace.
             </p>
             <div className="flex w-full flex-col gap-3 sm:w-auto sm:flex-row">
@@ -206,7 +206,7 @@ function WellnessTrackerPage() {
           <p className="text-body text-muted-foreground">
             Every wellness experience is different. Tracking your everyday patterns — how you feel,
             what you notice, and what changes over time — can help you build a clearer picture of
-            your own wellbeing. HerHealth does not diagnose, treat, or claim to cure PCOS or PCOD;
+            your own wellbeing. SIRILA does not diagnose, treat, or claim to cure PCOS or PCOD;
             it simply gives you a private space to notice what matters to you, at your own pace.
           </p>
         </section>
@@ -284,7 +284,7 @@ function WellnessTrackerPage() {
         <section className="flex flex-col gap-2 text-center">
           <h2 className="font-display text-heading text-foreground">Your wellness, your pace</h2>
           <p className="mx-auto max-w-xl text-body text-muted-foreground">
-            HerHealth is here to support self-awareness, not to add pressure or judgment. There is
+            SIRILA is here to support self-awareness, not to add pressure or judgment. There is
             no right way to do this — recording a little or a lot, often or occasionally, is
             entirely up to you.
           </p>
@@ -374,7 +374,7 @@ function WellnessTrackerPage() {
       </div>
 
       <p className="mx-auto w-full max-w-2xl px-4 pb-12 text-center text-caption text-muted-foreground sm:px-6">
-        HerHealth supports personal wellness awareness and is not a substitute for professional
+        SIRILA supports personal wellness awareness and is not a substitute for professional
         medical advice.
       </p>
     </main>

@@ -59,7 +59,7 @@ export function buildWeeklyReflection(input: WeeklyReflectionInput): WeeklyRefle
         ? 'Showing up for yourself this consistently is worth acknowledging.'
         : weeklySummary.count > 0
           ? 'Every recorded check-in adds to a clearer picture of you — no rush.'
-          : 'Whenever you’re ready to begin, HerHealth will be here.'
+          : 'Whenever you’re ready to begin, SIRILA will be here.'
 
   return { whatWentWell, areasToObserve, suggestedNextHabit, positiveEncouragement }
 }

@@ -5,7 +5,7 @@ const GUIDANCE = 'Discuss appropriate screening timing with your healthcare prof
 /**
  * Deliberately generic, non-schedule, non-age-specific descriptions —
  * this app has no authoritative screening dataset (confirmed by
- * inspection: no such content exists anywhere in HerHealth yet, including
+ * inspection: no such content exists anywhere in SIRILA yet, including
  * the Women's Knowledge Hub), so per Stage 3F's explicit fallback this
  * never invents an age threshold, interval, or eligibility rule. Every
  * entry ends with the same healthcare-guidance line.

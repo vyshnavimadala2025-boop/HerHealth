@@ -35,7 +35,7 @@ const UPCOMING_SECTIONS = [
 
 /**
  * These five sections all depend on a new "daily exposure" log that
- * doesn't exist in HerHealth's schema today (worked indoors/outdoors,
+ * doesn't exist in SIRILA's schema today (worked indoors/outdoors,
  * travel, sitting hours, screen time, noise exposure, and so on — see
  * migrations 0001–0010, none of which cover this). Per this feature's
  * explicit instruction to stop and get approval before generating any
@@ -48,7 +48,7 @@ function UpcomingTrackingPanel() {
       <div>
         <h2 className="font-display text-lg text-foreground">More tracking, coming soon</h2>
         <p className="text-caption text-muted-foreground">
-          These sections need a new place to store your daily entries, which HerHealth doesn&apos;t
+          These sections need a new place to store your daily entries, which SIRILA doesn&apos;t
           have yet. They&apos;ll appear here once that&apos;s been reviewed and added.
         </p>
       </div>

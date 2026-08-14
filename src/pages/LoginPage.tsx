@@ -116,7 +116,7 @@ function LoginPage() {
         </Button>
 
         <p className="text-center text-caption text-muted-foreground">
-          New to HerHealth?{' '}
+          New to SIRILA?{' '}
           <Link to="/signup" className="font-medium text-primary hover:underline">
             Create an account
           </Link>

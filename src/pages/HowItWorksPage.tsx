@@ -32,9 +32,9 @@ function HowItWorksPage() {
     <main className="mx-auto flex w-full max-w-3xl flex-1 flex-col gap-10 px-4 py-14 sm:px-6">
       <div className="flex flex-col gap-2 animate-in fade-in slide-in-from-bottom-1 duration-500 motion-reduce:animate-none">
         <p className="text-caption font-medium tracking-wide text-primary uppercase">How It Works</p>
-        <h1 className="text-title font-display text-foreground">How HerHealth Works</h1>
+        <h1 className="text-title font-display text-foreground">How SIRILA Works</h1>
         <p className="text-body text-muted-foreground">
-          HerHealth follows a simple, three-step rhythm — record, understand, reflect — built around
+          SIRILA follows a simple, three-step rhythm — record, understand, reflect — built around
           information you choose to share.
         </p>
       </div>
@@ -43,7 +43,7 @@ function HowItWorksPage() {
         <div className="overflow-hidden rounded-2xl border border-border shadow-sm">
           <img
             src={howItWorksImage}
-            alt="Three moments in a HerHealth routine: journaling by candlelight, reviewing personal insights on the HerHealth app, and a quiet mindfulness practice"
+            alt="Three moments in a SIRILA routine: journaling by candlelight, reviewing personal insights on the SIRILA app, and a quiet mindfulness practice"
             width={1672}
             height={941}
             loading="eager"
@@ -96,10 +96,10 @@ function HowItWorksPage() {
         <ShieldOff className="mt-0.5 size-5 shrink-0 text-muted-foreground" aria-hidden="true" />
         <div className="flex flex-col gap-1">
           <h2 className="font-display text-base text-foreground">
-            A note on what HerHealth doesn&apos;t do
+            A note on what SIRILA doesn&apos;t do
           </h2>
           <p className="text-body text-muted-foreground">
-            HerHealth does not diagnose conditions, predict illness or fertility, assess medical risk,
+            SIRILA does not diagnose conditions, predict illness or fertility, assess medical risk,
             or recommend treatment. Everything you see is a description of information you recorded,
             not a medical conclusion.
           </p>

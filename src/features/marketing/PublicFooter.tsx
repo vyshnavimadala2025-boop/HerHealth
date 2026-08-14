@@ -21,7 +21,7 @@ const FOOTER_COLUMNS: FooterColumn[] = [
   {
     heading: 'Company',
     links: [
-      { label: 'About HerHealth', href: '/about' },
+      { label: 'About SIRILA', href: '/about' },
       { label: 'How It Works', href: '/how-it-works' },
     ],
   },
@@ -65,12 +65,16 @@ function PublicFooter() {
           ))}
         </div>
 
-        <div className="mt-10 flex flex-col items-center gap-3 border-t border-border pt-6 text-caption text-muted-foreground sm:flex-row sm:justify-between">
-          <Link to="/" className="flex items-center gap-2 font-display text-sm font-medium text-foreground">
-            <HeartPulse className="size-4 text-primary" aria-hidden="true" />
-            HerHealth
-          </Link>
-          <p>&copy; {new Date().getFullYear()} HerHealth. All rights reserved.</p>
+        <div className="mt-10 flex flex-col items-center gap-4 border-t border-border pt-6 text-caption text-muted-foreground sm:flex-row sm:items-start sm:justify-between">
+          <div className="flex flex-col items-center gap-1 sm:items-start">
+            <Link to="/" className="flex items-center gap-2 font-display text-sm font-medium text-foreground">
+              <HeartPulse className="size-4 text-primary" aria-hidden="true" />
+              SIRILA
+            </Link>
+            <p>Smart Intelligent Responsive Insights Life Assistant</p>
+            <p>Understand yourself. Live better.</p>
+          </div>
+          <p>&copy; {new Date().getFullYear()} SIRILA. All rights reserved.</p>
         </div>
       </div>
     </footer>
