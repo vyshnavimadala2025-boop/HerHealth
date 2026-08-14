@@ -28,6 +28,7 @@ import { LIFESTYLE_ITEMS } from '@/components/layout/lifestyleCatalog'
 import { SUPPORT_ITEMS } from '@/components/layout/supportCatalog'
 import { isProductItemActive } from '@/components/layout/navUtils'
 import { useLogout } from '@/features/auth/useLogout'
+import { AI_INTELLIGENCE_PREVIEW_ONLY } from '@/features/aiIntelligence/constants'
 import { cn } from '@/lib/utils'
 
 interface MobileNavProps {
@@ -175,6 +176,13 @@ function MobileNav({ variant }: MobileNavProps) {
                   Learn
                 </Link>
               </SheetClose>
+              {AI_INTELLIGENCE_PREVIEW_ONLY && (
+                <SheetClose asChild>
+                  <Link to="/ai" className={TOP_LINK_CLASS}>
+                    SIRILA Intelligence
+                  </Link>
+                </SheetClose>
+              )}
 
               <details className="group px-2">
                 <summary className="flex min-h-11 cursor-pointer list-none items-center justify-between rounded-lg py-2 text-sm font-medium text-foreground marker:content-none focus-visible:ring-3 focus-visible:ring-ring/50">

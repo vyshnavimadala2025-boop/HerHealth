@@ -63,6 +63,10 @@ import AdminActivityPage from '@/pages/admin/AdminActivityPage'
 import AdminFeedbackPage from '@/pages/admin/AdminFeedbackPage'
 import AdminPlatformHealthPage from '@/pages/admin/AdminPlatformHealthPage'
 import AdminSettingsPage from '@/pages/admin/AdminSettingsPage'
+import RequireAiPreview from '@/features/aiIntelligence/RequireAiPreview'
+import AiIntelligenceHomePage from '@/pages/ai/AiIntelligenceHomePage'
+import AiSymptomJournalPage from '@/pages/ai/AiSymptomJournalPage'
+import AiConversationPage from '@/pages/ai/AiConversationPage'
 
 function App() {
   return (
@@ -142,6 +146,18 @@ function App() {
               <Route path="/release-notes" element={<ReleaseNotesPage />} />
               <Route path="/feedback" element={<FeedbackPage />} />
               <Route path="/coming-soon/:slug" element={<ComingSoonPage />} />
+
+              {/*
+                SIRILA Intelligence — Phase 2. Gated to development builds
+                only (RequireAiPreview) until the Privacy Page contradiction
+                and emergency-copy sign-off, both flagged in Phase 0, are
+                resolved. See src/features/aiIntelligence/constants.ts.
+              */}
+              <Route element={<RequireAiPreview />}>
+                <Route path="/ai" element={<AiIntelligenceHomePage />} />
+                <Route path="/ai/journal" element={<AiSymptomJournalPage />} />
+                <Route path="/ai/:conversationId" element={<AiConversationPage />} />
+              </Route>
             </Route>
           </Route>
         </Route>

@@ -8,6 +8,7 @@ import { WELLNESS_ITEMS } from '@/components/layout/wellnessCatalog'
 import { LIFESTYLE_ITEMS } from '@/components/layout/lifestyleCatalog'
 import { navLinkClass } from '@/components/layout/navLinkClass'
 import { useAuth } from '@/features/auth/useAuth'
+import { AI_INTELLIGENCE_PREVIEW_ONLY } from '@/features/aiIntelligence/constants'
 
 /**
  * Authenticated-app navbar. Renders nothing while auth status is
@@ -56,6 +57,11 @@ function AuthenticatedNav() {
           <NavLink to="/learn" className={navLinkClass}>
             Learn
           </NavLink>
+          {AI_INTELLIGENCE_PREVIEW_ONLY && (
+            <NavLink to="/ai" className={navLinkClass}>
+              SIRILA Intelligence
+            </NavLink>
+          )}
           <SupportMenu />
         </nav>
 

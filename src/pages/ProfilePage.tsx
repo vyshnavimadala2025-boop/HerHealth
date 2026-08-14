@@ -4,6 +4,8 @@ import AccountSection from '@/features/account/AccountSection'
 import DataPrivacySection from '@/features/dataPrivacy/DataPrivacySection'
 import PageHeader from '@/components/shared/PageHeader'
 import PrivacyBadge from '@/components/shared/PrivacyBadge'
+import AiConsentSettings from '@/features/aiIntelligence/AiConsentSettings'
+import { AI_INTELLIGENCE_PREVIEW_ONLY } from '@/features/aiIntelligence/constants'
 
 function ProfilePage() {
   return (
@@ -21,8 +23,9 @@ function ProfilePage() {
         <ChangePasswordForm />
         <AccountSection />
       </div>
-      <div id="privacy" className="scroll-mt-24">
+      <div id="privacy" className="flex scroll-mt-24 flex-col gap-6">
         <DataPrivacySection />
+        {AI_INTELLIGENCE_PREVIEW_ONLY && <AiConsentSettings />}
       </div>
     </main>
   )
