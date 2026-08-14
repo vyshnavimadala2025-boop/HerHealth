@@ -61,6 +61,8 @@ import AdminUserDetailPage from '@/pages/admin/AdminUserDetailPage'
 import AdminFeatureUsagePage from '@/pages/admin/AdminFeatureUsagePage'
 import AdminActivityPage from '@/pages/admin/AdminActivityPage'
 import AdminFeedbackPage from '@/pages/admin/AdminFeedbackPage'
+import AdminPlatformHealthPage from '@/pages/admin/AdminPlatformHealthPage'
+import AdminSettingsPage from '@/pages/admin/AdminSettingsPage'
 
 function App() {
   return (
@@ -163,6 +165,8 @@ function App() {
                 <Route path="/admin/feature-usage" element={<AdminFeatureUsagePage />} />
                 <Route path="/admin/activity" element={<AdminActivityPage />} />
                 <Route path="/admin/feedback" element={<AdminFeedbackPage />} />
+                <Route path="/admin/health" element={<AdminPlatformHealthPage />} />
+                <Route path="/admin/settings" element={<AdminSettingsPage />} />
               </Route>
             </Route>
           </Route>

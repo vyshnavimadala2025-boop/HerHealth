@@ -31,6 +31,6 @@ export const ADMIN_NAV_ITEMS: AdminNavItem[] = [
   { key: 'activity', name: 'Activity', icon: Activity, href: '/admin/activity' },
   { key: 'feedback', name: 'Feedback', icon: MessageSquareHeart, href: '/admin/feedback' },
   { key: 'feature-usage', name: 'Feature Usage', icon: BarChart3, href: '/admin/feature-usage' },
-  { key: 'platform-health', name: 'Platform Health', icon: ServerCog, href: null },
-  { key: 'settings', name: 'Settings', icon: Settings, href: null },
+  { key: 'platform-health', name: 'Platform Health', icon: ServerCog, href: '/admin/health' },
+  { key: 'settings', name: 'Settings', icon: Settings, href: '/admin/settings' },
 ]
