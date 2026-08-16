@@ -2,7 +2,7 @@ import type { AiConsentState } from '@/features/aiIntelligence/types'
 
 /**
  * Consent preference storage for SIRILA Intelligence (Phase 0 Section 6 /
- * Phase 2 Section 5). Three distinct, non-bundled categories — never one
+ * Phase 2 Section 5). Four distinct, non-bundled categories — never one
  * combined "I agree" checkbox. Stored in localStorage rather than a new
  * database table for this phase (Phase 1/2 did not authorize a new
  * consent table); every category defaults to false (off) until the user
@@ -10,6 +10,12 @@ import type { AiConsentState } from '@/features/aiIntelligence/types'
  * reasonable future hardening step, not done now to avoid scope creep
  * beyond what was approved for this phase — see the Phase 2 checkpoint
  * report's known-limitations note.
+ *
+ * imageAnalysis (Category D) was added in Phase 3A.1. Existing stored
+ * consent JSON from before this phase has no imageAnalysis key at all —
+ * parsed.imageAnalysis === true correctly evaluates to false for that
+ * old data, so existing users are NOT silently opted in; they see the
+ * same one-time notice as everyone else on first "Attach image" use.
  */
 const STORAGE_KEY = 'sirila-ai-consent'
 
@@ -17,6 +23,7 @@ const DEFAULT_CONSENT: AiConsentState = {
   processing: false,
   useWellnessContext: false,
   memory: false,
+  imageAnalysis: false,
 }
 
 export function getConsentState(): AiConsentState {
@@ -28,6 +35,7 @@ export function getConsentState(): AiConsentState {
       processing: parsed.processing === true,
       useWellnessContext: parsed.useWellnessContext === true,
       memory: parsed.memory === true,
+      imageAnalysis: parsed.imageAnalysis === true,
     }
   } catch {
     return { ...DEFAULT_CONSENT }

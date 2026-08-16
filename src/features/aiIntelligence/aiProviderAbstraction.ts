@@ -1,3 +1,4 @@
+import { supabase } from '@/lib/supabaseClient'
 import type { AiCapability, AiContextSnapshot, AiSafetyTier } from '@/features/aiIntelligence/types'
 import { classifySafetyTierClientSide } from '@/features/aiIntelligence/redFlagScreen'
 
@@ -77,11 +78,63 @@ export interface VerifyResponseResult {
   violatedRules: string[]
 }
 
+/**
+ * Visual Insight additions (Phase 3A.2). moderateImage() is the
+ * pre-processing safety stage — content-policy moderation, never medical
+ * risk assessment (Phase 3A.0 Section 15) — and is a mock passthrough
+ * here (always "safe") since real moderation requires a real provider.
+ * analyzeImage() deliberately does NOT mirror generateResponse()'s
+ * "client computes a draft, server independently verifies/overrides"
+ * shape: unlike a text message, there's no meaningful client-side draft
+ * to compute for an image — the mock result IS the server RPC's fixed
+ * output, so this method is a thin, honest wrapper around
+ * ai_process_visual_insight_image() rather than a parallel client-side
+ * fabrication of one.
+ */
+export interface ModerateImageInput {
+  imageId: string
+}
+
+export interface ModerateImageResult {
+  safe: boolean
+  category?: string
+}
+
+export interface AnalyzeImageInput {
+  imageId: string
+  conversationId: string | null
+  userDescription: string | null
+}
+
+export interface AnalyzeImageResult {
+  status: 'mock'
+  visualObservations: string[]
+  uncertainty: 'high' | 'moderate' | 'low'
+  requiresFollowUp: boolean
+  safetyTier: AiSafetyTier
+  message: string
+  processedAt: string
+  /**
+   * Optional (Phase 3A.6 hardening) — populated by the real producer of
+   * this shape today, useVisualInsightProcessing.ts, from the richer
+   * VisualInsightResult contract (src/features/visualInsight/provider/types.ts).
+   * Optional rather than required so the unused mockAiProvider.analyzeImage()
+   * below (dead code since the Phase 3A.3 provider-abstraction rewiring,
+   * kept only for AiProvider interface completeness, not deleted here —
+   * out of scope for this Visual-Insight-focused hardening pass) doesn't
+   * need to change.
+   */
+  limitations?: string[]
+  recommendedNextSteps?: string[]
+}
+
 export interface AiProvider {
   safetyScreen(input: SafetyScreenInput): Promise<SafetyScreenResult>
   retrieveContext(input: RetrieveContextInput): Promise<AiContextSnapshot | null>
   generateResponse(input: GenerateResponseInput): Promise<GenerateResponseResult>
   verifyResponse(input: VerifyResponseInput): Promise<VerifyResponseResult>
+  moderateImage(input: ModerateImageInput): Promise<ModerateImageResult>
+  analyzeImage(input: AnalyzeImageInput): Promise<AnalyzeImageResult>
 }
 
 /** Response-format prohibited phrases (Phase 0 Section 4 / Section 8) — a coarse, mock-grade check. */
@@ -163,5 +216,55 @@ export const mockAiProvider: AiProvider = {
       (pattern) => pattern.source,
     )
     return { passed: violatedRules.length === 0, violatedRules }
+  },
+
+  async moderateImage(_input) {
+    // Mock passthrough — real content-policy moderation requires a real
+    // provider (Phase 3A.3+). Never assesses medical risk, by design
+    // (Phase 3A.0 Section 15) — that's a different, harder problem this
+    // mock does not pretend to solve either.
+    await new Promise((resolve) => setTimeout(resolve, 100))
+    return { safe: true }
+  },
+
+  async analyzeImage({ imageId, conversationId, userDescription }) {
+    const { data, error } = await supabase
+      .rpc('ai_process_visual_insight_image', {
+        p_image_id: imageId,
+        p_conversation_id: conversationId,
+        p_user_description: userDescription,
+      })
+      .single<{
+        status: string
+        visual_observations: string[]
+        uncertainty: string
+        requires_follow_up: boolean
+        safety_tier: AiSafetyTier
+        message: string
+        processed_at: string
+      }>()
+
+    if (error) {
+      if (error.hint === 'rate_limit') {
+        throw new Error("You've reached today's Visual Insight processing limit. Please try again tomorrow.")
+      }
+      if (error.hint === 'invalid_image') {
+        throw new Error('This image is not ready to be processed. Please try uploading it again.')
+      }
+      if (error.hint === 'already_processed') {
+        throw new Error('This image has already been processed.')
+      }
+      throw new Error('We could not process this image. Please try again.')
+    }
+
+    return {
+      status: 'mock',
+      visualObservations: data.visual_observations,
+      uncertainty: data.uncertainty as AnalyzeImageResult['uncertainty'],
+      requiresFollowUp: data.requires_follow_up,
+      safetyTier: data.safety_tier,
+      message: data.message,
+      processedAt: data.processed_at,
+    }
   },
 }

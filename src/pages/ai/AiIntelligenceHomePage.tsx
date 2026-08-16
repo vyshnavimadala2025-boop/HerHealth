@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { Loader2, NotebookText, Sparkles, X } from 'lucide-react'
+import { ImageIcon, Loader2, NotebookText, Sparkles, X } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card'
 import PageHeader from '@/components/shared/PageHeader'
@@ -87,12 +87,20 @@ function AiIntelligenceHomePage() {
 
           <div className="flex items-center justify-between">
             <h2 className="font-display text-lg font-medium text-foreground">Your conversations</h2>
-            <Button asChild variant="ghost" size="sm">
-              <a href="/ai/journal">
-                <NotebookText className="size-3.5" aria-hidden="true" />
-                Symptom journal
-              </a>
-            </Button>
+            <div className="flex gap-1">
+              <Button asChild variant="ghost" size="sm">
+                <a href="/ai/journal">
+                  <NotebookText className="size-3.5" aria-hidden="true" />
+                  Symptom journal
+                </a>
+              </Button>
+              <Button asChild variant="ghost" size="sm">
+                <a href="/ai/visual-insight">
+                  <ImageIcon className="size-3.5" aria-hidden="true" />
+                  Visual Insight
+                </a>
+              </Button>
+            </div>
           </div>
 
           <ConversationList

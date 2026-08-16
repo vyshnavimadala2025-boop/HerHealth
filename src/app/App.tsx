@@ -67,6 +67,7 @@ import RequireAiPreview from '@/features/aiIntelligence/RequireAiPreview'
 import AiIntelligenceHomePage from '@/pages/ai/AiIntelligenceHomePage'
 import AiSymptomJournalPage from '@/pages/ai/AiSymptomJournalPage'
 import AiConversationPage from '@/pages/ai/AiConversationPage'
+import VisualInsightPage from '@/features/visualInsight/VisualInsightPage'
 
 function App() {
   return (
@@ -156,6 +157,12 @@ function App() {
               <Route element={<RequireAiPreview />}>
                 <Route path="/ai" element={<AiIntelligenceHomePage />} />
                 <Route path="/ai/journal" element={<AiSymptomJournalPage />} />
+                {/*
+                  Visual Insight (Phase 3A.1) — infrastructure-only demo
+                  route, not yet wired into a real conversation (3A.5).
+                  Same dev-only gate as the rest of SIRILA Intelligence.
+                */}
+                <Route path="/ai/visual-insight" element={<VisualInsightPage />} />
                 <Route path="/ai/:conversationId" element={<AiConversationPage />} />
               </Route>
             </Route>

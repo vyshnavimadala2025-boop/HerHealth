@@ -32,6 +32,12 @@ const ROWS: ConsentRow[] = [
     description:
       'Optional. Without this, "Remember this" is unavailable and SIRILA only uses the current conversation. Withdrawing does not delete items already remembered — forget those individually below.',
   },
+  {
+    key: 'imageAnalysis',
+    label: 'Let me attach images for SIRILA Visual Insight',
+    description:
+      'Optional. Required specifically to attach an image. Withdrawing this disables attaching new images — it does not delete images you\'ve already uploaded.',
+  },
 ]
 
 /**

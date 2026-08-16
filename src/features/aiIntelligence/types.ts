@@ -70,11 +70,18 @@ export interface AiFeedbackInput {
   reason: AiFeedbackReason | null
 }
 
-/** Consent categories, deliberately not bundled — see Phase 0 Section 6. */
+/**
+ * Consent categories, deliberately not bundled — see Phase 0 Section 6.
+ * imageAnalysis (Category D) was added in Phase 3A.1 for SIRILA Visual
+ * Insight — required specifically to attach/upload an image; withdrawing
+ * it disables the attach-image control only and has no effect on
+ * processing/useWellnessContext/memory or on images already uploaded.
+ */
 export interface AiConsentState {
   processing: boolean
   useWellnessContext: boolean
   memory: boolean
+  imageAnalysis: boolean
 }
 
 export interface AiContextSnapshot {
