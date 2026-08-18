@@ -5,6 +5,7 @@ import { Card, CardHeader, CardTitle, CardDescription, CardContent } from '@/com
 import { Checkbox } from '@/components/ui/checkbox'
 import { Label } from '@/components/ui/label'
 import { getConsentState, setConsentState } from '@/features/aiIntelligence/consent'
+import { FEATURE_VISUAL_INSIGHT } from '@/features/aiIntelligence/constants'
 import type { AiConsentState } from '@/features/aiIntelligence/types'
 
 interface ConsentRow {
@@ -41,6 +42,14 @@ const ROWS: ConsentRow[] = [
 ]
 
 /**
+ * imageAnalysis is hidden while Visual Insight itself is unreachable
+ * (FEATURE_VISUAL_INSIGHT), so this page never shows a control for a
+ * feature that isn't in the product yet — the underlying consent key
+ * and its stored value are untouched, only its row in this list.
+ */
+const VISIBLE_ROWS = FEATURE_VISUAL_INSIGHT ? ROWS : ROWS.filter((row) => row.key !== 'imageAnalysis')
+
+/**
  * Settings → Privacy control for SIRILA Intelligence consent (Phase 2
  * Finding 3). Three distinct, independently-toggleable categories, never
  * bundled. Each toggle applies immediately — the same getConsentState()
@@ -75,7 +84,7 @@ function AiConsentSettings() {
         </CardDescription>
       </CardHeader>
       <CardContent className="flex flex-col gap-3">
-        {ROWS.map((row) => (
+        {VISIBLE_ROWS.map((row) => (
           <div key={row.key} className="flex items-start gap-3 rounded-lg border border-border p-3">
             <Checkbox
               id={`ai-consent-${row.key}`}

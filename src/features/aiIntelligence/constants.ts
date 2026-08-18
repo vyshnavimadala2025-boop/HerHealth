@@ -1,16 +1,46 @@
 import type { AiCapability } from '@/features/aiIntelligence/types'
 
 /**
- * SIRILA Intelligence is gated to development builds only until two
- * explicit, still-open Phase 0 blockers are resolved: (1) the Privacy
- * Page's existing "your journal is never analyzed" language contradicts
- * what this feature does, and (2) emergency-tier response wording has not
- * gone through clinical/legal sign-off — see 0029_ai_send_message.sql's
- * placeholder text. Flip this only after both are genuinely resolved, not
- * to unblock testing — testing should happen in dev builds, where this is
- * already true.
+ * Launch scope decision: SIRILA Intelligence conversational chat is
+ * ENABLED for the initial production launch — an explicit product
+ * decision, made with full knowledge of the item below, not a claim
+ * that it's been resolved.
+ *
+ * KNOWN, ACCEPTED, STILL-OPEN GAP (found during the Phase 5
+ * safety-wording audit, NOT fixed by this flag or anything else in this
+ * codebase): the emergency-tier override in
+ * supabase/migrations/0029_ai_send_message.sql substitutes a literal,
+ * explicitly-unreviewed placeholder string ("[Placeholder — pending
+ * clinical/legal sign-off, not approved emergency guidance] ...") for
+ * any message classified emergency-tier. No later migration replaces
+ * it — it is what ai_send_message() returns today, to real users, now
+ * that this flag is true. Replacing it requires a new migration
+ * carrying reviewed, approved wording (never invent that wording in
+ * code) — out of scope for this change, which only touches this flag.
+ *
+ * The Privacy Page journal-analysis contradiction (the other Phase 0
+ * blocker) was confirmed resolved separately.
+ *
+ * Visual Insight (image upload/analysis) is a SEPARATE flag —
+ * FEATURE_VISUAL_INSIGHT below — and remains disabled regardless of
+ * this flag's state, developed further as a post-launch feature. It is
+ * deliberately not bundled with this constant: the two features have no
+ * UI coupling and no reason to share one on/off switch.
  */
-export const AI_INTELLIGENCE_PREVIEW_ONLY = import.meta.env.DEV
+export const FEATURE_SIRILA_CHAT = true
+
+/**
+ * Visual Insight — disabled for the initial launch. The full
+ * architecture (provider abstraction, mock provider, server-side
+ * boundary, migrations, tests) is preserved untouched; only the UI entry
+ * points (route, nav link) and the processing kill switches are turned
+ * off. Re-enabling later is a matter of flipping this back to true plus
+ * the two VISUAL_INSIGHT_PROCESSING_ENABLED switches
+ * (src/features/visualInsight/provider/config.ts and
+ * supabase/functions/visual-insight-process/provider/config.ts) — no
+ * rebuild required.
+ */
+export const FEATURE_VISUAL_INSIGHT = false
 
 /** Matches the server-enforced limit in ai_send_message() (0029) — display copy only, not the enforcement. */
 export const AI_DAILY_MESSAGE_LIMIT = 50

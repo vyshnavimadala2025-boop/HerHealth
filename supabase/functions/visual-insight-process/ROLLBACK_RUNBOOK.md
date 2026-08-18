@@ -31,14 +31,16 @@ Both are hardcoded source constants, not environment variables, by design
 that is intentional: no real-provider activation or deactivation should
 ever happen via a runtime flag flip alone.
 
-Uploading/processing images at all also depends on the frontend's
-`AI_INTELLIGENCE_PREVIEW_ONLY` dev-only gate (`import.meta.env.DEV`),
-which currently keeps the entire SIRILA Intelligence surface, including
-Visual Insight, unavailable outside development builds. That gate is not
-a production kill switch — it is not env-driven per-deployment and isn't
-designed as an incident-response lever — but it is why "real users cannot
-currently reach this feature at all" is true today independent of
-anything in this document.
+Uploading/processing images at all also depends on two source-level
+route flags: `FEATURE_SIRILA_CHAT` and `FEATURE_VISUAL_INSIGHT`
+(`src/features/aiIntelligence/constants.ts`). Both are currently
+`false` — chat is blocked on an unresolved emergency-tier wording
+sign-off (see that file's comments), and Visual Insight is disabled by
+launch-scope decision as a post-launch feature, independent of chat's
+status. Neither is a production kill switch in the incident-response
+sense — they're hardcoded source constants requiring a deploy to
+change — but they are why "real users cannot currently reach this
+feature at all" is true today independent of anything in this document.
 
 ---
 

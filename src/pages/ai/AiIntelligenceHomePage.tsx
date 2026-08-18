@@ -11,7 +11,7 @@ import ConversationList from '@/features/aiIntelligence/ConversationList'
 import { useConversations } from '@/features/aiIntelligence/useConversations'
 import { useAiMemory } from '@/features/aiIntelligence/useAiMemory'
 import { getConsentState, hasGrantedProcessingConsent } from '@/features/aiIntelligence/consent'
-import { AI_CAPABILITIES } from '@/features/aiIntelligence/constants'
+import { AI_CAPABILITIES, FEATURE_VISUAL_INSIGHT } from '@/features/aiIntelligence/constants'
 import type { AiCapability } from '@/features/aiIntelligence/types'
 
 const CAPABILITY_ICON: Record<AiCapability, typeof MessageCircleHeart> = {
@@ -108,12 +108,14 @@ function AiIntelligenceHomePage() {
                   Symptom journal
                 </a>
               </Button>
-              <Button asChild variant="ghost" size="sm">
-                <a href="/ai/visual-insight">
-                  <ImageIcon className="size-3.5" aria-hidden="true" />
-                  Visual Insight
-                </a>
-              </Button>
+              {FEATURE_VISUAL_INSIGHT && (
+                <Button asChild variant="ghost" size="sm">
+                  <a href="/ai/visual-insight">
+                    <ImageIcon className="size-3.5" aria-hidden="true" />
+                    Visual Insight
+                  </a>
+                </Button>
+              )}
             </div>
           </div>
 

@@ -171,7 +171,16 @@ describe('provider configuration and factory (Phase 3A.4)', () => {
     expect(OPENAI_ENABLED).toBe(false)
   })
 
-  it('getServerVisualInsightProvider() returns the mock provider by default', async () => {
+  it('is disabled by default (launch scope: Visual Insight off for initial launch) — throws provider_unavailable', async () => {
+    const { getServerVisualInsightProvider } = await import('./index.ts')
+    expect(() => getServerVisualInsightProvider()).toThrow(/temporarily unavailable/)
+  })
+
+  it('returns the mock provider once VISUAL_INSIGHT_PROCESSING_ENABLED is explicitly on', async () => {
+    vi.doMock('./config.ts', async (importOriginal) => ({
+      ...(await importOriginal<typeof import('./config.ts')>()),
+      VISUAL_INSIGHT_PROCESSING_ENABLED: true,
+    }))
     const { getServerVisualInsightProvider } = await import('./index.ts')
     const provider = getServerVisualInsightProvider()
     expect(provider.name).toBe('mock')
@@ -180,6 +189,7 @@ describe('provider configuration and factory (Phase 3A.4)', () => {
   it('fails safely if ACTIVE_PROVIDER is somehow "openai" while OPENAI_ENABLED stays false', async () => {
     vi.doMock('./config.ts', async (importOriginal) => ({
       ...(await importOriginal<typeof import('./config.ts')>()),
+      VISUAL_INSIGHT_PROCESSING_ENABLED: true,
       ACTIVE_PROVIDER: 'openai',
       OPENAI_ENABLED: false,
     }))
@@ -190,6 +200,7 @@ describe('provider configuration and factory (Phase 3A.4)', () => {
   it('even if both gates were somehow open, the returned provider still cannot complete a real call', async () => {
     vi.doMock('./config.ts', async (importOriginal) => ({
       ...(await importOriginal<typeof import('./config.ts')>()),
+      VISUAL_INSIGHT_PROCESSING_ENABLED: true,
       ACTIVE_PROVIDER: 'openai',
       OPENAI_ENABLED: true,
     }))
@@ -204,6 +215,7 @@ describe('provider configuration and factory (Phase 3A.4)', () => {
   it('rejects an unrecognized provider name rather than silently defaulting', async () => {
     vi.doMock('./config.ts', async (importOriginal) => ({
       ...(await importOriginal<typeof import('./config.ts')>()),
+      VISUAL_INSIGHT_PROCESSING_ENABLED: true,
       ACTIVE_PROVIDER: 'anthropic',
       OPENAI_ENABLED: false,
     }))
@@ -214,6 +226,7 @@ describe('provider configuration and factory (Phase 3A.4)', () => {
   it('fails safely if ACTIVE_PROVIDER is "xai" while XAI_ENABLED stays false (provider-switch task)', async () => {
     vi.doMock('./config.ts', async (importOriginal) => ({
       ...(await importOriginal<typeof import('./config.ts')>()),
+      VISUAL_INSIGHT_PROCESSING_ENABLED: true,
       ACTIVE_PROVIDER: 'xai',
       XAI_ENABLED: false,
     }))
@@ -224,6 +237,7 @@ describe('provider configuration and factory (Phase 3A.4)', () => {
   it('even if XAI_ENABLED were somehow true, the returned Grok adapter still cannot complete a real call', async () => {
     vi.doMock('./config.ts', async (importOriginal) => ({
       ...(await importOriginal<typeof import('./config.ts')>()),
+      VISUAL_INSIGHT_PROCESSING_ENABLED: true,
       ACTIVE_PROVIDER: 'xai',
       XAI_ENABLED: true,
     }))
@@ -247,7 +261,16 @@ describe('emergency kill switch — VISUAL_INSIGHT_PROCESSING_ENABLED (rollback 
     vi.doUnmock('./config.ts')
   })
 
-  it('1. feature enabled (default) → mock Visual Insight works end to end', async () => {
+  it('0. feature disabled (real default, launch scope) → getServerVisualInsightProvider() throws before any provider work happens', async () => {
+    const { getServerVisualInsightProvider } = await import('./index.ts')
+    expect(() => getServerVisualInsightProvider()).toThrow(/temporarily unavailable/)
+  })
+
+  it('1. feature explicitly enabled → mock Visual Insight works end to end', async () => {
+    vi.doMock('./config.ts', async (importOriginal) => ({
+      ...(await importOriginal<typeof import('./config.ts')>()),
+      VISUAL_INSIGHT_PROCESSING_ENABLED: true,
+    }))
     const { getServerVisualInsightProvider } = await import('./index.ts')
     const provider = getServerVisualInsightProvider()
     const client = fakeClient({ data: SUCCESSFUL_ROW, error: null })

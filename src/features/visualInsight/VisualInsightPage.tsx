@@ -41,8 +41,11 @@ const VALIDATION_MESSAGES: Record<string, string> = {
 /**
  * Built Phase 3A.1, hardened through Phase 3A.6 — still mock-only.
  * REAL PROVIDER = NOT CONNECTED. MOCK PROVIDER = ACTIVE. REAL HEALTH
- * IMAGES = NOT PROCESSED. PUBLIC VISUAL INSIGHT = DISABLED (gated behind
- * AI_INTELLIGENCE_PREVIEW_ONLY). Not yet wired into a real conversation.
+ * IMAGES = NOT PROCESSED. PUBLIC VISUAL INSIGHT = DISABLED (route gated
+ * behind FEATURE_VISUAL_INSIGHT — see RequireVisualInsight — and this
+ * whole page also sits behind RequireAiPreview/FEATURE_SIRILA_CHAT, so
+ * it's unreachable while either flag is off). Not yet wired into a real
+ * conversation.
  * Upload, preview, consent, validation, rate-limiting, retry, and
  * deletion are all built and live-verified with real test accounts,
  * ahead of any real AI processing.

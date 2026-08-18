@@ -34,8 +34,14 @@ export const ACTIVE_PROVIDER: ProviderName = 'mock'
  * getVisualInsightProvider() (./index.ts) checks this FIRST, before any
  * provider-name logic — so flipping this to false is sufficient on its
  * own, deploying is the only step, no other file needs to change.
+ *
+ * LAUNCH SCOPE: false — Visual Insight is disabled for the initial
+ * launch (post-launch feature). See FEATURE_VISUAL_INSIGHT in
+ * src/features/aiIntelligence/constants.ts, which gates the UI route;
+ * this switch independently gates processing itself even if that route
+ * guard were ever bypassed.
  */
-export const VISUAL_INSIGHT_PROCESSING_ENABLED = true as const
+export const VISUAL_INSIGHT_PROCESSING_ENABLED = false as const
 
 /**
  * Per-request operational limits (Phase 3A.3 §11). These are architecture

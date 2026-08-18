@@ -223,8 +223,20 @@ describe('mockVisualInsightProvider.analyze', () => {
 })
 
 describe('getVisualInsightProvider (provider routing, Phase 3A.3 §8)', () => {
-  it('returns the mock provider — the only active provider in this build', () => {
-    const provider = getVisualInsightProvider()
+  it('is disabled by default (launch scope: Visual Insight off for initial launch) — throws provider_unavailable', () => {
+    expect(() => getVisualInsightProvider()).toThrow(VisualInsightProviderError)
+    expect(() => getVisualInsightProvider()).toThrow(/temporarily unavailable/)
+  })
+
+  it('returns the mock provider — the only active provider in this build — once the kill switch is explicitly on', async () => {
+    vi.resetModules()
+    vi.doMock('@/features/visualInsight/provider/config', async (importOriginal) => ({
+      ...(await importOriginal<typeof import('@/features/visualInsight/provider/config')>()),
+      VISUAL_INSIGHT_PROCESSING_ENABLED: true,
+    }))
+    const { getVisualInsightProvider: getProviderWithSwitchOn } = await import('@/features/visualInsight/provider/index')
+    const provider = getProviderWithSwitchOn()
     expect(provider.name).toBe('mock')
+    vi.doUnmock('@/features/visualInsight/provider/config')
   })
 })

@@ -3,6 +3,7 @@ import { Toaster } from 'sonner'
 import AppShell from '@/components/layout/AppShell'
 import HomePage from '@/pages/HomePage'
 import LoginPage from '@/pages/LoginPage'
+import AdminLoginPage from '@/pages/AdminLoginPage'
 import SignupPage from '@/pages/SignupPage'
 import ForgotPasswordPage from '@/pages/ForgotPasswordPage'
 import ResetPasswordPage from '@/pages/ResetPasswordPage'
@@ -64,6 +65,7 @@ import AdminFeedbackPage from '@/pages/admin/AdminFeedbackPage'
 import AdminPlatformHealthPage from '@/pages/admin/AdminPlatformHealthPage'
 import AdminSettingsPage from '@/pages/admin/AdminSettingsPage'
 import RequireAiPreview from '@/features/aiIntelligence/RequireAiPreview'
+import RequireVisualInsight from '@/features/visualInsight/RequireVisualInsight'
 import AiIntelligenceHomePage from '@/pages/ai/AiIntelligenceHomePage'
 import AiSymptomJournalPage from '@/pages/ai/AiSymptomJournalPage'
 import AiConversationPage from '@/pages/ai/AiConversationPage'
@@ -98,6 +100,19 @@ function App() {
           <Route path="/login" element={<LoginPage />} />
           <Route path="/signup" element={<SignupPage />} />
         </Route>
+
+        {/*
+          Admin Login — a distinct entry point (not a second auth system):
+          same supabase.auth.signInWithPassword() call as /login, via the
+          same authService.signIn(). Deliberately NOT wrapped in
+          PublicOnlyRoute (which would redirect an already-authenticated
+          visitor to /dashboard) — AdminLoginPage handles the
+          already-authenticated case itself, redirecting to /admin so the
+          real guard (RequireAdmin, further below) makes the actual call.
+          The route itself grants nothing; /admin remains protected by
+          ProtectedRoute + RequireAdmin regardless of how it's reached.
+        */}
+        <Route path="/admin-login" element={<AdminLoginPage />} />
 
         {/*
           Onboarding renders full-screen outside AppShell too (same reason
@@ -149,20 +164,18 @@ function App() {
               <Route path="/coming-soon/:slug" element={<ComingSoonPage />} />
 
               {/*
-                SIRILA Intelligence — Phase 2. Gated to development builds
-                only (RequireAiPreview) until the Privacy Page contradiction
-                and emergency-copy sign-off, both flagged in Phase 0, are
-                resolved. See src/features/aiIntelligence/constants.ts.
+                SIRILA Intelligence — launch scope: chat is enabled
+                (FEATURE_SIRILA_CHAT), Visual Insight is disabled
+                (FEATURE_VISUAL_INSIGHT) as a separate, independently
+                gated post-launch feature. See
+                src/features/aiIntelligence/constants.ts.
               */}
               <Route element={<RequireAiPreview />}>
                 <Route path="/ai" element={<AiIntelligenceHomePage />} />
                 <Route path="/ai/journal" element={<AiSymptomJournalPage />} />
-                {/*
-                  Visual Insight (Phase 3A.1) — infrastructure-only demo
-                  route, not yet wired into a real conversation (3A.5).
-                  Same dev-only gate as the rest of SIRILA Intelligence.
-                */}
-                <Route path="/ai/visual-insight" element={<VisualInsightPage />} />
+                <Route element={<RequireVisualInsight />}>
+                  <Route path="/ai/visual-insight" element={<VisualInsightPage />} />
+                </Route>
                 <Route path="/ai/:conversationId" element={<AiConversationPage />} />
               </Route>
             </Route>

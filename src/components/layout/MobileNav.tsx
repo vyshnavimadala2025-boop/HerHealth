@@ -28,7 +28,7 @@ import { LIFESTYLE_ITEMS } from '@/components/layout/lifestyleCatalog'
 import { SUPPORT_ITEMS } from '@/components/layout/supportCatalog'
 import { isProductItemActive } from '@/components/layout/navUtils'
 import { useLogout } from '@/features/auth/useLogout'
-import { AI_INTELLIGENCE_PREVIEW_ONLY } from '@/features/aiIntelligence/constants'
+import { FEATURE_SIRILA_CHAT } from '@/features/aiIntelligence/constants'
 import { cn } from '@/lib/utils'
 
 interface MobileNavProps {
@@ -184,7 +184,7 @@ function MobileNav({ variant, theme = 'light' }: MobileNavProps) {
                   Learn
                 </Link>
               </SheetClose>
-              {AI_INTELLIGENCE_PREVIEW_ONLY && (
+              {FEATURE_SIRILA_CHAT && (
                 <SheetClose asChild>
                   <Link to="/ai" className={TOP_LINK_CLASS}>
                     SIRILA Intelligence

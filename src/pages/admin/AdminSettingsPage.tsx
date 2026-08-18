@@ -1,5 +1,5 @@
 import { useState, type ReactNode } from 'react'
-import { Loader2, LogOut, ShieldCheck, Wrench } from 'lucide-react'
+import { Loader2, LogOut, ShieldAlert, ShieldCheck, Sparkles, Wrench } from 'lucide-react'
 import PageHeader from '@/components/shared/PageHeader'
 import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
@@ -8,12 +8,23 @@ import { useAuth } from '@/features/auth/useAuth'
 import { useLogout } from '@/features/auth/useLogout'
 import { getDefaultAnalyticsPeriod, setDefaultAnalyticsPeriod } from '@/features/admin/settings/adminPreferences'
 import { USAGE_PERIODS, type UsagePeriod } from '@/features/admin/featureUsage/types'
+import { FEATURE_SIRILA_CHAT, FEATURE_VISUAL_INSIGHT } from '@/features/aiIntelligence/constants'
+import { useAdminAiSafetyMetrics } from '@/features/admin/aiSafety/useAdminAiSafetyMetrics'
 
 function SettingRow({ label, value }: { label: string; value: ReactNode }) {
   return (
     <div className="flex flex-col gap-0.5">
       <p className="text-caption font-medium tracking-wide text-muted-foreground uppercase">{label}</p>
       <div className="text-sm text-foreground">{value}</div>
+    </div>
+  )
+}
+
+function SafetyStatCell({ label, value }: { label: string; value: ReactNode }) {
+  return (
+    <div className="flex flex-col items-start gap-0.5 rounded-lg border border-border px-3 py-2">
+      <p className="text-caption font-medium tracking-wide text-muted-foreground uppercase">{label}</p>
+      <p className="text-lg font-medium text-foreground">{value}</p>
     </div>
   )
 }
@@ -29,6 +40,7 @@ function AdminSettingsPage() {
   const { user, profile } = useAuth()
   const { logout, isLoggingOut } = useLogout()
   const [defaultPeriod, setDefaultPeriodState] = useState<UsagePeriod>(() => getDefaultAnalyticsPeriod())
+  const aiSafety = useAdminAiSafetyMetrics()
 
   const handlePeriodChange = (period: UsagePeriod) => {
     setDefaultPeriodState(period)
@@ -89,6 +101,92 @@ function AdminSettingsPage() {
           <p className="text-caption text-muted-foreground">
             Saved to this browser only. Existing Feature Usage, Activity, and Overview pages keep their own defaults for now.
           </p>
+        </CardContent>
+      </Card>
+
+      <Card>
+        <CardHeader>
+          <CardTitle>SIRILA Intelligence</CardTitle>
+        </CardHeader>
+        <CardContent className="flex flex-col gap-3">
+          <div className="flex items-center justify-between rounded-lg border border-border px-3 py-2 text-sm">
+            <span className="flex items-center gap-2 font-medium text-foreground">
+              <Sparkles className="size-4 text-muted-foreground" aria-hidden="true" />
+              SIRILA Intelligence (chat)
+            </span>
+            {FEATURE_SIRILA_CHAT ? (
+              <Badge className="bg-support text-support-foreground">Enabled</Badge>
+            ) : (
+              <Badge variant="outline" className="text-muted-foreground">Disabled</Badge>
+            )}
+          </div>
+          <div className="flex items-center justify-between rounded-lg border border-border px-3 py-2 text-sm">
+            <span className="flex items-center gap-2 font-medium text-foreground">
+              <Sparkles className="size-4 text-muted-foreground" aria-hidden="true" />
+              Visual Insight (image analysis)
+            </span>
+            {FEATURE_VISUAL_INSIGHT ? (
+              <Badge className="bg-support text-support-foreground">Enabled</Badge>
+            ) : (
+              <Badge variant="outline" className="text-muted-foreground">Disabled</Badge>
+            )}
+          </div>
+          <p className="text-caption text-muted-foreground">
+            Controlled by FEATURE_SIRILA_CHAT / FEATURE_VISUAL_INSIGHT in source
+            (src/features/aiIntelligence/constants.ts) — not configurable from this screen. Visual Insight is a
+            planned post-launch feature; its architecture is preserved but disabled.
+          </p>
+        </CardContent>
+      </Card>
+
+      <Card>
+        <CardHeader>
+          <div className="flex items-center justify-between gap-2">
+            <CardTitle>AI Safety Metrics</CardTitle>
+            <Badge variant="outline" className="gap-1 text-muted-foreground">
+              <ShieldAlert className="size-3" aria-hidden="true" />
+              Aggregate only
+            </Badge>
+          </div>
+        </CardHeader>
+        <CardContent className="flex flex-col gap-3">
+          {aiSafety.status === 'loading' && (
+            <p className="flex items-center gap-2 text-sm text-muted-foreground">
+              <Loader2 className="size-4 animate-spin" aria-hidden="true" />
+              Loading safety metrics…
+            </p>
+          )}
+          {aiSafety.status === 'error' && (
+            <div className="flex items-center justify-between gap-2 rounded-lg border border-dashed border-border px-3 py-2 text-sm">
+              <span className="text-muted-foreground">Unable to load AI safety metrics.</span>
+              <Button type="button" variant="ghost" size="sm" onClick={aiSafety.refresh}>
+                Retry
+              </Button>
+            </div>
+          )}
+          {aiSafety.status === 'ready' && aiSafety.metrics && (
+            <>
+              <div className="grid grid-cols-2 gap-2 sm:grid-cols-5">
+                <SafetyStatCell label="Total" value={aiSafety.metrics.totalEvents} />
+                <SafetyStatCell label="Routine" value="N/A" />
+                <SafetyStatCell label="Urgent" value={aiSafety.metrics.urgentCount} />
+                <SafetyStatCell label="Sensitive" value={aiSafety.metrics.sensitiveCount} />
+                <SafetyStatCell
+                  label="Emergency"
+                  value={<span className="text-destructive">{aiSafety.metrics.emergencyCount}</span>}
+                />
+              </div>
+              <p className="text-caption text-muted-foreground">
+                Blocked {aiSafety.metrics.blockedCount} · Escalated {aiSafety.metrics.escalatedCount} · Last 24h{' '}
+                {aiSafety.metrics.eventsLast24h} · Last 7d {aiSafety.metrics.eventsLast7d}
+              </p>
+              <p className="text-caption text-muted-foreground">
+                &quot;Routine&quot; shows N/A — routine-tier messages are never written to the safety-event log by
+                design, so this table cannot report that count. Every figure above is a count only: no message
+                content, conversation text, or individual user is ever included.
+              </p>
+            </>
+          )}
         </CardContent>
       </Card>
 

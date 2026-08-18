@@ -1,17 +1,19 @@
 import { Navigate, Outlet } from 'react-router-dom'
-import { AI_INTELLIGENCE_PREVIEW_ONLY } from '@/features/aiIntelligence/constants'
+import { FEATURE_SIRILA_CHAT } from '@/features/aiIntelligence/constants'
 
 /**
- * Blocks the /ai route subtree entirely outside development builds
- * (Phase 2 Section 15) — not just hiding the nav link, since that alone
- * wouldn't stop direct navigation. This is the enforcement point for
- * "do not silently bypass" the still-open Privacy Page and emergency-copy
- * sign-off blockers (see PreviewGateNotice.tsx and constants.ts). Redirects
- * to /dashboard rather than a 404 so it reads as "not available yet," not
- * as a broken link.
+ * Gates the SIRILA Intelligence chat surface (/ai, /ai/journal,
+ * /ai/:conversationId) on FEATURE_SIRILA_CHAT — enabled for the initial
+ * launch. Visual Insight (/ai/visual-insight) has its own separate guard,
+ * RequireVisualInsight, nested inside this one — Visual Insight remains
+ * disabled for this launch even though chat is enabled.
+ *
+ * Route-level, not just nav-link hiding, since that alone wouldn't stop
+ * direct navigation. Redirects to /dashboard rather than a 404 so it
+ * reads as "not available," not as a broken link.
  */
 function RequireAiPreview() {
-  if (!AI_INTELLIGENCE_PREVIEW_ONLY) {
+  if (!FEATURE_SIRILA_CHAT) {
     return <Navigate to="/dashboard" replace />
   }
   return <Outlet />

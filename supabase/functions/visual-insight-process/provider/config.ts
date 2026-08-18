@@ -46,8 +46,12 @@ export const XAI_ENABLED = false as const
  * deploy, done — see ../ROLLBACK_RUNBOOK.md for when to use this versus
  * reverting ACTIVE_PROVIDER to 'mock' (that's a downgrade; this is a
  * full stop).
+ *
+ * LAUNCH SCOPE: false — Visual Insight is disabled for the initial
+ * launch (post-launch feature). Mirrors the frontend kill switch
+ * (src/features/visualInsight/provider/config.ts).
  */
-export const VISUAL_INSIGHT_PROCESSING_ENABLED = true as const
+export const VISUAL_INSIGHT_PROCESSING_ENABLED = false as const
 
 /**
  * Documented, never read here, never set here. Would be read via
