@@ -12,9 +12,9 @@ import { FlaskConical } from 'lucide-react'
  */
 function PreviewGateNotice() {
   return (
-    <div className="flex items-start gap-2 rounded-xl border border-dashed border-attention bg-attention/10 p-3 text-caption text-attention-foreground">
+    <div className="flex items-start gap-2.5 rounded-xl border-l-2 border-attention bg-attention/[0.07] px-3.5 py-3 text-caption text-attention-foreground">
       <FlaskConical className="mt-0.5 size-4 shrink-0" aria-hidden="true" />
-      <p>
+      <p className="leading-relaxed">
         <strong className="font-medium">Internal preview.</strong> SIRILA Intelligence uses placeholder AI responses
         and safety copy pending clinical/legal review. Not yet available to all users.
       </p>

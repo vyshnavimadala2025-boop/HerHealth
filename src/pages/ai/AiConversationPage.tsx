@@ -36,26 +36,26 @@ function AiConversationPage() {
 
   return (
     <main className="mx-auto flex w-full max-w-2xl flex-1 flex-col animate-in fade-in duration-500 motion-reduce:animate-none">
-      <div className="flex flex-col gap-3 p-4 pb-2 sm:p-6 sm:pb-2">
+      <div className="flex flex-col gap-3 border-b border-border/70 p-4 pb-3 sm:p-6 sm:pb-4">
         <PreviewGateNotice />
-        <div className="flex items-center justify-between gap-2">
-          <Button asChild variant="ghost" size="sm">
-            <Link to="/ai">
-              <ArrowLeft className="size-3.5" aria-hidden="true" />
-              Back
-            </Link>
-          </Button>
+        <div className="flex items-start justify-between gap-2">
+          <div className="flex min-w-0 flex-col gap-1">
+            <Button asChild variant="ghost" size="xs" className="-ml-2 self-start text-muted-foreground">
+              <Link to="/ai">
+                <ArrowLeft className="size-3.5" aria-hidden="true" />
+                Conversations
+              </Link>
+            </Button>
+            <h1 className="truncate font-display text-heading font-medium text-foreground">
+              {conversation.title || capabilityLabel}
+            </h1>
+            <p className="text-caption text-muted-foreground">{capabilityLabel}</p>
+          </div>
           <CareSummarySheet conversation={conversation} messages={messages} journalEntries={journal.entries} />
-        </div>
-        <div>
-          <h1 className="font-display text-lg font-medium text-foreground">
-            {conversation.title || capabilityLabel}
-          </h1>
-          <p className="text-caption text-muted-foreground">{capabilityLabel}</p>
         </div>
       </div>
 
-      <div className="flex flex-1 flex-col gap-4 overflow-y-auto p-4 sm:p-6" role="log" aria-label="Conversation">
+      <div className="flex flex-1 flex-col gap-6 overflow-y-auto p-4 sm:p-6" role="log" aria-label="Conversation">
         {messages.length === 0 && (
           <p className="text-center text-caption text-muted-foreground">
             Share what you're noticing to get started.

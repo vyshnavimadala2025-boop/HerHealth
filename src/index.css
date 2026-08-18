@@ -6,80 +6,94 @@
 :root {
   --radius: 0.75rem;
 
-  --background: oklch(0.995 0.004 20);
-  --foreground: oklch(0.2 0.02 20);
-  --card: oklch(1 0 0);
-  --card-foreground: oklch(0.2 0.02 20);
-  --popover: oklch(1 0 0);
-  --popover-foreground: oklch(0.2 0.02 20);
-  --primary: oklch(0.42 0.12 335);
-  --primary-foreground: oklch(0.98 0.006 335);
-  --secondary: oklch(0.96 0.02 20);
-  --secondary-foreground: oklch(0.38 0.08 335);
-  --muted: oklch(0.97 0.008 20);
-  --muted-foreground: oklch(0.52 0.02 20);
-  --accent: oklch(0.93 0.035 335);
-  --accent-foreground: oklch(0.32 0.09 335);
-  --support: oklch(0.88 0.05 150);
+  /* Warm ivory page background, distinct from --card (near-white) — the
+     two-tone layering IS the elevation system: a card sits visibly above
+     the page without needing a heavy shadow to prove it. */
+  --background: oklch(0.975 0.008 55);
+  --foreground: oklch(0.22 0.016 40);
+  --card: oklch(0.995 0.003 55);
+  --card-foreground: oklch(0.22 0.016 40);
+  --popover: oklch(0.995 0.003 55);
+  --popover-foreground: oklch(0.22 0.016 40);
+  /* Deep plum — nudged from a rose-leaning hue toward true plum/aubergine,
+     chroma pulled back slightly so it reads sophisticated, not candy. */
+  --primary: oklch(0.4 0.1 325);
+  --primary-foreground: oklch(0.98 0.006 325);
+  --secondary: oklch(0.955 0.016 45);
+  --secondary-foreground: oklch(0.36 0.07 325);
+  --muted: oklch(0.965 0.01 50);
+  --muted-foreground: oklch(0.5 0.022 40);
+  --accent: oklch(0.92 0.032 325);
+  --accent-foreground: oklch(0.32 0.08 325);
+  /* Sage */
+  --support: oklch(0.87 0.045 150);
   --support-foreground: oklch(0.3 0.045 150);
-  --lavender: oklch(0.9 0.035 285);
+  /* Soft lavender */
+  --lavender: oklch(0.9 0.032 285);
   --lavender-foreground: oklch(0.32 0.08 285);
-  --blush: oklch(0.9 0.045 15);
-  --blush-foreground: oklch(0.34 0.09 15);
-  --attention: oklch(0.9 0.06 75);
+  /* Warm blush (rose-forward) */
+  --blush: oklch(0.9 0.045 10);
+  --blush-foreground: oklch(0.34 0.09 10);
+  /* Gentle peach — distinct hue from blush, sits between blush and
+     attention on the warm side of the wheel */
+  --peach: oklch(0.9 0.05 55);
+  --peach-foreground: oklch(0.36 0.08 45);
+  --attention: oklch(0.89 0.06 80);
   --attention-foreground: oklch(0.35 0.09 75);
-  --destructive: oklch(0.58 0.22 35);
-  --destructive-foreground: oklch(0.985 0.008 35);
-  --border: oklch(0.92 0.012 20);
-  --input: oklch(0.92 0.012 20);
-  --ring: oklch(0.48 0.1 335);
+  --destructive: oklch(0.58 0.2 30);
+  --destructive-foreground: oklch(0.985 0.008 30);
+  --border: oklch(0.91 0.014 45);
+  --input: oklch(0.91 0.014 45);
+  --ring: oklch(0.46 0.09 325);
 
-  --hero-panel: oklch(0.19 0.045 335);
-  --hero-panel-foreground: oklch(0.97 0.01 335);
-  --hero-panel-accent: oklch(0.85 0.06 15);
-  --light-panel-foreground: oklch(0.2 0.02 20);
-  --light-panel-muted: oklch(0.4 0.03 20);
-  --auth-panel: oklch(0.97 0.012 20);
+  --hero-panel: oklch(0.18 0.04 325);
+  --hero-panel-foreground: oklch(0.97 0.008 325);
+  --hero-panel-accent: oklch(0.83 0.06 15);
+  --light-panel-foreground: oklch(0.22 0.016 40);
+  --light-panel-muted: oklch(0.42 0.026 40);
+  --auth-panel: oklch(0.965 0.014 50);
 
-  --shadow-color: 12 40% 30%;
-  --shadow-raw-xs: 0 1px 2px -1px hsl(var(--shadow-color) / 0.06);
-  --shadow-raw-sm: 0 2px 6px -2px hsl(var(--shadow-color) / 0.08);
-  --shadow-raw-md: 0 8px 20px -6px hsl(var(--shadow-color) / 0.12);
-  --shadow-raw-lg: 0 16px 36px -10px hsl(var(--shadow-color) / 0.16);
-  --shadow-raw-xl: 0 28px 56px -16px hsl(var(--shadow-color) / 0.2);
+  --shadow-color: 20 45% 25%;
+  --shadow-raw-xs: 0 1px 2px -1px hsl(var(--shadow-color) / 0.05);
+  --shadow-raw-sm: 0 2px 6px -2px hsl(var(--shadow-color) / 0.07);
+  --shadow-raw-md: 0 8px 20px -6px hsl(var(--shadow-color) / 0.1);
+  --shadow-raw-lg: 0 16px 36px -10px hsl(var(--shadow-color) / 0.14);
+  --shadow-raw-xl: 0 28px 56px -16px hsl(var(--shadow-color) / 0.18);
 }
 
 .dark {
-  --background: oklch(0.17 0.014 20);
-  --foreground: oklch(0.96 0.008 20);
-  --card: oklch(0.22 0.018 20);
-  --card-foreground: oklch(0.96 0.008 20);
-  --popover: oklch(0.22 0.018 20);
-  --popover-foreground: oklch(0.96 0.008 20);
-  --primary: oklch(0.62 0.1 335);
-  --primary-foreground: oklch(0.18 0.02 335);
-  --secondary: oklch(0.28 0.03 20);
-  --secondary-foreground: oklch(0.92 0.02 20);
-  --muted: oklch(0.27 0.016 20);
-  --muted-foreground: oklch(0.66 0.02 20);
-  --accent: oklch(0.32 0.05 335);
-  --accent-foreground: oklch(0.92 0.03 335);
+  --background: oklch(0.17 0.014 40);
+  --foreground: oklch(0.96 0.008 45);
+  --card: oklch(0.22 0.018 40);
+  --card-foreground: oklch(0.96 0.008 45);
+  --popover: oklch(0.22 0.018 40);
+  --popover-foreground: oklch(0.96 0.008 45);
+  --primary: oklch(0.64 0.09 325);
+  --primary-foreground: oklch(0.18 0.02 325);
+  --secondary: oklch(0.28 0.028 45);
+  --secondary-foreground: oklch(0.92 0.018 45);
+  --muted: oklch(0.27 0.015 40);
+  --muted-foreground: oklch(0.66 0.02 40);
+  --accent: oklch(0.32 0.045 325);
+  --accent-foreground: oklch(0.92 0.03 325);
   --support: oklch(0.32 0.045 150);
   --support-foreground: oklch(0.88 0.04 150);
   --lavender: oklch(0.28 0.05 285);
   --lavender-foreground: oklch(0.88 0.035 285);
-  --blush: oklch(0.28 0.05 15);
-  --blush-foreground: oklch(0.88 0.04 15);
-  --attention: oklch(0.28 0.06 75);
+  --blush: oklch(0.28 0.05 10);
+  --blush-foreground: oklch(0.88 0.04 10);
+  --peach: oklch(0.3 0.05 55);
+  --peach-foreground: oklch(0.88 0.045 50);
+  --attention: oklch(0.28 0.06 80);
   --attention-foreground: oklch(0.88 0.05 75);
-  --destructive: oklch(0.65 0.2 35);
-  --destructive-foreground: oklch(0.18 0.02 35);
+  --destructive: oklch(0.65 0.18 30);
+  --destructive-foreground: oklch(0.18 0.02 30);
   --border: oklch(1 0 0 / 12%);
   --input: oklch(1 0 0 / 15%);
-  --ring: oklch(0.62 0.11 335);
-  --auth-panel: oklch(0.19 0.025 335);
+  --ring: oklch(0.64 0.1 325);
+  --auth-panel: oklch(0.19 0.024 325);
 
-  --shadow-color: 12 60% 4%;
+  --shadow-color: 20 60% 4%;
   --shadow-raw-xs: 0 1px 2px -1px hsl(var(--shadow-color) / 0.3);
   --shadow-raw-sm: 0 2px 6px -2px hsl(var(--shadow-color) / 0.35);
   --shadow-raw-md: 0 8px 20px -6px hsl(var(--shadow-color) / 0.4);
@@ -112,6 +126,8 @@
   --color-lavender-foreground: var(--lavender-foreground);
   --color-blush: var(--blush);
   --color-blush-foreground: var(--blush-foreground);
+  --color-peach: var(--peach);
+  --color-peach-foreground: var(--peach-foreground);
   --color-attention: var(--attention);
   --color-attention-foreground: var(--attention-foreground);
   --color-destructive: var(--destructive);
@@ -174,4 +190,104 @@
   h3 {
     @apply font-display;
   }
+}
+
+/**
+ * SIRILA landing-hero wordmark animation. Scoped to two small, named
+ * keyframes rather than a new animation library — the whole effect is
+ * "letters settle into place, then breathe very gently," nothing more.
+ * The global prefers-reduced-motion override above (animation-duration:
+ * 0.01ms, animation-iteration-count: 1) already neutralizes both of these
+ * correctly: the letter-in keyframe still lands on its readable end state
+ * (opacity 1, no offset) almost instantly, and the infinite breathe
+ * keyframe collapses to a single near-instant no-op instead of looping.
+ */
+@keyframes sirila-letter-in {
+  from {
+    opacity: 0;
+    transform: translateY(0.55em);
+    filter: blur(6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+    filter: blur(0);
+  }
+}
+
+@keyframes sirila-breathe {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-0.06em);
+  }
+}
+
+.sirila-letter {
+  display: inline-block;
+  opacity: 0;
+  animation: sirila-letter-in 900ms cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.sirila-wordmark-breathe {
+  display: inline-flex;
+  animation: sirila-breathe 6s ease-in-out 2.6s infinite;
+}
+
+/**
+ * Shared entrance-animation utilities, reused across pages/lists instead
+ * of one-off keyframes per component. The global prefers-reduced-motion
+ * override above already collapses these to a near-instant no-op, same as
+ * the SIRILA wordmark animations.
+ */
+@keyframes fade-in-up {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes shimmer-sweep {
+  from {
+    transform: translateX(-100%);
+  }
+  to {
+    transform: translateX(100%);
+  }
+}
+
+.animate-page-in {
+  animation: fade-in-up 320ms ease-out both;
+}
+
+.animate-fade-in-up {
+  animation: fade-in-up 400ms ease-out both;
+}
+
+/**
+ * Stagger helpers for list/grid entrances — apply alongside
+ * .animate-fade-in-up on successive items (e.g. via nth-child in a
+ * feature's own CSS, or by mapping index -> style delay inline) rather
+ * than a JS animation library.
+ */
+.animate-stagger-1 {
+  animation-delay: 60ms;
+}
+.animate-stagger-2 {
+  animation-delay: 120ms;
+}
+.animate-stagger-3 {
+  animation-delay: 180ms;
+}
+.animate-stagger-4 {
+  animation-delay: 240ms;
+}
+.animate-stagger-5 {
+  animation-delay: 300ms;
 }

@@ -1,4 +1,4 @@
-import { CalendarHeart, HeartPulse } from 'lucide-react'
+import { CalendarHeart, FlaskConical, HeartPulse } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
 import { Input } from '@/components/ui/input'
@@ -25,6 +25,7 @@ const colorTokens = [
   { swatchClass: 'bg-support', label: 'Support (sage)' },
   { swatchClass: 'bg-lavender', label: 'Lavender' },
   { swatchClass: 'bg-blush', label: 'Blush' },
+  { swatchClass: 'bg-peach', label: 'Peach' },
   { swatchClass: 'bg-attention', label: 'Attention' },
   { swatchClass: 'bg-destructive', label: 'Destructive' },
 ] as const
@@ -46,13 +47,21 @@ function DesignSystemPage() {
         </p>
         <h1 className="text-display font-display">SIRILA</h1>
         <p className="text-body-lg text-muted-foreground max-w-xl">
-          Foundation tokens for color, typography, and elevation used across the
+          Foundation tokens for color, typography, elevation, and motion used across the
           product.
         </p>
       </section>
 
       <section className="flex flex-col gap-4">
         <h2 className="text-heading font-display">Color</h2>
+        <p className="max-w-xl text-caption text-muted-foreground">
+          Deep plum as the primary anchor, with sage, lavender, blush, and peach as restrained
+          accent tones — never used as large fills, only for icon circles, badges, and small
+          highlights. Page background (<code className="text-foreground">--background</code>, warm
+          ivory) is deliberately a different tone than card surfaces (
+          <code className="text-foreground">--card</code>, near-white) — that two-tone contrast is
+          the elevation system: a card visibly lifts off the page without needing a heavy shadow.
+        </p>
         <div className="grid grid-cols-2 gap-4 sm:grid-cols-3">
           {colorTokens.map((token) => (
             <div key={token.label} className="flex flex-col gap-2">
@@ -175,6 +184,31 @@ function DesignSystemPage() {
           <p className="text-sm font-medium">PrivacyBadge</p>
           <PrivacyBadge />
         </div>
+
+        <div className="flex flex-col gap-2">
+          <p className="text-sm font-medium">Notice / alert (left accent bar, not a boxed banner)</p>
+          <div className="flex max-w-sm items-start gap-2.5 rounded-xl border-l-2 border-attention bg-attention/[0.07] px-3.5 py-3 text-caption text-attention-foreground">
+            <FlaskConical className="mt-0.5 size-4 shrink-0" aria-hidden="true" />
+            <p className="leading-relaxed">Example notice text using the shared attention treatment.</p>
+          </div>
+        </div>
+      </section>
+
+      <Separator />
+
+      <section className="flex flex-col gap-3">
+        <h2 className="text-heading font-display">Motion</h2>
+        <p className="max-w-xl text-caption text-muted-foreground">
+          Restrained by design — &quot;quiet luxury,&quot; not an animated website. Page-level content
+          fades and lifts in once on mount (
+          <code className="text-foreground">animate-in fade-in slide-in-from-bottom-2 duration-500</code>
+          ), never on every re-render. Every animated element also carries{' '}
+          <code className="text-foreground">motion-reduce:animate-none</code>, and the app additionally
+          disables all animation/transition duration globally under{' '}
+          <code className="text-foreground">prefers-reduced-motion: reduce</code> (see{' '}
+          <code className="text-foreground">src/index.css</code>). No page-transition library, no
+          parallax, no particle effects.
+        </p>
       </section>
     </div>
   )

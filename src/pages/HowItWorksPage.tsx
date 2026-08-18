@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom'
 import { BookMarked, Compass, NotebookPen, ShieldOff } from 'lucide-react'
 import { Button } from '@/components/ui/button'
+import ScrollReveal from '@/components/shared/ScrollReveal'
 import howItWorksImage from '@/assets/images/how-it-works-hero.png'
 
 const STEPS = [
@@ -29,7 +30,15 @@ const STEPS = [
 
 function HowItWorksPage() {
   return (
-    <main className="mx-auto flex w-full max-w-3xl flex-1 flex-col gap-10 px-4 py-14 sm:px-6">
+    <main className="relative mx-auto flex w-full max-w-3xl flex-1 flex-col gap-10 overflow-hidden px-4 py-14 sm:px-6">
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute inset-x-0 top-0 h-96"
+        style={{
+          background:
+            'radial-gradient(50% 60% at 50% 0%, color-mix(in oklch, var(--primary), transparent 94%) 0%, transparent 100%)',
+        }}
+      />
       <div className="flex flex-col gap-2 animate-in fade-in slide-in-from-bottom-1 duration-500 motion-reduce:animate-none">
         <p className="text-caption font-medium tracking-wide text-primary uppercase">How It Works</p>
         <h1 className="text-title font-display text-foreground">How SIRILA Works</h1>
@@ -69,26 +78,28 @@ function HowItWorksPage() {
 
       <div className="relative flex flex-col gap-8 rounded-2xl border border-border bg-card p-6 shadow-sm sm:p-8">
         {STEPS.map((step, index) => (
-          <div key={step.title} className="relative flex gap-4">
-            {index < STEPS.length - 1 && (
+          <ScrollReveal key={step.title} delay={index * 100}>
+            <div className="relative flex gap-4">
+              {index < STEPS.length - 1 && (
+                <div
+                  className="absolute top-12 left-6 h-[calc(100%+2rem)] w-px bg-border"
+                  aria-hidden="true"
+                />
+              )}
               <div
-                className="absolute top-12 left-6 h-[calc(100%+2rem)] w-px bg-border"
-                aria-hidden="true"
-              />
-            )}
-            <div
-              className={`relative z-10 flex size-12 shrink-0 items-center justify-center rounded-full ${step.accent} font-display text-lg`}
-            >
-              <step.icon className="size-5" aria-hidden="true" />
+                className={`relative z-10 flex size-12 shrink-0 items-center justify-center rounded-full ${step.accent} font-display text-lg transition-transform duration-300`}
+              >
+                <step.icon className="size-5" aria-hidden="true" />
+              </div>
+              <div className="flex flex-col gap-1 pt-1.5">
+                <p className="text-caption font-medium tracking-wide text-muted-foreground uppercase">
+                  Step {index + 1}
+                </p>
+                <h2 className="font-display text-lg text-foreground">{step.title}</h2>
+                <p className="text-body text-muted-foreground">{step.description}</p>
+              </div>
             </div>
-            <div className="flex flex-col gap-1 pt-1.5">
-              <p className="text-caption font-medium tracking-wide text-muted-foreground uppercase">
-                Step {index + 1}
-              </p>
-              <h2 className="font-display text-lg text-foreground">{step.title}</h2>
-              <p className="text-body text-muted-foreground">{step.description}</p>
-            </div>
-          </div>
+          </ScrollReveal>
         ))}
       </div>
 

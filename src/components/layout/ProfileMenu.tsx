@@ -28,6 +28,8 @@ function getInitials(name: string | undefined, email: string | undefined): strin
   return `${parts[0][0]}${parts[parts.length - 1][0]}`.toUpperCase()
 }
 
+const ITEM_CLASS = 'text-hero-panel-foreground hover:bg-hero-panel-foreground/8 focus:bg-hero-panel-foreground/8 focus:text-hero-panel-foreground'
+
 /**
  * Profile ▾ — avatar dropdown. Every item links to a real, already-built
  * destination — Notifications → the real reminder preferences on
@@ -46,63 +48,66 @@ function ProfileMenu() {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger
-        className="flex size-8 items-center justify-center rounded-full bg-primary text-xs font-semibold text-primary-foreground outline-none transition-opacity hover:opacity-90 focus-visible:ring-3 focus-visible:ring-ring/50"
+        className="flex size-8 items-center justify-center rounded-full bg-peach text-xs font-semibold text-peach-foreground outline-none ring-1 ring-hero-panel-foreground/15 transition-opacity hover:opacity-90 focus-visible:ring-3 focus-visible:ring-peach/40"
         aria-label="Open profile menu"
       >
         {initials}
       </DropdownMenuTrigger>
-      <DropdownMenuContent align="end" className="min-w-64">
+      <DropdownMenuContent
+        align="end"
+        className="min-w-64 rounded-2xl border border-hero-panel-foreground/15 bg-hero-panel/70 text-hero-panel-foreground shadow-[0_12px_40px_rgba(0,0,0,0.35),0_0_28px_rgba(168,120,255,0.12)] backdrop-blur-xl"
+      >
         {(profile?.fullName || user?.email) && (
           <div className="px-2 py-1.5">
-            {profile?.fullName && <p className="truncate text-sm font-medium text-foreground">{profile.fullName}</p>}
-            {user?.email && <p className="truncate text-caption text-muted-foreground">{user.email}</p>}
+            {profile?.fullName && <p className="truncate text-sm font-medium text-hero-panel-foreground">{profile.fullName}</p>}
+            {user?.email && <p className="truncate text-caption text-hero-panel-foreground/60">{user.email}</p>}
           </div>
         )}
-        <DropdownMenuSeparator />
-        <DropdownMenuItem asChild>
+        <DropdownMenuSeparator className="bg-hero-panel-foreground/12" />
+        <DropdownMenuItem asChild className={ITEM_CLASS}>
           <Link to="/profile" className="flex items-center gap-2">
-            <User className="size-4 text-primary" aria-hidden="true" />
+            <User className="size-4 text-peach" aria-hidden="true" />
             Profile
           </Link>
         </DropdownMenuItem>
-        <DropdownMenuItem asChild>
+        <DropdownMenuItem asChild className={ITEM_CLASS}>
           <Link to="/profile#account-settings" className="flex items-center gap-2">
-            <Settings className="size-4 text-primary" aria-hidden="true" />
+            <Settings className="size-4 text-peach" aria-hidden="true" />
             Account Settings
           </Link>
         </DropdownMenuItem>
-        <DropdownMenuItem asChild>
+        <DropdownMenuItem asChild className={ITEM_CLASS}>
           <Link to="/goals#reminders" className="flex items-center gap-2">
-            <Bell className="size-4 text-primary" aria-hidden="true" />
+            <Bell className="size-4 text-peach" aria-hidden="true" />
             Notifications
           </Link>
         </DropdownMenuItem>
-        <DropdownMenuItem asChild>
+        <DropdownMenuItem asChild className={ITEM_CLASS}>
           <Link to="/profile#privacy" className="flex items-center gap-2">
-            <ShieldCheck className="size-4 text-primary" aria-hidden="true" />
+            <ShieldCheck className="size-4 text-peach" aria-hidden="true" />
             Privacy
           </Link>
         </DropdownMenuItem>
-        <DropdownMenuItem asChild>
+        <DropdownMenuItem asChild className={ITEM_CLASS}>
           <Link to="/profile#privacy" className="flex items-center gap-2">
-            <Lock className="size-4 text-primary" aria-hidden="true" />
+            <Lock className="size-4 text-peach" aria-hidden="true" />
             Security
           </Link>
         </DropdownMenuItem>
-        <DropdownMenuItem asChild>
+        <DropdownMenuItem asChild className={ITEM_CLASS}>
           <Link to="/reports#export" className="flex items-center gap-2">
-            <Download className="size-4 text-primary" aria-hidden="true" />
+            <Download className="size-4 text-peach" aria-hidden="true" />
             Export Data
           </Link>
         </DropdownMenuItem>
-        <DropdownMenuItem asChild>
+        <DropdownMenuItem asChild className={ITEM_CLASS}>
           <Link to="/profile#privacy" className="flex items-center gap-2">
             <Trash2 className="size-4 text-destructive" aria-hidden="true" />
             Delete Data
           </Link>
         </DropdownMenuItem>
-        <DropdownMenuSeparator />
-        <DropdownMenuItem onClick={logout} disabled={isLoggingOut}>
+        <DropdownMenuSeparator className="bg-hero-panel-foreground/12" />
+        <DropdownMenuItem onClick={logout} disabled={isLoggingOut} className={ITEM_CLASS}>
           <LogOut className="size-4" aria-hidden="true" />
           {isLoggingOut ? 'Signing out…' : 'Sign Out'}
         </DropdownMenuItem>

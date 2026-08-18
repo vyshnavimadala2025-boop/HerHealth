@@ -7,8 +7,9 @@ import { cn } from "@/lib/utils"
 function NavigationMenu({
   className,
   children,
+  viewportClassName,
   ...props
-}: React.ComponentProps<typeof NavigationMenuPrimitive.Root>) {
+}: React.ComponentProps<typeof NavigationMenuPrimitive.Root> & { viewportClassName?: string }) {
   return (
     <NavigationMenuPrimitive.Root
       data-slot="navigation-menu"
@@ -16,7 +17,7 @@ function NavigationMenu({
       {...props}
     >
       {children}
-      <NavigationMenuViewport />
+      <NavigationMenuViewport className={viewportClassName} />
     </NavigationMenuPrimitive.Root>
   )
 }
@@ -117,7 +118,7 @@ function NavigationMenuLink({
     <Comp
       data-slot="navigation-menu-link"
       className={cn(
-        "flex flex-col gap-1 rounded-lg p-2.5 text-sm outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus-visible:bg-accent focus-visible:text-accent-foreground focus-visible:ring-3 focus-visible:ring-ring/50",
+        "flex flex-col gap-1 rounded-lg p-2.5 text-sm outline-none transition-colors duration-200 hover:bg-accent hover:text-accent-foreground focus-visible:bg-accent focus-visible:text-accent-foreground focus-visible:ring-3 focus-visible:ring-ring/50",
         className,
       )}
       {...props}

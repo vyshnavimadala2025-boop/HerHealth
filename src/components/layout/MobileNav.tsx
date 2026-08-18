@@ -33,6 +33,8 @@ import { cn } from '@/lib/utils'
 
 interface MobileNavProps {
   variant: 'public' | 'authenticated'
+  /** Themes only the hamburger trigger button, for PublicNavbar's home-page-only violet glass navbar. Defaults to 'light'; the slide-in sheet content is unaffected either way. */
+  theme?: 'light' | 'hero'
 }
 
 const TOP_LINK_CLASS = 'flex min-h-11 items-center rounded-lg px-2 py-2.5 text-sm font-medium text-foreground hover:bg-muted'
@@ -89,14 +91,20 @@ function CategoryDetails({ label, items, pathname }: CategoryDetailsProps) {
  * reader-accessible with zero extra JS, mirroring the same two focused
  * dropdowns shown on desktop instead of one oversized "Products" list.
  */
-function MobileNav({ variant }: MobileNavProps) {
+function MobileNav({ variant, theme = 'light' }: MobileNavProps) {
   const { logout, isLoggingOut } = useLogout()
   const { pathname } = useLocation()
 
   return (
     <Sheet>
       <SheetTrigger asChild>
-        <Button type="button" variant="ghost" size="icon" aria-label="Open menu" className="md:hidden">
+        <Button
+          type="button"
+          variant="ghost"
+          size="icon"
+          aria-label="Open menu"
+          className={cn('lg:hidden', theme === 'hero' && 'text-hero-panel-foreground hover:bg-hero-panel-foreground/10 hover:text-hero-panel-foreground')}
+        >
           <Menu />
         </Button>
       </SheetTrigger>

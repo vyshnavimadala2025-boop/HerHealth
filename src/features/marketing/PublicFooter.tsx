@@ -11,6 +11,7 @@ const FOOTER_COLUMNS: FooterColumn[] = [
     heading: 'Product',
     links: [
       { label: 'Daily Check-In', href: '/dashboard#checkin' },
+      { label: 'SIRILA Intelligence', href: '/ai' },
       { label: 'Cycle Tracker', href: '/cycle-tracker' },
       { label: 'Wellness Insights', href: '/dashboard#insights' },
       { label: 'Private Journal', href: '/journal' },
@@ -44,18 +45,32 @@ const FOOTER_COLUMNS: FooterColumn[] = [
 
 function PublicFooter() {
   return (
-    <footer className="border-t border-border bg-muted/40">
-      <div className="mx-auto w-full max-w-6xl px-4 py-12 sm:px-6">
-        <div className="grid grid-cols-2 gap-8 sm:grid-cols-4">
+    <footer className="border-t border-border bg-background">
+      <div className="mx-auto grid w-full max-w-6xl gap-12 px-4 py-16 sm:px-6 lg:grid-cols-[1.2fr_2fr] lg:gap-16 lg:py-20">
+        <div className="flex flex-col gap-3">
+          <Link to="/" className="flex items-center gap-2 font-display text-lg text-foreground">
+            <HeartPulse className="size-5 text-primary" aria-hidden="true" />
+            SIRILA
+          </Link>
+          <p className="max-w-xs text-caption text-muted-foreground">
+            Smart Intelligent Responsive Insights Life Assistant
+          </p>
+          <p className="font-display text-base text-foreground/80 italic">Understand yourself. Live better.</p>
+        </div>
+
+        <div className="grid grid-cols-2 gap-x-8 gap-y-10 sm:grid-cols-4">
           {FOOTER_COLUMNS.map((column) => (
-            <div key={column.heading} className="flex flex-col gap-3">
-              <p className="text-caption font-medium tracking-wide text-muted-foreground uppercase">
+            <div key={column.heading} className="flex flex-col gap-3.5">
+              <p className="text-caption font-medium tracking-[0.1em] text-muted-foreground uppercase">
                 {column.heading}
               </p>
-              <ul className="flex flex-col gap-2">
+              <ul className="flex flex-col gap-2.5">
                 {column.links.map((link) => (
                   <li key={link.label}>
-                    <Link to={link.href} className="text-sm text-muted-foreground hover:text-foreground">
+                    <Link
+                      to={link.href}
+                      className="text-sm text-muted-foreground transition-colors hover:text-foreground"
+                    >
                       {link.label}
                     </Link>
                   </li>
@@ -64,17 +79,12 @@ function PublicFooter() {
             </div>
           ))}
         </div>
+      </div>
 
-        <div className="mt-10 flex flex-col items-center gap-4 border-t border-border pt-6 text-caption text-muted-foreground sm:flex-row sm:items-start sm:justify-between">
-          <div className="flex flex-col items-center gap-1 sm:items-start">
-            <Link to="/" className="flex items-center gap-2 font-display text-sm font-medium text-foreground">
-              <HeartPulse className="size-4 text-primary" aria-hidden="true" />
-              SIRILA
-            </Link>
-            <p>Smart Intelligent Responsive Insights Life Assistant</p>
-            <p>Understand yourself. Live better.</p>
-          </div>
+      <div className="border-t border-border">
+        <div className="mx-auto flex w-full max-w-6xl flex-col items-center gap-2 px-4 py-6 text-caption text-muted-foreground sm:flex-row sm:justify-between sm:px-6">
           <p>&copy; {new Date().getFullYear()} SIRILA. All rights reserved.</p>
+          <p>Private by design. Not medical advice.</p>
         </div>
       </div>
     </footer>

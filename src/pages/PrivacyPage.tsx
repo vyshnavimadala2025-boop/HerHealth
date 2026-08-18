@@ -12,6 +12,7 @@ import {
   type LucideIcon,
 } from 'lucide-react'
 import { Button } from '@/components/ui/button'
+import ScrollReveal from '@/components/shared/ScrollReveal'
 import privacyImage from '@/assets/images/herhealth-privacy-personal-space.png'
 
 const PRINCIPLES: { icon: LucideIcon; accent: string; title: string; description: string }[] = [
@@ -99,18 +100,20 @@ function PrivacyPage() {
         <section className="flex flex-col gap-8">
           <h2 className="font-display text-heading text-foreground">How we think about your privacy</h2>
           <div className="flex flex-col gap-8">
-            {PRINCIPLES.map((principle) => (
-              <div key={principle.title} className="flex gap-4">
-                <div
-                  className={`flex size-11 shrink-0 items-center justify-center rounded-full ${principle.accent}`}
-                >
-                  <principle.icon className="size-5" aria-hidden="true" />
+            {PRINCIPLES.map((principle, index) => (
+              <ScrollReveal key={principle.title} delay={index * 80}>
+                <div className="flex gap-4">
+                  <div
+                    className={`flex size-11 shrink-0 items-center justify-center rounded-full ${principle.accent}`}
+                  >
+                    <principle.icon className="size-5" aria-hidden="true" />
+                  </div>
+                  <div className="flex flex-col gap-1 pt-1">
+                    <h3 className="font-display text-lg text-foreground">{principle.title}</h3>
+                    <p className="text-body text-muted-foreground">{principle.description}</p>
+                  </div>
                 </div>
-                <div className="flex flex-col gap-1 pt-1">
-                  <h3 className="font-display text-lg text-foreground">{principle.title}</h3>
-                  <p className="text-body text-muted-foreground">{principle.description}</p>
-                </div>
-              </div>
+              </ScrollReveal>
             ))}
           </div>
 
@@ -133,7 +136,7 @@ function PrivacyPage() {
         <section className="flex flex-col gap-5">
           <h2 className="font-display text-heading text-foreground">Your data controls</h2>
           <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
-            <div className="flex flex-col gap-3 rounded-2xl border border-border bg-card p-5 shadow-sm">
+            <div className="flex flex-col gap-3 rounded-2xl border border-border bg-card p-5 shadow-sm transition-all duration-200 hover:-translate-y-0.5 hover:border-primary/30 hover:shadow-md">
               <div className="flex size-9 items-center justify-center rounded-full bg-accent text-accent-foreground">
                 <Download className="size-4" aria-hidden="true" />
               </div>
@@ -145,7 +148,7 @@ function PrivacyPage() {
                 <Link to="/reports">Go to Wellness Reports</Link>
               </Button>
             </div>
-            <div className="flex flex-col gap-3 rounded-2xl border border-border bg-card p-5 shadow-sm">
+            <div className="flex flex-col gap-3 rounded-2xl border border-border bg-card p-5 shadow-sm transition-all duration-200 hover:-translate-y-0.5 hover:border-primary/30 hover:shadow-md">
               <div className="flex size-9 items-center justify-center rounded-full bg-attention text-attention-foreground">
                 <Trash2 className="size-4" aria-hidden="true" />
               </div>

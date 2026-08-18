@@ -68,8 +68,11 @@ function SignupPage() {
         </div>
       ) : (
         <>
-          <div className="flex flex-col gap-2">
-            <h1 className="text-heading font-display text-foreground">Begin your wellness journey</h1>
+          <div className="flex flex-col gap-3">
+            <p className="text-caption font-medium tracking-[0.14em] text-primary uppercase">Get started</p>
+            <h1 className="text-title font-display text-foreground">
+              Begin your <span className="italic text-primary">wellness journey.</span>
+            </h1>
             <p className="text-body text-muted-foreground">
               Create your private SIRILA space and start understanding your wellness, one day at
               a time.

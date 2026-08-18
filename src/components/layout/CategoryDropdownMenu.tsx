@@ -24,6 +24,13 @@ export interface CategoryMenuItem {
 interface CategoryDropdownMenuProps {
   label: string
   items: CategoryMenuItem[]
+  /**
+   * 'hero' renders the dropdown as a dark glassmorphism panel for use on
+   * PublicNavbar's home-page-only violet theme (over the cinematic hero).
+   * Defaults to 'light', the original popover styling — AuthenticatedNav
+   * and every non-home public route keep using that default unchanged.
+   */
+  theme?: 'light' | 'hero'
 }
 
 /**
@@ -35,15 +42,30 @@ interface CategoryDropdownMenuProps {
  * a third instance of this same component with its own catalog file —
  * no new dropdown component required.
  */
-function CategoryDropdownMenu({ label, items }: CategoryDropdownMenuProps) {
+function CategoryDropdownMenu({ label, items, theme = 'light' }: CategoryDropdownMenuProps) {
   const { pathname } = useLocation()
   const twoColumn = items.length > 5
+  const hero = theme === 'hero'
 
   return (
-    <NavigationMenu>
+    <NavigationMenu
+      viewportClassName={
+        hero
+          ? 'rounded-2xl border border-hero-panel-foreground/15 bg-hero-panel/70 text-hero-panel-foreground shadow-[0_12px_40px_rgba(0,0,0,0.35),0_0_28px_rgba(168,120,255,0.12)] backdrop-blur-xl'
+          : undefined
+      }
+    >
       <NavigationMenuList>
         <NavigationMenuItem>
-          <NavigationMenuTrigger>{label}</NavigationMenuTrigger>
+          <NavigationMenuTrigger
+            className={
+              hero
+                ? 'text-hero-panel-foreground/85 hover:text-hero-panel-foreground data-[state=open]:text-hero-panel-foreground'
+                : undefined
+            }
+          >
+            {label}
+          </NavigationMenuTrigger>
           <NavigationMenuContent>
             <ul
               className={cn(
@@ -57,17 +79,33 @@ function CategoryDropdownMenu({ label, items }: CategoryDropdownMenuProps) {
                 return (
                   <li key={item.key}>
                     {showGroupLabel && (
-                      <p className="px-2 pt-2 pb-1 text-[0.7rem] font-medium tracking-wide text-muted-foreground uppercase first:pt-0.5">
+                      <p
+                        className={cn(
+                          'px-2 pt-2 pb-1 text-[0.7rem] font-medium tracking-wide uppercase first:pt-0.5',
+                          hero ? 'text-hero-panel-foreground/45' : 'text-muted-foreground',
+                        )}
+                      >
                         {item.group}
                       </p>
                     )}
-                    <NavigationMenuLink asChild aria-current={active ? 'page' : undefined}>
-                      <Link to={item.href} className={cn(active && 'bg-accent/60')}>
-                        <span className="flex items-center gap-2 text-sm font-medium text-foreground">
-                          <item.icon className="size-4 text-primary" aria-hidden="true" />
+                    <NavigationMenuLink
+                      asChild
+                      aria-current={active ? 'page' : undefined}
+                      className={hero ? 'hover:bg-hero-panel-foreground/8 focus-visible:bg-hero-panel-foreground/8 focus-visible:ring-peach/40' : undefined}
+                    >
+                      <Link to={item.href} className={cn(active && (hero ? 'bg-hero-panel-foreground/12' : 'bg-accent/60'))}>
+                        <span
+                          className={cn(
+                            'flex items-center gap-2 text-sm font-medium',
+                            hero ? 'text-hero-panel-foreground' : 'text-foreground',
+                          )}
+                        >
+                          <item.icon className={cn('size-4', hero ? 'text-peach' : 'text-primary')} aria-hidden="true" />
                           {item.name}
                         </span>
-                        <span className="text-caption text-muted-foreground">{item.description}</span>
+                        <span className={cn('text-caption', hero ? 'text-hero-panel-foreground/60' : 'text-muted-foreground')}>
+                          {item.description}
+                        </span>
                       </Link>
                     </NavigationMenuLink>
                   </li>

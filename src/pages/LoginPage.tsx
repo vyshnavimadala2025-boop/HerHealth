@@ -2,7 +2,7 @@ import { useRef, useState } from 'react'
 import { Link, useLocation, useNavigate, type Location } from 'react-router-dom'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
-import { Loader2 } from 'lucide-react'
+import { Loader2, ShieldCheck } from 'lucide-react'
 
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
@@ -48,10 +48,13 @@ function LoginPage() {
 
   return (
     <AuthLayout>
-      <div className="flex flex-col gap-2">
-        <h1 className="text-heading font-display text-foreground">Welcome back</h1>
+      <div className="flex flex-col gap-3">
+        <p className="text-caption font-medium tracking-[0.14em] text-primary uppercase">Welcome back</p>
+        <h1 className="text-title font-display text-foreground">
+          Continue your <span className="italic text-primary">journey.</span>
+        </h1>
         <p className="text-body text-muted-foreground">
-          Continue your wellness journey with a private space designed around you.
+          Sign in to your private space, designed around you.
         </p>
       </div>
 
@@ -121,6 +124,16 @@ function LoginPage() {
             Create an account
           </Link>
         </p>
+
+        <div className="mt-2 flex flex-col items-center gap-2 border-t border-border pt-5">
+          <p className="text-caption text-muted-foreground">Are you an administrator?</p>
+          <Button asChild type="button" variant="outline" size="sm" className="rounded-xl">
+            <Link to="/admin-login">
+              <ShieldCheck className="size-3.5" aria-hidden="true" />
+              Admin Login
+            </Link>
+          </Button>
+        </div>
       </form>
     </AuthLayout>
   )

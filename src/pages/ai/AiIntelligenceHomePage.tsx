@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { ImageIcon, Loader2, NotebookText, Sparkles, X } from 'lucide-react'
+import { ImageIcon, Loader2, MessageCircleHeart, NotebookText, Sparkles, Stethoscope, X } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card'
 import PageHeader from '@/components/shared/PageHeader'
@@ -13,6 +13,11 @@ import { useAiMemory } from '@/features/aiIntelligence/useAiMemory'
 import { getConsentState, hasGrantedProcessingConsent } from '@/features/aiIntelligence/consent'
 import { AI_CAPABILITIES } from '@/features/aiIntelligence/constants'
 import type { AiCapability } from '@/features/aiIntelligence/types'
+
+const CAPABILITY_ICON: Record<AiCapability, typeof MessageCircleHeart> = {
+  ask_sirila: MessageCircleHeart,
+  symptom_insight: Stethoscope,
+}
 
 /**
  * SIRILA Intelligence entry point. Purpose-built capability picker, not a
@@ -43,7 +48,7 @@ function AiIntelligenceHomePage() {
       <PreviewGateNotice />
 
       <div className="flex flex-col items-start gap-4">
-        <div className="flex size-14 items-center justify-center rounded-full bg-lavender text-lavender-foreground">
+        <div className="flex size-14 items-center justify-center rounded-full bg-lavender text-lavender-foreground shadow-xs">
           <Sparkles className="size-6" aria-hidden="true" />
         </div>
         <PageHeader
@@ -62,27 +67,36 @@ function AiIntelligenceHomePage() {
       ) : (
         <>
           <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
-            {AI_CAPABILITIES.map((capability) => (
-              <Card key={capability.value}>
-                <CardHeader>
-                  <CardTitle>{capability.label}</CardTitle>
-                  <CardDescription>{capability.tagline}</CardDescription>
-                </CardHeader>
-                <CardContent className="flex flex-col gap-3 pb-6">
-                  <p className="text-caption text-muted-foreground">{capability.description}</p>
-                  <Button
-                    type="button"
-                    size="sm"
-                    className="self-start"
-                    disabled={creating !== null}
-                    onClick={() => handleStart(capability.value)}
-                  >
-                    {creating === capability.value && <Loader2 className="animate-spin" aria-hidden="true" />}
-                    Start
-                  </Button>
-                </CardContent>
-              </Card>
-            ))}
+            {AI_CAPABILITIES.map((capability) => {
+              const Icon = CAPABILITY_ICON[capability.value]
+              return (
+                <Card
+                  key={capability.value}
+                  className="transition-shadow hover:shadow-sm"
+                >
+                  <CardHeader>
+                    <div className="flex size-9 items-center justify-center rounded-lg bg-accent text-accent-foreground">
+                      <Icon className="size-4.5" aria-hidden="true" />
+                    </div>
+                    <CardTitle className="mt-2">{capability.label}</CardTitle>
+                    <CardDescription>{capability.tagline}</CardDescription>
+                  </CardHeader>
+                  <CardContent className="flex flex-col gap-3 pb-6">
+                    <p className="text-caption text-muted-foreground">{capability.description}</p>
+                    <Button
+                      type="button"
+                      size="sm"
+                      className="self-start"
+                      disabled={creating !== null}
+                      onClick={() => handleStart(capability.value)}
+                    >
+                      {creating === capability.value && <Loader2 className="animate-spin" aria-hidden="true" />}
+                      Start
+                    </Button>
+                  </CardContent>
+                </Card>
+              )
+            })}
           </div>
 
           <div className="flex items-center justify-between">

@@ -1,6 +1,7 @@
 import { Outlet } from "react-router-dom"
 import PublicNavbar from "@/components/layout/PublicNavbar"
 import AuthenticatedNav from "@/components/layout/AuthenticatedNav"
+import PageTransition from "@/components/layout/PageTransition"
 import PublicFooter from "@/features/marketing/PublicFooter"
 
 interface AppShellProps {
@@ -29,7 +30,9 @@ function AppShell({ variant }: AppShellProps) {
       </a>
       {variant === "public" ? <PublicNavbar /> : <AuthenticatedNav />}
       <main id="main-content" tabIndex={-1} className="flex flex-1 flex-col outline-none">
-        <Outlet />
+        <PageTransition>
+          <Outlet />
+        </PageTransition>
       </main>
       <PublicFooter />
     </div>

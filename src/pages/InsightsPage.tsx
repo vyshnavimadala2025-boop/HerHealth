@@ -10,6 +10,7 @@ import InsightCard from '@/features/insights/InsightCard'
 import InsightsSubNav from '@/features/insights/InsightsSubNav'
 import { INSIGHT_GROUPS, INSIGHT_CARDS, insightCardHref } from '@/components/layout/insightsCatalog'
 import { formatFriendlyDate } from '@/features/periods/dateUtils'
+import { cn } from '@/lib/utils'
 
 function trendBadgeClassName(trend: string) {
   if (trend === 'Improving') return 'bg-support text-support-foreground'
@@ -80,27 +81,29 @@ function InsightsPage() {
       )}
 
       {status === 'ready' && summary && (
-        <div className="grid grid-cols-2 gap-4 lg:grid-cols-4">
-          <div className="flex flex-col gap-1 rounded-2xl border border-border bg-card p-4 shadow-sm">
+        <div className="grid grid-cols-2 divide-y divide-border rounded-2xl border border-border bg-card sm:grid-cols-4 sm:divide-x sm:divide-y-0">
+          <div className="flex flex-col gap-1 p-4">
             <p className="text-caption font-medium tracking-wide text-muted-foreground uppercase">Check-ins</p>
-            <p className="text-lg font-medium text-foreground">
+            <p className="font-display text-2xl text-foreground">
               {summary.checkIns.count}
               {summary.checkIns.daysInRange > 0 && (
-                <span className="text-caption text-muted-foreground"> ({summary.checkIns.consistencyPercent}%)</span>
+                <span className="ml-1 text-caption font-sans text-muted-foreground">
+                  ({summary.checkIns.consistencyPercent}%)
+                </span>
               )}
             </p>
           </div>
-          <div className="flex flex-col gap-1 rounded-2xl border border-border bg-card p-4 shadow-sm">
+          <div className="flex flex-col gap-1.5 p-4">
             <p className="text-caption font-medium tracking-wide text-muted-foreground uppercase">Mood trend</p>
-            <Badge className={trendBadgeClassName(insightsData.moodTrend)}>{insightsData.moodTrend}</Badge>
+            <Badge className={cn('w-fit', trendBadgeClassName(insightsData.moodTrend))}>{insightsData.moodTrend}</Badge>
           </div>
-          <div className="flex flex-col gap-1 rounded-2xl border border-border bg-card p-4 shadow-sm">
+          <div className="flex flex-col gap-1.5 p-4">
             <p className="text-caption font-medium tracking-wide text-muted-foreground uppercase">Energy trend</p>
-            <Badge className={trendBadgeClassName(insightsData.energyTrend)}>{insightsData.energyTrend}</Badge>
+            <Badge className={cn('w-fit', trendBadgeClassName(insightsData.energyTrend))}>{insightsData.energyTrend}</Badge>
           </div>
-          <div className="flex flex-col gap-1 rounded-2xl border border-border bg-card p-4 shadow-sm">
+          <div className="flex flex-col gap-1 p-4">
             <p className="text-caption font-medium tracking-wide text-muted-foreground uppercase">Active goals</p>
-            <p className="text-lg font-medium text-foreground">{summary.goals.activeGoalCount}</p>
+            <p className="font-display text-2xl text-foreground">{summary.goals.activeGoalCount}</p>
           </div>
         </div>
       )}

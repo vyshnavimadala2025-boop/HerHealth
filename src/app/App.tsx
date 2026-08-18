@@ -197,7 +197,15 @@ function App() {
 
         <Route path="*" element={<NotFoundPage />} />
       </Routes>
-      <Toaster richColors position="top-center" />
+      <Toaster
+        richColors
+        position="top-center"
+        toastOptions={{
+          classNames: {
+            toast: 'rounded-xl! border! shadow-lg! font-sans!',
+          },
+        }}
+      />
     </>
   )
 }

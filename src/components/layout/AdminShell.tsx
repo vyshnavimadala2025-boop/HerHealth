@@ -2,6 +2,7 @@ import { Link, Outlet } from 'react-router-dom'
 import { ShieldCheck } from 'lucide-react'
 import AdminSidebar from '@/components/layout/AdminSidebar'
 import AdminTopHeader from '@/components/layout/AdminTopHeader'
+import PageTransition from '@/components/layout/PageTransition'
 
 /**
  * Layout shell for the /admin route subtree — parallel to AppShell, but a
@@ -39,7 +40,9 @@ function AdminShell() {
           className="flex-1 overflow-x-hidden px-4 py-6 outline-none sm:px-6 lg:px-8 lg:py-8"
         >
           <div className="mx-auto w-full max-w-6xl">
-            <Outlet />
+            <PageTransition>
+              <Outlet />
+            </PageTransition>
           </div>
         </main>
       </div>
