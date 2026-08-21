@@ -16,6 +16,7 @@ import {
   type LucideIcon,
 } from 'lucide-react'
 import { Button } from '@/components/ui/button'
+import AmbientOrb from '@/components/shared/AmbientOrb'
 import aboutImage from '@/assets/images/herhealth-about-hero.png'
 
 const VALUE_POINTS: { icon: LucideIcon; title: string; description: string }[] = [
@@ -138,7 +139,9 @@ function AboutPage() {
         />
       </section>
 
-      <div className="mx-auto flex w-full max-w-3xl flex-1 flex-col gap-16 px-4 py-16 sm:px-6">
+      <div className="relative mx-auto flex w-full max-w-3xl flex-1 flex-col gap-16 overflow-hidden px-4 py-16 sm:px-6">
+        <AmbientOrb color="var(--blush)" size={420} top="0px" right="-140px" opacity={0.12} drift={false} />
+        <AmbientOrb color="var(--lavender)" size={360} top="60%" left="-140px" opacity={0.1} drift={false} />
         <section className="flex flex-col gap-10 lg:flex-row lg:gap-14">
           <div className="flex flex-col gap-4 lg:w-1/2">
             <h2 className="font-display text-heading text-foreground">

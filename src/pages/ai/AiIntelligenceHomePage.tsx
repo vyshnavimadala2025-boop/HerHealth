@@ -5,6 +5,7 @@ import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card'
 import PageHeader from '@/components/shared/PageHeader'
 import PrivacyBadge from '@/components/shared/PrivacyBadge'
+import AmbientOrb from '@/components/shared/AmbientOrb'
 import PreviewGateNotice from '@/features/aiIntelligence/PreviewGateNotice'
 import ConsentGate from '@/features/aiIntelligence/ConsentGate'
 import ConversationList from '@/features/aiIntelligence/ConversationList'
@@ -44,7 +45,9 @@ function AiIntelligenceHomePage() {
   }
 
   return (
-    <main className="mx-auto flex w-full max-w-2xl flex-1 flex-col gap-6 p-4 py-8 animate-in fade-in duration-500 motion-reduce:animate-none sm:p-6">
+    <main className="relative mx-auto flex w-full max-w-2xl flex-1 flex-col gap-6 overflow-hidden p-4 py-8 animate-in fade-in duration-500 motion-reduce:animate-none sm:p-6">
+      <AmbientOrb color="var(--lavender)" size={380} top="-140px" right="-100px" opacity={0.08} drift={false} />
+
       <PreviewGateNotice />
 
       <div className="flex flex-col items-start gap-4">

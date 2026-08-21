@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom'
 import {
   Bell,
+  Crown,
   Download,
   Lock,
   LogOut,
@@ -74,6 +75,12 @@ function ProfileMenu() {
           <Link to="/profile#account-settings" className="flex items-center gap-2">
             <Settings className="size-4 text-peach" aria-hidden="true" />
             Account Settings
+          </Link>
+        </DropdownMenuItem>
+        <DropdownMenuItem asChild className={ITEM_CLASS}>
+          <Link to="/subscription" className="flex items-center gap-2">
+            <Crown className="size-4 text-peach" aria-hidden="true" />
+            Subscription
           </Link>
         </DropdownMenuItem>
         <DropdownMenuItem asChild className={ITEM_CLASS}>

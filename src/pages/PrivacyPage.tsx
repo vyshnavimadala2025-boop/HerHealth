@@ -13,6 +13,7 @@ import {
 } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import ScrollReveal from '@/components/shared/ScrollReveal'
+import AmbientOrb from '@/components/shared/AmbientOrb'
 import privacyImage from '@/assets/images/herhealth-privacy-personal-space.png'
 
 const PRINCIPLES: { icon: LucideIcon; accent: string; title: string; description: string }[] = [
@@ -64,8 +65,10 @@ const DOES_NOT = [
  */
 function PrivacyPage() {
   return (
-    <main className="flex flex-1 flex-col">
-      <section className="mx-auto w-full max-w-6xl px-4 pt-14 pb-4 sm:px-6 lg:pt-20 lg:pb-10">
+    <main className="relative flex flex-1 flex-col overflow-hidden">
+      <AmbientOrb color="var(--lavender)" size={480} top="-160px" left="-100px" opacity={0.13} />
+
+      <section className="relative mx-auto w-full max-w-6xl px-4 pt-14 pb-4 sm:px-6 lg:pt-20 lg:pb-10">
         <div className="grid grid-cols-1 gap-10 lg:grid-cols-2 lg:items-center lg:gap-14">
           <div className="flex flex-col items-start gap-4 animate-in fade-in slide-in-from-bottom-2 duration-700 motion-reduce:animate-none">
             <p className="text-caption font-medium tracking-wide text-primary uppercase">
@@ -179,20 +182,32 @@ function PrivacyPage() {
           </p>
         </section>
 
-        <section className="flex flex-col items-center gap-4 rounded-2xl border border-border bg-card px-6 py-12 text-center shadow-sm sm:px-10">
-          <h2 className="max-w-md text-title font-display text-foreground">
-            A more personal way to understand your wellness.
-          </h2>
-          <p className="max-w-md text-body text-muted-foreground">
-            Build awareness at your own pace in a space designed around your personal journey.
-          </p>
-          <div className="flex w-full flex-col gap-3 pt-2 sm:w-auto sm:flex-row">
-            <Button asChild size="lg" className="w-full sm:w-auto">
-              <Link to="/signup">Get Started</Link>
-            </Button>
-            <Button asChild variant="outline" size="lg" className="w-full sm:w-auto">
-              <Link to="/how-it-works">Learn How It Works</Link>
-            </Button>
+        <section className="relative overflow-hidden rounded-2xl bg-hero-panel px-6 py-12 text-center sm:px-10">
+          <AmbientOrb color="var(--hero-panel-accent)" size={360} top="-120px" right="-80px" opacity={0.2} />
+          <div className="relative flex flex-col items-center gap-4">
+            <h2 className="max-w-md text-title font-display text-hero-panel-foreground">
+              A more personal way to understand your wellness.
+            </h2>
+            <p className="max-w-md text-body text-hero-panel-foreground/75">
+              Build awareness at your own pace in a space designed around your personal journey.
+            </p>
+            <div className="flex w-full flex-col gap-3 pt-2 sm:w-auto sm:flex-row">
+              <Button
+                asChild
+                size="lg"
+                className="w-full bg-hero-panel-foreground text-hero-panel hover:bg-hero-panel-foreground/90 sm:w-auto"
+              >
+                <Link to="/signup">Get Started</Link>
+              </Button>
+              <Button
+                asChild
+                variant="outline"
+                size="lg"
+                className="w-full border-hero-panel-foreground/40 bg-transparent text-hero-panel-foreground hover:bg-hero-panel-foreground/10 sm:w-auto"
+              >
+                <Link to="/how-it-works">Learn How It Works</Link>
+              </Button>
+            </div>
           </div>
         </section>
       </div>

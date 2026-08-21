@@ -41,6 +41,7 @@ import HelpCenterPage from '@/pages/HelpCenterPage'
 import ReleaseNotesPage from '@/pages/ReleaseNotesPage'
 import GoalsPage from '@/pages/GoalsPage'
 import ReportsPage from '@/pages/ReportsPage'
+import SubscriptionPage from '@/pages/SubscriptionPage'
 import FeedbackPage from '@/pages/FeedbackPage'
 import DesignSystemPage from '@/pages/DesignSystemPage'
 import PrivacyPage from '@/pages/PrivacyPage'
@@ -148,6 +149,7 @@ function App() {
               <Route path="/wellness-score" element={<WellnessScorePage />} />
               <Route path="/goals" element={<GoalsPage />} />
               <Route path="/reports" element={<ReportsPage />} />
+              <Route path="/subscription" element={<SubscriptionPage />} />
               <Route path="/insights" element={<InsightsPage />} />
               <Route path="/insights/ai" element={<InsightsAiPage />} />
               <Route path="/insights/weekly" element={<InsightsWeeklyPage />} />

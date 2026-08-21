@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom'
 import { HeartPulse } from 'lucide-react'
+import AmbientOrb from '@/components/shared/AmbientOrb'
 
 interface FooterColumn {
   heading: string
@@ -43,25 +44,35 @@ const FOOTER_COLUMNS: FooterColumn[] = [
   },
 ]
 
+/**
+ * Continues the page's atmosphere into the footer rather than closing
+ * every page on a flat white/plain block — deep violet fading toward
+ * near-black, the same visual family as HeroSection/FinalCta's
+ * bg-hero-panel, so scrolling to the bottom of any page reads as the
+ * environment settling rather than an abrupt cut to a generic footer.
+ */
 function PublicFooter() {
   return (
-    <footer className="border-t border-border bg-background">
-      <div className="mx-auto grid w-full max-w-6xl gap-12 px-4 py-16 sm:px-6 lg:grid-cols-[1.2fr_2fr] lg:gap-16 lg:py-20">
+    <footer className="relative overflow-hidden border-t border-hero-panel-foreground/10 bg-gradient-to-b from-hero-panel to-[#080511]">
+      <AmbientOrb color="var(--hero-panel-accent)" size={560} top="-180px" left="-120px" opacity={0.16} />
+      <AmbientOrb color="var(--lavender)" size={420} bottom="-160px" right="-80px" opacity={0.12} />
+
+      <div className="relative mx-auto grid w-full max-w-6xl gap-12 px-4 py-16 sm:px-6 lg:grid-cols-[1.2fr_2fr] lg:gap-16 lg:py-20">
         <div className="flex flex-col gap-3">
-          <Link to="/" className="flex items-center gap-2 font-display text-lg text-foreground">
-            <HeartPulse className="size-5 text-primary" aria-hidden="true" />
+          <Link to="/" className="flex items-center gap-2 font-display text-lg text-hero-panel-foreground">
+            <HeartPulse className="size-5 text-peach" aria-hidden="true" />
             SIRILA
           </Link>
-          <p className="max-w-xs text-caption text-muted-foreground">
+          <p className="max-w-xs text-caption text-hero-panel-foreground/60">
             Smart Intelligent Responsive Insights Life Assistant
           </p>
-          <p className="font-display text-base text-foreground/80 italic">Understand yourself. Live better.</p>
+          <p className="font-display text-base text-hero-panel-foreground/80 italic">Understand yourself. Live better.</p>
         </div>
 
         <div className="grid grid-cols-2 gap-x-8 gap-y-10 sm:grid-cols-4">
           {FOOTER_COLUMNS.map((column) => (
             <div key={column.heading} className="flex flex-col gap-3.5">
-              <p className="text-caption font-medium tracking-[0.1em] text-muted-foreground uppercase">
+              <p className="text-caption font-medium tracking-[0.1em] text-hero-panel-foreground/50 uppercase">
                 {column.heading}
               </p>
               <ul className="flex flex-col gap-2.5">
@@ -69,7 +80,7 @@ function PublicFooter() {
                   <li key={link.label}>
                     <Link
                       to={link.href}
-                      className="text-sm text-muted-foreground transition-colors hover:text-foreground"
+                      className="text-sm text-hero-panel-foreground/70 transition-colors hover:text-hero-panel-foreground"
                     >
                       {link.label}
                     </Link>
@@ -81,8 +92,8 @@ function PublicFooter() {
         </div>
       </div>
 
-      <div className="border-t border-border">
-        <div className="mx-auto flex w-full max-w-6xl flex-col items-center gap-2 px-4 py-6 text-caption text-muted-foreground sm:flex-row sm:justify-between sm:px-6">
+      <div className="relative border-t border-hero-panel-foreground/10">
+        <div className="mx-auto flex w-full max-w-6xl flex-col items-center gap-2 px-4 py-6 text-caption text-hero-panel-foreground/45 sm:flex-row sm:justify-between sm:px-6">
           <p>&copy; {new Date().getFullYear()} SIRILA. All rights reserved.</p>
           <p>Private by design. Not medical advice.</p>
         </div>

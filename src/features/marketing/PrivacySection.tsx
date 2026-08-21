@@ -1,11 +1,13 @@
 import { Link } from 'react-router-dom'
 import { ShieldCheck } from 'lucide-react'
 import { Button } from '@/components/ui/button'
+import AmbientOrb from '@/components/shared/AmbientOrb'
 
 function PrivacySection() {
   return (
-    <section className="border-t border-border bg-muted/40">
-      <div className="mx-auto flex w-full max-w-3xl flex-col items-center gap-4 px-4 py-16 text-center sm:px-6">
+    <section className="relative overflow-hidden border-t border-border bg-muted/40">
+      <AmbientOrb color="var(--lavender)" size={420} top="-180px" right="10%" opacity={0.09} />
+      <div className="relative mx-auto flex w-full max-w-3xl flex-col items-center gap-4 px-4 py-16 text-center sm:px-6">
         <div className="flex size-12 items-center justify-center rounded-full bg-support text-support-foreground">
           <ShieldCheck className="size-6" aria-hidden="true" />
         </div>

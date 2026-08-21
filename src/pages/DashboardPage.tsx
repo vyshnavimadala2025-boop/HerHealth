@@ -13,6 +13,8 @@ import DashboardPcosWellnessCard from '@/features/pcosWellness/DashboardPcosWell
 import { useInsightsData } from '@/features/insights/useInsightsData'
 import WellnessInsightsCard from '@/features/insights/WellnessInsightsCard'
 import NextStepTile from '@/components/shared/NextStepTile'
+import SubscriptionDashboardTile from '@/features/subscription/SubscriptionDashboardTile'
+import AmbientOrb from '@/components/shared/AmbientOrb'
 
 type LoadStatus = 'loading' | 'ready' | 'error'
 
@@ -47,7 +49,9 @@ function DashboardPage() {
   }
 
   return (
-    <main className="mx-auto flex w-full max-w-5xl flex-1 flex-col gap-10 p-4 py-8 animate-in fade-in duration-500 motion-reduce:animate-none sm:p-6">
+    <main className="relative mx-auto flex w-full max-w-5xl flex-1 flex-col gap-10 overflow-hidden p-4 py-8 animate-in fade-in duration-500 motion-reduce:animate-none sm:p-6">
+      <AmbientOrb color="var(--primary)" size={420} top="-160px" right="-120px" opacity={0.06} drift={false} />
+
       <DashboardWelcomeHero firstName={firstName ?? ''} />
 
       <div id="checkin" className="scroll-mt-24">
@@ -139,6 +143,7 @@ function DashboardPage() {
             href="/reports"
             accentClassName="bg-accent text-accent-foreground"
           />
+          <SubscriptionDashboardTile />
         </div>
       </section>
 

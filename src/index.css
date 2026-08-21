@@ -291,3 +291,99 @@
 .animate-stagger-5 {
   animation-delay: 300ms;
 }
+
+/**
+ * Extremely subtle entrance for the hero artwork itself — the source
+ * image already carries its own visual effects (glow, sparkle), so this
+ * is deliberately minimal: a soft fade with a barely-perceptible
+ * 1.02 -> 1 scale settle, not a Ken Burns pan or anything competing with
+ * the artwork.
+ */
+@keyframes hero-image-in {
+  from {
+    opacity: 0;
+    transform: scale(1.02);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.animate-hero-image-in {
+  animation: hero-image-in 900ms ease-out both;
+}
+
+/**
+ * SIRILA Interaction Intelligence phone mockup — a gentle idle float for
+ * the phone frame and a slow drift/pulse for the decorative particles
+ * around it. Both are neutralized by the global prefers-reduced-motion
+ * override above (animation-duration collapses to 0.01ms), so no
+ * additional JS check is needed here.
+ */
+@keyframes phone-float {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-8px);
+  }
+}
+
+.animate-phone-float {
+  animation: phone-float 6s ease-in-out infinite;
+}
+
+@keyframes particle-drift {
+  0% {
+    transform: translate(0, 0) scale(1);
+    opacity: 0.35;
+  }
+  50% {
+    transform: translate(var(--particle-x, 8px), var(--particle-y, -10px)) scale(1.2);
+    opacity: 0.8;
+  }
+  100% {
+    transform: translate(0, 0) scale(1);
+    opacity: 0.35;
+  }
+}
+
+.animate-particle-drift {
+  animation: particle-drift var(--particle-duration, 5s) ease-in-out infinite;
+}
+
+@keyframes rhythm-pulse {
+  0%,
+  100% {
+    box-shadow: 0 0 0 0 color-mix(in oklch, var(--peach), transparent 55%);
+  }
+  50% {
+    box-shadow: 0 0 0 6px color-mix(in oklch, var(--peach), transparent 85%);
+  }
+}
+
+.animate-rhythm-pulse {
+  animation: rhythm-pulse 1.8s ease-in-out infinite;
+}
+
+/**
+ * Site-wide atmosphere system — large blurred glow orbs reused behind
+ * page content (AmbientOrb component) and a matching glass-surface hover
+ * treatment (SirilaGlassCard). Neutralized by the existing global
+ * prefers-reduced-motion override above.
+ */
+@keyframes orb-drift {
+  0%,
+  100% {
+    transform: translate(0, 0) scale(1);
+  }
+  50% {
+    transform: translate(var(--orb-x, 24px), var(--orb-y, -18px)) scale(1.06);
+  }
+}
+
+.animate-orb-drift {
+  animation: orb-drift var(--orb-duration, 16s) ease-in-out infinite;
+}

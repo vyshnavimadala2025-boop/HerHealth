@@ -2,6 +2,8 @@ import { Link } from 'react-router-dom'
 import { BookMarked, Compass, NotebookPen, ShieldOff } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import ScrollReveal from '@/components/shared/ScrollReveal'
+import AmbientOrb from '@/components/shared/AmbientOrb'
+import SirilaGlassCard from '@/components/shared/SirilaGlassCard'
 import howItWorksImage from '@/assets/images/how-it-works-hero.png'
 
 const STEPS = [
@@ -31,15 +33,10 @@ const STEPS = [
 function HowItWorksPage() {
   return (
     <main className="relative mx-auto flex w-full max-w-3xl flex-1 flex-col gap-10 overflow-hidden px-4 py-14 sm:px-6">
-      <div
-        aria-hidden="true"
-        className="pointer-events-none absolute inset-x-0 top-0 h-96"
-        style={{
-          background:
-            'radial-gradient(50% 60% at 50% 0%, color-mix(in oklch, var(--primary), transparent 94%) 0%, transparent 100%)',
-        }}
-      />
-      <div className="flex flex-col gap-2 animate-in fade-in slide-in-from-bottom-1 duration-500 motion-reduce:animate-none">
+      <AmbientOrb color="var(--primary)" size={520} top="-220px" left="50%" className="-translate-x-1/2" opacity={0.14} />
+      <AmbientOrb color="var(--lavender)" size={380} top="120px" right="-140px" opacity={0.16} />
+
+      <div className="relative flex flex-col gap-2 animate-in fade-in slide-in-from-bottom-1 duration-500 motion-reduce:animate-none">
         <p className="text-caption font-medium tracking-wide text-primary uppercase">How It Works</p>
         <h1 className="text-title font-display text-foreground">How SIRILA Works</h1>
         <p className="text-body text-muted-foreground">
@@ -76,13 +73,13 @@ function HowItWorksPage() {
         </figcaption>
       </figure>
 
-      <div className="relative flex flex-col gap-8 rounded-2xl border border-border bg-card p-6 shadow-sm sm:p-8">
+      <SirilaGlassCard tone="light" className="relative flex flex-col gap-8 p-6 shadow-sm sm:p-8">
         {STEPS.map((step, index) => (
           <ScrollReveal key={step.title} delay={index * 100}>
             <div className="relative flex gap-4">
               {index < STEPS.length - 1 && (
                 <div
-                  className="absolute top-12 left-6 h-[calc(100%+2rem)] w-px bg-border"
+                  className="absolute top-12 left-6 h-[calc(100%+2rem)] w-px bg-gradient-to-b from-primary/40 to-transparent"
                   aria-hidden="true"
                 />
               )}
@@ -101,7 +98,7 @@ function HowItWorksPage() {
             </div>
           </ScrollReveal>
         ))}
-      </div>
+      </SirilaGlassCard>
 
       <section className="flex gap-3 rounded-2xl border border-border bg-muted/30 p-5">
         <ShieldOff className="mt-0.5 size-5 shrink-0 text-muted-foreground" aria-hidden="true" />

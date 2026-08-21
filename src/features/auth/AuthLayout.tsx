@@ -2,6 +2,8 @@ import type { ReactNode } from 'react'
 import { Link } from 'react-router-dom'
 import { HeartPulse } from 'lucide-react'
 import authImage from '@/assets/images/herhealth-auth-wellness.png'
+import AmbientOrb from '@/components/shared/AmbientOrb'
+import SirilaGlassCard from '@/components/shared/SirilaGlassCard'
 
 interface AuthLayoutProps {
   children: ReactNode
@@ -32,19 +34,25 @@ function AuthLayout({ children }: AuthLayoutProps) {
         style={{ backgroundImage: `url(${authImage})` }}
       />
 
-      <main className="flex flex-1 flex-col bg-auth-panel px-5 py-6 sm:px-10 sm:py-8 lg:w-[44%] lg:px-12 lg:py-10">
+      <main className="relative flex flex-1 flex-col overflow-hidden bg-auth-panel px-5 py-6 sm:px-10 sm:py-8 lg:w-[44%] lg:px-12 lg:py-10">
+        <AmbientOrb color="var(--primary)" size={420} top="-140px" right="-100px" opacity={0.14} />
+        <AmbientOrb color="var(--lavender)" size={360} bottom="-120px" left="-120px" opacity={0.12} />
+
         <Link
           to="/"
-          className="flex shrink-0 items-center gap-2 font-display text-lg font-medium text-foreground"
+          className="relative flex shrink-0 items-center gap-2 font-display text-lg font-medium text-foreground"
         >
           <HeartPulse className="size-5 text-primary" aria-hidden="true" />
           SIRILA
         </Link>
 
-        <div className="flex flex-1 items-center justify-center py-8">
-          <div className="w-full max-w-[440px] animate-in fade-in slide-in-from-bottom-2 duration-500 motion-reduce:animate-none">
+        <div className="relative flex flex-1 items-center justify-center py-8">
+          <SirilaGlassCard
+            tone="light"
+            className="w-full max-w-[440px] animate-in fade-in slide-in-from-bottom-2 p-6 duration-500 motion-reduce:animate-none sm:p-8"
+          >
             {children}
-          </div>
+          </SirilaGlassCard>
         </div>
       </main>
     </div>

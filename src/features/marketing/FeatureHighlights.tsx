@@ -9,6 +9,7 @@ import {
   type LucideIcon,
 } from 'lucide-react'
 import { Card, CardContent } from '@/components/ui/card'
+import AmbientOrb from '@/components/shared/AmbientOrb'
 import { cn } from '@/lib/utils'
 
 type PreviewVariant = 'checkin' | 'cycle' | 'journal' | 'goals' | 'reports'
@@ -106,7 +107,7 @@ function CyclePreview() {
 
 function FeaturePreview({ variant, icon: Icon }: { variant: PreviewVariant; icon: LucideIcon }) {
   return (
-    <Card className="overflow-hidden border-border bg-card/95" aria-hidden="true">
+    <Card interactive className="overflow-hidden border-border bg-card/95" aria-hidden="true">
       <div className="flex items-center gap-1.5 border-b border-border bg-muted/40 px-4 py-2">
         <span className="size-2 rounded-full bg-destructive/40" />
         <span className="size-2 rounded-full bg-primary/30" />
@@ -189,7 +190,9 @@ function FeaturePreview({ variant, icon: Icon }: { variant: PreviewVariant; icon
 
 function FeatureHighlights() {
   return (
-    <section className="mx-auto flex w-full max-w-6xl flex-col gap-16 px-4 py-16 sm:px-6">
+    <section className="relative mx-auto flex w-full max-w-6xl flex-col gap-16 overflow-hidden px-4 py-16 sm:px-6">
+      <AmbientOrb color="var(--peach)" size={460} top="10%" left="-160px" opacity={0.08} />
+      <AmbientOrb color="var(--primary)" size={420} bottom="0%" right="-160px" opacity={0.07} />
       {HIGHLIGHTS.map((highlight, index) => (
         <div
           key={highlight.title}
